@@ -20,6 +20,7 @@ from because.render import markdown, mermaid
 _load_env()
 STATIC = Path(__file__).parent / "static"
 EXAMPLES_DIR = Path(__file__).resolve().parents[2] / "examples" / "outputs"
+ZETARIS_RUNS_DIR = Path(__file__).resolve().parents[2] / "examples" / "zetaris_runs"
 
 app = FastAPI(title="Because", version="0.1.0")
 _lock = threading.Lock()
@@ -86,6 +87,33 @@ def example(name: str) -> JSONResponse:
     p = EXAMPLES_DIR / f"{Path(name).name}.json"
     if not p.exists():
         raise HTTPException(404, "no such example")
+    t = json.loads(p.read_text())
+    return JSONResponse({"trace": t, "mermaid": mermaid(t), "markdown": markdown(t)})
+
+
+@app.get("/api/zetaris_runs")
+def zetaris_runs() -> list[dict[str, str]]:
+    """Saved traces recorded on a live Zetaris instance (examples/zetaris_runs/)."""
+    if not ZETARIS_RUNS_DIR.is_dir():
+        return []
+    out = []
+    for p in sorted(ZETARIS_RUNS_DIR.glob("*.json")):
+        try:
+            t = json.loads(p.read_text())
+            q = t.get("question") or p.stem
+        except (OSError, json.JSONDecodeError):
+            q = p.stem
+        out.append({"question": q, "slug": p.stem})
+    return out
+
+
+@app.get("/api/zetaris_runs/{name}")
+def zetaris_run(name: str) -> JSONResponse:
+    if not ZETARIS_RUNS_DIR.is_dir():
+        raise HTTPException(404, "no such zetaris run")
+    p = ZETARIS_RUNS_DIR / f"{Path(name).name}.json"
+    if not p.exists():
+        raise HTTPException(404, "no such zetaris run")
     t = json.loads(p.read_text())
     return JSONResponse({"trace": t, "mermaid": mermaid(t), "markdown": markdown(t)})
 

@@ -126,18 +126,31 @@ def cmd_memory(a: argparse.Namespace) -> int:
 
 
 def cmd_zetaris(a: argparse.Namespace) -> int:
-    from because.harness.base import SourceSpec
-    from because.harness.sources import redact, zetaris_ddl
+    from because.harness.sources import (
+        fred_file_store_active,
+        redact,
+        zetaris_ddl,
+        zetaris_file_ddl,
+        zetaris_file_uri_prefix,
+    )
 
     specs = warm_specs()
     if a.action == "ddl":
         for s in specs:
             try:
-                for stmt in zetaris_ddl(s):
+                if fred_file_store_active() and s.kind == "fred_series":
+                    uri = f"{zetaris_file_uri_prefix()}/fred/{s.key}.csv"
+                    stmts = zetaris_file_ddl(s, uri)
+                else:
+                    stmts = zetaris_ddl(s)
+                for stmt in stmts:
                     print(redact(stmt) + ";\n")
             except Exception as e:
                 print(f"-- skipped {s.key}: {e}\n")
         return 0
+    if a.action == "sql" and not a.query:
+        print('usage: because zetaris sql "<statement>"', file=sys.stderr)
+        return 1
     from because.harness.zetaris_backend import ZetarisBackend
 
     z = ZetarisBackend()
@@ -154,6 +167,13 @@ def cmd_zetaris(a: argparse.Namespace) -> int:
             except Exception as e:
                 print(f"ERR {s.key}: {e}")
         print(f"{ok}/{len(specs)} sources registered and readable")
+    elif a.action == "sql":
+        try:
+            cols, rows = z.channel.run(a.query)
+        except Exception as e:
+            print(f"ERR: {e}\nSQL: {redact(a.query)}", file=sys.stderr)
+            return 1
+        print(json.dumps({"columns": cols, "rows": rows[:200]}, default=str))
     return 0
 
 
@@ -174,7 +194,8 @@ def warm_specs():
         specs.append(SourceSpec(c["target"][0], c["target"][1]))
         for d in c["drivers"]:
             specs.append(SourceSpec(d[1], d[2]))
-    if not os.environ.get("FRED_API_KEY"):
+    # Keep FRED when the JSON API key is set, or when FILESTORE CSV mode is configured.
+    if not os.environ.get("FRED_API_KEY") and not os.environ.get("BECAUSE_ZETARIS_FILE_DIR"):
         specs = [s for s in specs if s.kind != "fred_series"]
     return list(dict.fromkeys(specs))
 
@@ -209,8 +230,12 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("query", nargs="?", default="")
     s.add_argument("-n", type=int, default=15)
     s.set_defaults(fn=cmd_memory)
-    s = sub.add_parser("zetaris", help="ping | register (create Lightning tables for the examples) | ddl (print the SQL)")
-    s.add_argument("action", choices=["ping", "register", "ddl"])
+    s = sub.add_parser(
+        "zetaris",
+        help="ping | register | ddl | sql \"<statement>\" (run one statement, print JSON)",
+    )
+    s.add_argument("action", choices=["ping", "register", "ddl", "sql"])
+    s.add_argument("query", nargs="?", default="", help="SQL statement for `zetaris sql`")
     s.set_defaults(fn=cmd_zetaris)
     s = sub.add_parser("serve", help="run the web UI")
     s.add_argument("--host", default="127.0.0.1")

@@ -2,7 +2,7 @@ import json
 
 from because.harness.base import HarnessError, SourceSpec
 from because.harness.duckdb_backend import DuckDBBackend
-from because.harness.sources import zetaris_ddl
+from because.harness.sources import zetaris_ddl, zetaris_file_ddl
 from because.harness import zetaris_backend as zb
 from because.harness.zetaris_backend import ZetarisBackend, _norm_col, _parse_ui_result, _ui_org_id, _ui_token
 
@@ -41,6 +41,17 @@ def test_zetaris_ddl_follows_cookbook():
     assert "explode(months)" in ons[1] and "CASE m.month" in ons[1]
 
 
+def test_zetaris_file_ddl_fred_csv():
+    stmts = zetaris_file_ddl(SourceSpec("fred_series", "UNRATE"), "file:///data/fred/UNRATE.csv")
+    assert stmts[0].startswith("CREATE LIGHTNING FILESTORE TABLE fred_series_unrate_raw FROM BECAUSE_FILES")
+    assert 'path "file:///data/fred/UNRATE.csv"' in stmts[0]
+    assert 'header "true"' in stmts[0] and 'inferSchema "false"' in stmts[0]
+    assert "CREATE SCHEMASTORE VIEW fred_series_unrate" in stmts[1]
+    assert "`observation_date`" in stmts[1] and "`value`" in stmts[1]
+    assert "because_files.fred_series_unrate_raw" in stmts[1]
+    assert "WHERE `value` <> '.'" in stmts[1]
+
+
 class FakeChannel:
     name = "fake"
 
@@ -48,6 +59,7 @@ class FakeChannel:
         self.sql = []
         self.created = set()
         self.fail_cache = False
+        self.fail_filestore = False
 
     def run(self, sql):
         self.sql.append(sql)
@@ -57,10 +69,14 @@ class FakeChannel:
             return ["1"], [[1]]
         if sql.startswith("CACHE TABLE") and self.fail_cache:
             raise RuntimeError("cache not supported")
+        if sql.startswith("CREATE LIGHTNING FILESTORE") and self.fail_filestore:
+            raise RuntimeError("filestore unavailable")
         if sql.startswith("CREATE SCHEMASTORE VIEW"):
             self.created.add("because." + sql.split()[3])
         if sql.startswith("SELECT period_end"):
             return ["period_end", "value_usd"], [["2024-12-28", 90.0]]
+        if sql.startswith("SELECT period"):
+            return ["period", "value"], [["2020-01", 3.5], ["2020-04", 14.8]]
         if sql.startswith("SELECT 1 AS"):
             return ["one"], [[1]]
         if sql.startswith("SHOW LIGHTNING"):
@@ -80,6 +96,7 @@ def _zetaris_with_fake(monkeypatch, channel=None):
     z.channel = channel or FakeChannel()
     z.name = f"zetaris-{z.channel.name}"
     z.ddl_log, z._bootstrapped, z._local, z._absent = [], False, None, set()
+    z._file_db_bootstrapped, z._file_store_failed = False, set()
     return z
 
 
@@ -123,13 +140,8 @@ def test_zetaris_absent_edgar_404(monkeypatch):
     def boom(url, ttl_s=86400):
         raise HarnessError(f"404 for {url}")
 
-    monkeypatch.setattr("because.harness.sources._get", boom)
-    z = ZetarisBackend.__new__(ZetarisBackend)
-    from because.harness.base import DataHarness
-
-    DataHarness.__init__(z)
-    z.channel, z.name = FakeChannel(), "zetaris-fake"
-    z.ddl_log, z._bootstrapped, z._local, z._absent = [], False, None, set()
+    z = _zetaris_with_fake(monkeypatch)
+    monkeypatch.setattr("because.harness.sources._get", boom)  # after the helper's default stub
     spec = SourceSpec("edgar_concept", "0000050863:NeverReportedTag")
     r = z.query(SQL, {"t": spec})
     assert r.error is None and r.rows == [] and "period_end" in r.columns
@@ -142,12 +154,7 @@ def test_zetaris_probe_other_error_still_registers(monkeypatch):
         raise HarnessError("503 upstream")
 
     monkeypatch.setattr("because.harness.sources._get", boom)
-    z = ZetarisBackend.__new__(ZetarisBackend)
-    from because.harness.base import DataHarness
-
-    DataHarness.__init__(z)
-    z.channel, z.name = FakeChannel(), "zetaris-fake"
-    z.ddl_log, z._bootstrapped, z._local, z._absent = [], False, None, set()
+    z = _zetaris_with_fake(monkeypatch)
     r = z.query(SQL, {"t": SourceSpec("edgar_concept", "0000050863:GrossProfit")})
     assert r.error is None and r.rows
     assert any(s.startswith("CREATE LIGHTNING REST TABLE") for s in z.channel.sql)
@@ -155,16 +162,71 @@ def test_zetaris_probe_other_error_still_registers(monkeypatch):
 
 def test_zetaris_hybrid_routes_fred_without_key(monkeypatch):
     monkeypatch.delenv("FRED_API_KEY", raising=False)
-    z = ZetarisBackend.__new__(ZetarisBackend)
-    from because.harness.base import DataHarness
-
-    DataHarness.__init__(z)
-    z.channel, z.name, z.ddl_log, z._bootstrapped = FakeChannel(), "zetaris-fake", [], False
+    monkeypatch.delenv("BECAUSE_ZETARIS_FILE_DIR", raising=False)
+    z = _zetaris_with_fake(monkeypatch)
     z._local = DuckDBBackend(row_loader=loader)
     z._local.name = "duckdb (hybrid: FRED without key)"
-    z._absent = set()
     r = z.query("SELECT period, value FROM {t} ORDER BY period", {"t": SourceSpec("fred_series", "UNRATE")})
     assert r.backend.startswith("duckdb (hybrid") and len(r.rows) == 2 and not z.channel.sql
+
+
+def test_zetaris_fred_filestore_registers_without_key(monkeypatch, tmp_path):
+    monkeypatch.delenv("FRED_API_KEY", raising=False)
+    monkeypatch.setenv("BECAUSE_ZETARIS_FILE_DIR", str(tmp_path))
+    monkeypatch.setenv("BECAUSE_ZETARIS_FILE_URI", "file:///container/because")
+    monkeypatch.setattr(
+        "because.harness.zetaris_backend.fetch_rows",
+        lambda spec: [(spec.key, "2020-01-01", 3.5), (spec.key, "2020-04-01", 14.8)],
+    )
+    z = _zetaris_with_fake(monkeypatch)
+    spec = SourceSpec("fred_series", "UNRATE")
+    r = z.query("SELECT period, value FROM {t} ORDER BY period", {"t": spec})
+    assert r.error is None and r.backend.startswith("zetaris") and len(r.rows) == 2
+    csv_path = tmp_path / "fred" / "UNRATE.csv"
+    assert csv_path.is_file() and oct(csv_path.stat().st_mode)[-3:] == "644"
+    text = csv_path.read_text()
+    assert text.splitlines()[0] == "observation_date,value"
+    assert any(s.startswith("CREATE LIGHTNING DATABASE BECAUSE_FILES") for s in z.channel.sql)
+    assert any(s.startswith("CREATE LIGHTNING FILESTORE TABLE") for s in z.channel.sql)
+    assert any('path "file:///container/because/fred/UNRATE.csv"' in s for s in z.channel.sql)
+    assert not any(s.startswith("CACHE TABLE") for s in z.channel.sql)
+    assert not any(s.startswith("CREATE LIGHTNING REST TABLE") for s in z.channel.sql)
+
+
+def test_zetaris_fred_filestore_failure_falls_back_to_hybrid(monkeypatch, tmp_path):
+    monkeypatch.delenv("FRED_API_KEY", raising=False)
+    monkeypatch.setenv("BECAUSE_ZETARIS_FILE_DIR", str(tmp_path))
+    monkeypatch.setenv("BECAUSE_ZETARIS_HYBRID", "1")
+    monkeypatch.setattr(
+        "because.harness.zetaris_backend.fetch_rows",
+        lambda spec: [(spec.key, "2020-01-01", 1.0)],
+    )
+    ch = FakeChannel()
+    ch.fail_filestore = True
+    z = _zetaris_with_fake(monkeypatch, ch)
+    z._local = DuckDBBackend(row_loader=loader)
+    z._local.name = "duckdb (hybrid: FRED without key)"
+    spec = SourceSpec("fred_series", "UNRATE")
+    r = z.query("SELECT period, value FROM {t} ORDER BY period", {"t": spec})
+    assert r.backend.startswith("duckdb (hybrid") and len(r.rows) == 2
+    assert spec in z._file_store_failed
+    assert any(line.startswith("-- file-store failed for UNRATE:") for line in z.ddl_log)
+
+
+def test_zetaris_fred_filestore_failure_surfaces_when_hybrid_off(monkeypatch, tmp_path):
+    monkeypatch.delenv("FRED_API_KEY", raising=False)
+    monkeypatch.setenv("BECAUSE_ZETARIS_FILE_DIR", str(tmp_path))
+    monkeypatch.setenv("BECAUSE_ZETARIS_HYBRID", "0")
+    monkeypatch.setattr(
+        "because.harness.zetaris_backend.fetch_rows",
+        lambda spec: [(spec.key, "2020-01-01", 1.0)],
+    )
+    ch = FakeChannel()
+    ch.fail_filestore = True
+    z = _zetaris_with_fake(monkeypatch, ch)
+    r = z.query("SELECT period, value FROM {t} ORDER BY period", {"t": SourceSpec("fred_series", "UNRATE")})
+    assert r.error and "register:" in r.error
+    assert any(line.startswith("-- file-store failed for UNRATE:") for line in z.ddl_log)
 
 
 def test_norm_col_strips_hive_qualifiers():
@@ -300,3 +362,54 @@ def test_ping_includes_channel(monkeypatch):
     z = _zetaris_with_fake(monkeypatch)
     out = z.ping()
     assert out["channel"] == "fake" and out["select_1"] == 1
+
+
+def test_warm_specs_keeps_fred_when_file_dir(monkeypatch):
+    from because.cli import warm_specs
+
+    monkeypatch.delenv("FRED_API_KEY", raising=False)
+    monkeypatch.delenv("BECAUSE_ZETARIS_FILE_DIR", raising=False)
+    assert not any(s.kind == "fred_series" for s in warm_specs())
+    monkeypatch.setenv("BECAUSE_ZETARIS_FILE_DIR", "/tmp/because-files")
+    assert any(s.kind == "fred_series" for s in warm_specs())
+
+
+def test_zetaris_ddl_cli_prints_filestore(monkeypatch, capsys):
+    from because import cli
+
+    monkeypatch.delenv("FRED_API_KEY", raising=False)
+    monkeypatch.setenv("BECAUSE_ZETARIS_FILE_DIR", "/tmp/because-files")
+    monkeypatch.setattr(
+        cli,
+        "warm_specs",
+        lambda: [SourceSpec("fred_series", "UNRATE"), SourceSpec("ons_series", "D7G7")],
+    )
+    assert cli.main(["zetaris", "ddl"]) == 0
+    out = capsys.readouterr().out
+    assert "CREATE LIGHTNING FILESTORE TABLE" in out
+    assert "fred/UNRATE.csv" in out
+    assert "CREATE LIGHTNING REST TABLE" in out  # ONS still REST
+
+
+def test_zetaris_sql_cli(monkeypatch, capsys):
+    from because import cli
+    import because.harness.zetaris_backend as zmod
+
+    ch = FakeChannel()
+
+    class FakeZ:
+        def __init__(self):
+            self.channel = ch
+
+    monkeypatch.setattr(zmod, "ZetarisBackend", FakeZ)
+    assert cli.main(["zetaris", "sql", "SHOW LIGHTNING DATABASES"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["columns"] == ["database"] and payload["rows"] == [["BECAUSE_REST"]]
+    assert ch.sql == ["SHOW LIGHTNING DATABASES"]
+
+
+def test_zetaris_sql_cli_missing_statement(capsys):
+    from because import cli
+
+    assert cli.main(["zetaris", "sql"]) == 1
+    assert "usage:" in capsys.readouterr().err.lower()

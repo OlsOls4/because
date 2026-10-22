@@ -5,9 +5,11 @@ Each source kind has:
   * `fetch_rows(spec)`         - local fallback: fetch + flatten to canonical rows
   * `zetaris_ddl(spec, ...)`   - Lightning SQL that registers the same endpoint as
                                  a REST table and flattens it with a SchemaStore view
+  * `zetaris_file_ddl(spec, uri)` - Lightning FILESTORE CSV path for FRED without an API key
 
-All sources are free and keyless, except FRED inside Zetaris (the FRED JSON API
-needs a free key; the local backend uses the keyless fredgraph CSV instead).
+All sources are free and keyless. FRED in Zetaris can use the JSON API (needs a free
+`FRED_API_KEY`), a FILESTORE CSV under `BECAUSE_ZETARIS_FILE_DIR`, or the local DuckDB
+hybrid path that reads the keyless fredgraph CSV.
 """
 
 from __future__ import annotations
@@ -150,11 +152,23 @@ def source_title(spec: SourceSpec) -> str:
 # --------------------------------------------------------------------------
 
 ZETARIS_DATABASE = "BECAUSE_REST"  # Lightning database holding the raw REST tables
+ZETARIS_FILE_DATABASE = "BECAUSE_FILES"  # Lightning database holding FILESTORE CSV tables
 ZETARIS_CONTAINER = "because"  # SchemaStore container holding flattened views
+DEFAULT_ZETARIS_FILE_URI = "file:///home/zetaris/customer-data/shared/because"
 
 _ONS_MONTH_CASE = "CASE m.month " + " ".join(
     f"WHEN '{k.capitalize()}' THEN '{v}'" for k, v in MONTHS.items()
 ) + " END"
+
+
+def zetaris_file_uri_prefix() -> str:
+    """Container-visible URI prefix for CSVs under BECAUSE_ZETARIS_FILE_DIR."""
+    return os.environ.get("BECAUSE_ZETARIS_FILE_URI", DEFAULT_ZETARIS_FILE_URI).rstrip("/")
+
+
+def fred_file_store_active() -> bool:
+    """True when FRED should register via FILESTORE CSV (no API key, shared file dir)."""
+    return bool(os.environ.get("BECAUSE_ZETARIS_FILE_DIR")) and not os.environ.get("FRED_API_KEY")
 
 
 def zetaris_ddl(spec: SourceSpec) -> list[str]:
@@ -205,6 +219,28 @@ def zetaris_ddl(spec: SourceSpec) -> list[str]:
             f"FROM {ZETARIS_DATABASE.lower()}.{raw}\nLATERAL VIEW explode(observations) AS o",
         ]
     raise HarnessError(f"unknown source kind {spec.kind}")
+
+
+def zetaris_file_ddl(spec: SourceSpec, uri: str) -> list[str]:
+    """Lightning FILESTORE + SchemaStore view for a locally written FRED CSV.
+
+    CSV header is always ``observation_date,value`` (written by the backend).
+    """
+    if spec.kind != "fred_series":
+        raise HarnessError(f"zetaris_file_ddl only supports fred_series, got {spec.kind}")
+    raw = f"{spec.table_name}_raw"
+    view = spec.table_name
+    return [
+        f'CREATE LIGHTNING FILESTORE TABLE {raw} FROM {ZETARIS_FILE_DATABASE} FORMAT CSV '
+        f'OPTIONS (path "{uri}", header "true", inferSchema "false")',
+        f"CREATE SCHEMASTORE VIEW {view} WITH CONTAINER {ZETARIS_CONTAINER} AS\n"
+        f"SELECT\n"
+        f"    '{spec.key}' AS series_id,\n"
+        f"    CAST(`observation_date` AS STRING) AS period,\n"
+        f"    CAST(`value` AS DOUBLE) AS value\n"
+        f"FROM {ZETARIS_FILE_DATABASE.lower()}.{raw}\n"
+        f"WHERE `value` <> '.'",
+    ]
 
 
 def redact(sql: str) -> str:

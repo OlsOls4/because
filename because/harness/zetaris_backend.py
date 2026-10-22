@@ -22,6 +22,8 @@ Env vars (see .env.example and docs/ZETARIS.md)::
     ZETARIS_UI_URL=http://localhost:3000
     ZETARIS_REST_URL=http://localhost:8888/api/v1.0  ZETARIS_API_KEY=...  ZETARIS_ORG_ID=1
     BECAUSE_ZETARIS_CACHE=1   # CACHE TABLE after each REST table; 0 disables
+    BECAUSE_ZETARIS_FILE_DIR=  # host dir bind-mounted into the driver for FRED CSV
+    BECAUSE_ZETARIS_FILE_URI=file:///home/zetaris/customer-data/shared/because
 
 How sources are registered (from the getting-started REST cookbook):
 
@@ -31,6 +33,9 @@ How sources are registered (from the getting-started REST cookbook):
     CACHE TABLE because_rest.<t>_raw;
     CREATE SCHEMASTORE VIEW <t> WITH CONTAINER because AS SELECT ... LATERAL VIEW explode(...);
 
+FRED without ``FRED_API_KEY`` can instead use FILESTORE CSV tables under
+``BECAUSE_FILES`` when ``BECAUSE_ZETARIS_FILE_DIR`` is set (see ``zetaris_file_ddl``).
+
 Agent SQL then reads ``because.<t>`` with the same canonical columns the DuckDB
 backend exposes, so the analyst code is identical on both backends.
 One statement per call, as the Zetaris docs require.
@@ -38,6 +43,7 @@ One statement per call, as the Zetaris docs require.
 
 from __future__ import annotations
 
+import csv
 import json
 import os
 import re
@@ -49,7 +55,17 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 from because.harness.base import CANONICAL_SCHEMAS, DataHarness, HarnessError, SourceSpec
-from because.harness.sources import ZETARIS_CONTAINER, ZETARIS_DATABASE, redact, zetaris_ddl
+from because.harness.sources import (
+    ZETARIS_CONTAINER,
+    ZETARIS_DATABASE,
+    ZETARIS_FILE_DATABASE,
+    fetch_rows,
+    fred_file_store_active,
+    redact,
+    zetaris_ddl,
+    zetaris_file_ddl,
+    zetaris_file_uri_prefix,
+)
 
 DRIVER_CLASS = "com.zetaris.lightning.jdbc.LightningDriver"
 DEFAULT_JDBC_URL = "jdbc:zetaris:lightning@localhost:10000"
@@ -356,8 +372,10 @@ class ZetarisBackend(DataHarness):
         self.name = f"zetaris-{self.channel.name}"
         self.ddl_log: list[str] = []
         self._bootstrapped = False
+        self._file_db_bootstrapped = False
         self._local = None
         self._absent: set[SourceSpec] = set()
+        self._file_store_failed: set[SourceSpec] = set()
 
     # -- bootstrap -----------------------------------------------------------
     def _run_ddl(self, sql: str) -> None:
@@ -376,6 +394,15 @@ class ZetarisBackend(DataHarness):
         self._run_ddl(f"CREATE SCHEMASTORE CONTAINER {ZETARIS_CONTAINER}")
         self._bootstrapped = True
 
+    def _ensure_file_database(self) -> None:
+        if self._file_db_bootstrapped:
+            return
+        self._run_ddl(
+            f'CREATE LIGHTNING DATABASE {ZETARIS_FILE_DATABASE} DESCRIBE BY '
+            f'"Because agent public files - FRED CSV"'
+        )
+        self._file_db_bootstrapped = True
+
     def _exists(self, qualified: str) -> bool:
         try:
             self.channel.run(f"SELECT 1 FROM {qualified} LIMIT 1")
@@ -393,6 +420,33 @@ class ZetarisBackend(DataHarness):
         except Exception as e:
             self.ddl_log.append(f"-- cache skipped: {e}")
 
+    def _write_fred_csv(self, spec: SourceSpec) -> Path:
+        """Download FRED via keyless CSV and write a stable observation_date,value file."""
+        root = Path(os.environ["BECAUSE_ZETARIS_FILE_DIR"])
+        root.mkdir(parents=True, exist_ok=True)
+        os.chmod(root, 0o755)
+        fred_dir = root / "fred"
+        fred_dir.mkdir(parents=True, exist_ok=True)
+        os.chmod(fred_dir, 0o755)
+        path = fred_dir / f"{spec.key}.csv"
+        rows = fetch_rows(spec)
+        with path.open("w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(["observation_date", "value"])
+            for _sid, period, value in rows:
+                w.writerow([period, value])
+        os.chmod(path, 0o644)
+        return path
+
+    def _register_fred_filestore(self, spec: SourceSpec, qualified: str) -> str:
+        self.bootstrap()
+        self._ensure_file_database()
+        self._write_fred_csv(spec)
+        uri = f"{zetaris_file_uri_prefix()}/fred/{spec.key}.csv"
+        for stmt in zetaris_file_ddl(spec, uri):
+            self._run_ddl(stmt)
+        return qualified
+
     def _register(self, spec: SourceSpec) -> str:
         qualified = f"{ZETARIS_CONTAINER}.{spec.table_name}"
         if self._exists(qualified):  # registered on an earlier run: reuse, never drop
@@ -408,6 +462,13 @@ class ZetarisBackend(DataHarness):
                     return qualified
             except Exception:
                 pass  # other probe errors: register normally
+        if fred_file_store_active() and spec.kind == "fred_series":
+            try:
+                return self._register_fred_filestore(spec, qualified)
+            except HarnessError as e:
+                self._file_store_failed.add(spec)
+                self.ddl_log.append(f"-- file-store failed for {spec.key}: {e}")
+                raise
         self.bootstrap()
         stmts = zetaris_ddl(spec)
         # [CREATE LIGHTNING REST TABLE ..., CREATE SCHEMASTORE VIEW ...]
@@ -421,26 +482,41 @@ class ZetarisBackend(DataHarness):
     def _execute(self, sql: str) -> tuple[list[str], list[list[Any]]]:
         return self.channel.run(sql)
 
+    def _fred_needs_hybrid(self, spec: SourceSpec) -> bool:
+        """True when this FRED series should be answered by local DuckDB."""
+        if spec.kind != "fred_series" or os.environ.get("FRED_API_KEY"):
+            return False
+        if fred_file_store_active() and spec not in self._file_store_failed:
+            return False
+        return True
+
+    def _query_local_hybrid(self, sql_template: str, tables: dict[str, SourceSpec]):
+        if self._local is None:
+            from because.harness.duckdb_backend import DuckDBBackend
+
+            self._local = DuckDBBackend()
+            self._local.name = "duckdb (hybrid: FRED without key)"
+        res = self._local.query(sql_template, tables)
+        self.log.append(
+            {"query_id": res.query_id, "sql": res.sql, "rows": len(res.rows), "error": res.error, "routed": "local"}
+        )
+        return res
+
     def query(self, sql_template: str, tables: dict[str, SourceSpec]):  # type: ignore[override]
         """Federated query through Zetaris. Sources Zetaris cannot register here (FRED with no
-        FRED_API_KEY) are answered by the local DuckDB harness and labelled as such in the trace,
-        unless BECAUSE_ZETARIS_HYBRID=0. EDGAR concepts that 404 become empty tables."""
-        if os.environ.get("BECAUSE_ZETARIS_HYBRID", "1") != "0" and any(
-            s.kind == "fred_series" and not os.environ.get("FRED_API_KEY") for s in tables.values()
-        ):
-            if self._local is None:
-                from because.harness.duckdb_backend import DuckDBBackend
-
-                self._local = DuckDBBackend()
-                self._local.name = "duckdb (hybrid: FRED without key)"
-            res = self._local.query(sql_template, tables)
-            self.log.append({"query_id": res.query_id, "sql": res.sql, "rows": len(res.rows), "error": res.error, "routed": "local"})
-            return res
+        FRED_API_KEY and no FILESTORE dir, or FILESTORE registration failed) are answered by the
+        local DuckDB harness and labelled as such in the trace, unless BECAUSE_ZETARIS_HYBRID=0.
+        EDGAR concepts that 404 become empty tables."""
+        hybrid_ok = os.environ.get("BECAUSE_ZETARIS_HYBRID", "1") != "0"
+        if hybrid_ok and any(self._fred_needs_hybrid(s) for s in tables.values()):
+            return self._query_local_hybrid(sql_template, tables)
 
         t0 = time.perf_counter()
         try:
             resolved = {name: self.ensure_source(spec) for name, spec in tables.items()}
         except Exception as e:
+            if hybrid_ok and any(self._fred_needs_hybrid(s) for s in tables.values()):
+                return self._query_local_hybrid(sql_template, tables)
             resolved = {name: spec.table_name for name, spec in tables.items()}
             sql = sql_template.format(**resolved)
             return self._result(sql, resolved, tables, [], [], f"register: {type(e).__name__}: {e}", t0)

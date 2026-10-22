@@ -66,7 +66,33 @@ LATERAL VIEW explode(units.USD) AS fact;
 ONS series (`.../timeseries/d7g7/mm23/data`) are exploded over `months`; FRED series use the FRED JSON API
 (`explode(observations)`), which needs a free `FRED_API_KEY`. Without that key Because keeps FRED
 queries on the local harness and labels them `duckdb (hybrid: FRED without key)` in the trace
-(set `BECAUSE_ZETARIS_HYBRID=0` to make that an error instead).
+(set `BECAUSE_ZETARIS_HYBRID=0` to make that an error instead)—unless file-store mode is enabled (below).
+
+### FRED as CSV file-store tables
+
+When `FRED_API_KEY` is unset but the Zetaris driver can read a host directory, set:
+
+```bash
+BECAUSE_ZETARIS_FILE_DIR=/path/on/host/shared/because   # bind-mounted into the driver container
+BECAUSE_ZETARIS_FILE_URI=file:///home/zetaris/customer-data/shared/because  # default; URI the container sees
+```
+
+Because then downloads each FRED series via the keyless fredgraph CSV, writes
+`<FILE_DIR>/fred/<SERIES_ID>.csv` with header `observation_date,value`, and registers:
+
+```sql
+CREATE LIGHTNING DATABASE BECAUSE_FILES DESCRIBE BY "Because agent public files - FRED CSV";
+CREATE LIGHTNING FILESTORE TABLE fred_series_unrate_raw FROM BECAUSE_FILES FORMAT CSV
+  OPTIONS (path "file:///.../fred/UNRATE.csv", header "true", inferSchema "false");
+CREATE SCHEMASTORE VIEW fred_series_unrate WITH CONTAINER because AS
+SELECT 'UNRATE' AS series_id, CAST(`observation_date` AS STRING) AS period, CAST(`value` AS DOUBLE) AS value
+FROM because_files.fred_series_unrate_raw WHERE `value` <> '.';
+```
+
+`because zetaris register` / `ddl` keep FRED specs in this mode. If FILESTORE registration fails,
+Because falls back to hybrid DuckDB for that series (unless `BECAUSE_ZETARIS_HYBRID=0`).
+
+Ad-hoc SQL on the configured channel: `because zetaris sql "SHOW LIGHTNING DATABASES"`.
 
 The agent then runs the same portable SQL on either backend, for example:
 

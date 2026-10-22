@@ -188,14 +188,14 @@ jobs:
 
       - name: Collect compose logs
         if: always()
-        working-directory: ${{ env.ZP }}
         run: |
           mkdir -p "$OUT/compose"
+          cd "$ZP" 2>/dev/null || { echo "bundle never unpacked"; exit 0; }
           docker compose ps --all > "$OUT/compose/ps.txt" 2>&1 || true
           for s in postgres init driver api ui bootstrap; do docker compose logs --no-color --tail=2000 "$s" > "$OUT/compose/$s.log" 2>&1 || true; done
           cp /tmp/verify.log "$OUT/compose/verify.log" 2>/dev/null || true
           # never ship credentials
-          grep -rl "$ZETARIS_PASSWORD" "$OUT" 2>/dev/null | xargs -r sed -i "s/$ZETARIS_PASSWORD/***/g" || true
+          if [ -n "${ZETARIS_PASSWORD:-}" ]; then grep -rlF "$ZETARIS_PASSWORD" "$OUT" 2>/dev/null | xargs -r sed -i "s/$ZETARIS_PASSWORD/***/g" || true; fi
 
       - uses: actions/upload-artifact@v4
         if: always()
