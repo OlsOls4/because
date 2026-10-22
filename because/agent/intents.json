@@ -1,0 +1,75 @@
+{
+  "registryVersion": 1,
+  "note": "Because's Scout intent registry. Every investigation runs under a signed contract scoped to these capabilities.",
+  "intents": [
+    {
+      "id": "GENERAL",
+      "category": "general",
+      "description": "Safe fallback. Not a why-question Because can investigate with data. Responds with guidance, routes to no tools.",
+      "parameters": {"type": "object", "properties": {}},
+      "capabilities": [],
+      "riskClass": "low",
+      "surfaces": ["web", "cli", "api", "chat"],
+      "roles": ["*"],
+      "examples": ["hello there", "what can you do?", "tell me a joke", "what's the weather tomorrow?"],
+      "version": 1
+    },
+    {
+      "id": "explain.company_metric",
+      "category": "explain",
+      "description": "Explain why a public company's financial metric (revenue, gross margin, operating margin, net income, R&D) changed in a given year, using SEC EDGAR filings and background context.",
+      "parameters": {"type": "object", "properties": {"company": {"type": "string"}, "metric": {"type": "string"}, "year": {"type": "integer"}}, "required": ["company", "metric", "year"]},
+      "capabilities": ["harness.query", "background.search", "memory.recall", "memory.write", "llm.narrate"],
+      "riskClass": "low",
+      "surfaces": ["web", "cli", "api", "chat"],
+      "roles": ["*"],
+      "triggers": ["gross margin", "revenue", "net income", "operating margin", "profit", "earnings", "sales"],
+      "examples": [
+        "Why did Intel's gross margin fall in 2024?",
+        "Why did Nvidia's revenue jump in fiscal 2024?",
+        "Why did Meta's net income drop in 2022?",
+        "Why did Apple's revenue decline in 2023?",
+        "What explains Tesla's lower operating margin in 2024?",
+        "Why was Microsoft's profit up in 2023?"
+      ],
+      "version": 1
+    },
+    {
+      "id": "explain.macro_series",
+      "category": "explain",
+      "description": "Explain why a macroeconomic indicator (inflation, unemployment) moved in a country and period, using official statistics (ONS, FRED) and background context.",
+      "parameters": {"type": "object", "properties": {"indicator": {"type": "string"}, "country": {"type": "string"}, "year": {"type": "integer"}}, "required": ["indicator", "country", "year"]},
+      "capabilities": ["harness.query", "background.search", "memory.recall", "memory.write", "llm.narrate"],
+      "riskClass": "low",
+      "surfaces": ["web", "cli", "api", "chat"],
+      "roles": ["*"],
+      "triggers": ["inflation", "unemployment", "cpi", "jobless", "prices"],
+      "examples": [
+        "Why did UK inflation spike in 2022?",
+        "Why did US unemployment jump in 2020?",
+        "Why did US inflation rise so much in 2021?",
+        "What drove British CPI inflation up in 2023?",
+        "Why did unemployment in the UK rise in 2009?"
+      ],
+      "version": 1
+    },
+    {
+      "id": "memory.explain_belief",
+      "category": "memory",
+      "description": "Explain what Because already believes about a topic and why: recall stored findings with their provenance (query, source row, when learned) and audit history.",
+      "parameters": {"type": "object", "properties": {"topic": {"type": "string"}}},
+      "capabilities": ["memory.recall"],
+      "riskClass": "low",
+      "surfaces": ["web", "cli", "api", "chat"],
+      "roles": ["*"],
+      "triggers": ["what do you know", "why do you believe", "what do you remember"],
+      "examples": [
+        "What do you already know about Intel's margins?",
+        "Why do you believe UK inflation was driven by energy?",
+        "What do you remember about Nvidia?",
+        "Show me your memory about inflation"
+      ],
+      "version": 1
+    }
+  ]
+}

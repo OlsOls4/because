@@ -1,0 +1,11 @@
+.because/
+.env
+.env.local
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.pytest_cache/
+zetaris-platform/
+zetaris-platform.zip
+node_modules/

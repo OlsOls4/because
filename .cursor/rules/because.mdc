@@ -1,0 +1,13 @@
+---
+description: Core rules for the Because analyst agent (evidence-first, portable SQL, Meterless engines)
+globs: ["**/*.py", "because/agent/intents.json", "because/web/static/*.html"]
+alwaysApply: true
+---
+
+- Read `AGENTS.md` before changing code. It is the source of truth for structure and rules.
+- No number may reach an answer without a `Finding` that cites a harness `query_id` and row index. LLM text is prose over findings and must pass `validate_narrative`.
+- Agent SQL is portable ANSI over canonical columns with `{t}` table placeholders. Zetaris Lightning DDL lives only in `because/harness/sources.py::zetaris_ddl`.
+- Call `self._enforce("<capability>")` before any tool use in the analyst; new capabilities go into `because/agent/intents.json` first (Scout contract scope).
+- H-MEM records need a `source` and a `provenance` with `origin`, `label` and `refs`. Keep `tests/test_hmem_conformance.py` green.
+- Keep everything free: keyless public sources, free LLM tiers (NVIDIA NIM, Groq, Gemini) via env vars. Never commit `.env.local` or keys.
+- Prefer small, tested changes. Run `pytest -q` after edits; run `pytest -m live` when touching data access.

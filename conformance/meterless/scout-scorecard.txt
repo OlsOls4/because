@@ -1,0 +1,14 @@
+Loaded 32 examples from v1/all
+Report written: <meterless>/engines/scout-intent/evals/reports/latest.md
+┌─────────────────────┬─────────┐
+│ (index)             │ Values  │
+├─────────────────────┼─────────┤
+│ intent_top1         │ 1       │
+│ intent_top3_recall  │ 1       │
+│ injection_precision │ 1       │
+│ injection_recall    │ 1       │
+│ tool_precision      │ 1       │
+│ clarification_rate  │ 0.03125 │
+│ override_frequency  │ 0       │
+└─────────────────────┴─────────┘
+note: override_frequency = 0.000 by definition of the corpus, not by measurement: no override data in corpus v1. Overrides are user corrections captured in telemetry ("No, I meant…" + intent switch within the same trace) ÷ contracts issued — measure this in production telemetry (docs/telemetry-and-learning.md).

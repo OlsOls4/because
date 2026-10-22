@@ -1,0 +1,11 @@
+---
+description: Zetaris Lightning conventions for the data harness
+globs: ["because/harness/**", "docs/ZETARIS.md", "scripts/zetaris_setup.sh"]
+alwaysApply: false
+---
+
+- Follow https://zetaris.github.io/getting-started : register REST sources with `CREATE LIGHTNING REST TABLE ... FROM BECAUSE_REST REQUEST(...) HEADER(...) BODY ()`, flatten with `CREATE SCHEMASTORE VIEW ... WITH CONTAINER because AS SELECT ... LATERAL VIEW explode(...)`.
+- One statement per JDBC call. Never split a `COMPILE USL` payload.
+- Backtick mixed-case JSON keys (`entityName`, fact.`start`). Cast numeric-looking strings in the view.
+- Never drop existing objects; detect with `SELECT 1 FROM because.<view> LIMIT 1` and reuse.
+- Credentials come from `.env.local` (`ZETARIS_JDBC_URL`, `ZETARIS_JDBC_JAR`, `ZETARIS_USERNAME`, `ZETARIS_PASSWORD`); never log them. Use `redact()` before logging SQL.
