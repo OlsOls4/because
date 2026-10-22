@@ -13,6 +13,7 @@ harness, tests competing explanations, and answers with:
 Built for the GenAI Works Open Agent Hackathon 2026, track **The Agent That Can Explain Why**.
 
 **Try it:** [because-agent.vercel.app](https://because-agent.vercel.app) (public demo in `SAMPLE_MODE`: the same agent and SQL on the DuckDB fallback; saved runs load instantly, live questions take about 10 s).
+**Demo video (3 min):** [youtu.be/7SHfgPPmVMQ](https://youtu.be/7SHfgPPmVMQ) · **Slides:** [`docs/deck/Because-deck.pdf`](docs/deck/Because-deck.pdf) ([PPTX](docs/deck/Because-deck.pptx)) · **Sponsor tech and pre-existing components:** [`docs/SPONSORS.md`](docs/SPONSORS.md)
 **Real Zetaris:** [`zetaris-e2e` workflow](.github/workflows/zetaris-e2e.yml) boots the Zetaris Lightning Docker bundle on a GitHub runner and runs the agent over JDBC; traces land in [`examples/zetaris_runs/`](examples/zetaris_runs/).
 
 ![flow](https://img.shields.io/badge/Scout-H--MEM-4338ca) ![harness](https://img.shields.io/badge/harness-Zetaris%20%7C%20DuckDB-0f766e) ![llm](https://img.shields.io/badge/LLM-NVIDIA%20NIM%20%7C%20Groq%20%7C%20Gemini%20%7C%20none-6b7280) ![license](https://img.shields.io/badge/license-MIT-green)
