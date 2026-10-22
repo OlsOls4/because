@@ -1,0 +1,271 @@
+{
+ "title": "Because: the analyst agent that shows its work",
+ "template": "studio",
+ "palette": "cyanotype",
+ "typography": "rational-sans",
+ "brand": {
+  "name": "Because",
+  "site": "because-agent.vercel.app"
+ },
+ "slides": [
+  {
+   "layout": "title",
+   "title": "Because",
+   "subtitle": "The analyst agent that shows its work. Ask why something happened and audit every claim.",
+   "items": [
+    {
+     "heading": "Track",
+     "body": "Explain Why"
+    },
+    {
+     "heading": "Team",
+     "body": "OlsOls Agents"
+    }
+   ],
+   "notes": "GenAI Works Open Agent Hackathon 2026. Live demo: https://because-agent.vercel.app. Code: https://github.com/OlsOls4/because"
+  },
+  {
+   "layout": "statement",
+   "title": "Why questions get fluent answers that nobody can check.",
+   "body": "LLMs explain fluently but unverifiably. Dashboards show what changed, never why. Doing it properly takes hours of pulling and lining up sources.",
+   "notes": "The problem: answering 'why did X change?' properly means pulling several sources, aligning periods, testing competing explanations and writing down what does not fit."
+  },
+  {
+   "layout": "columns",
+   "title": "Who it is for",
+   "items": [
+    {
+     "heading": "Analysts",
+     "body": "Explain a margin or revenue move from filings in seconds, with the bridge in points of revenue."
+    },
+    {
+     "heading": "Journalists",
+     "body": "Check a claimed cause of inflation or unemployment against official series before publishing."
+    },
+    {
+     "heading": "Students and investors",
+     "body": "Learn to reason from evidence: see the hypotheses that failed, not just the answer."
+    }
+   ],
+   "notes": "Target users: anyone who has to defend a 'because' to a sceptical reader."
+  },
+  {
+   "layout": "chart",
+   "title": "Ask why then audit",
+   "body": "Intel's 2024 gross margin from SEC filings. Every claim cites findings; every finding cites a query and a source row.",
+   "image": "ui_answer.png",
+   "image_prompt": "Real screenshot: answer card + evidence graph",
+   "notes": "Screenshot of https://because-agent.vercel.app, Intel 2024 gross margin: 40.0% -> 32.7%, drivers restructuring/impairment, depreciation, lower revenue. Confidence High 0.74."
+  },
+  {
+   "layout": "numbered",
+   "title": "One investigation",
+   "items": [
+    {
+     "heading": "Scout",
+     "body": "Classifies the question, runs the guard and issues an HMAC-signed contract for the allowed tools."
+    },
+    {
+     "heading": "Recall",
+     "body": "H-MEM returns what the agent already believes and which query it came from."
+    },
+    {
+     "heading": "Query and test",
+     "body": "Zetaris SQL pulls target and drivers. Each hypothesis gets a numeric rule and a verdict."
+    },
+    {
+     "heading": "Answer and remember",
+     "body": "Cited claims, counter-evidence and confidence; every finding is written back with provenance."
+    }
+   ],
+   "notes": "The LLM is optional. Answers are computed from data first; an LLM may only rewrite findings and is rejected unless every sentence cites a finding and every number appears in the evidence."
+  },
+  {
+   "layout": "chart",
+   "title": "Architecture",
+   "body": "Meterless decides and remembers. Zetaris federates the data. The same portable SQL runs on a DuckDB fallback.",
+   "image": "arch.png",
+   "image_prompt": "Architecture diagram rendered from mermaid",
+   "notes": "Scout -> Analyst -> DataHarness (ZetarisBackend over JDBC / UI proxy, DuckDB in SAMPLE_MODE) -> SEC EDGAR XBRL, ONS, FRED. H-MEM recall and write. Optional NVIDIA NIM narrative, validated."
+  },
+  {
+   "layout": "section",
+   "eyebrow": "01",
+   "title": "Sponsor technology",
+   "body": "Zetaris federates. Meterless decides and remembers."
+  },
+  {
+   "layout": "panorama-sidebar",
+   "title": "Zetaris is the data harness",
+   "body": "Three public source families federated by Lightning, queried with one portable SQL dialect.",
+   "image": "zetaris_ci.png",
+   "image_prompt": "Real screenshot of the zetaris-e2e GitHub Actions workflow",
+   "items": [
+    {
+     "heading": "Tables",
+     "body": "SEC, ONS as REST tables; FRED as FILESTORE CSV"
+    },
+    {
+     "heading": "Channels",
+     "body": "JDBC, UI SQL proxy or REST"
+    },
+    {
+     "heading": "CI",
+     "body": "Real Lightning bundle on GitHub Actions"
+    }
+   ],
+   "notes": "Unique: FRED without an API key federated as FILESTORE CSV; REST tables CACHE TABLE'd after registration; companies registered lazily on first question; views reused never dropped. Workflow: .github/workflows/zetaris-e2e.yml."
+  },
+  {
+   "layout": "triptych",
+   "title": "Meterless remembers why",
+   "body": "H-MEM stores beliefs with the query that produced them. Scout gates every tool call.",
+   "image": "meterless_card.png",
+   "image_prompt": "Real screenshot of the Meterless card in the Because UI",
+   "items": [
+    {
+     "heading": "H-MEM",
+     "body": "Every finding is a memory with SQL, rows and source URL. Conflict scan flags restated numbers."
+    },
+    {
+     "heading": "Scout Intent",
+     "body": "Intent registry, five-layer guard, HMAC-SHA256 contracts with TTL and scope checks."
+    },
+    {
+     "heading": "Ask it why",
+     "body": "Memory recall answers what it believes and audits the trail behind each belief."
+    }
+   ],
+   "notes": "Unique: memory provenance makes 'why do you believe this?' answerable across sessions. Prompt injection is refused by Scout before any tool runs (examples/outputs/guard-blocked.json)."
+  },
+  {
+   "layout": "panorama-sidebar",
+   "title": "Built in Cursor",
+   "body": "Three headless Cursor Agent CLI sessions did real work, logged in the repo.",
+   "image": "cursor.png",
+   "image_prompt": "Real screenshot of a Cursor Agent CLI session log in the repo",
+   "notes": "Sessions: Zetaris backend hardening; FRED as FILESTORE + 'because zetaris sql'; web UI polish. docs/cursor-sessions/. NVIDIA NIM is the first-choice LLM provider for the validated narrative (meta/llama-3.3-70b-instruct).",
+   "items": [
+    {
+     "heading": "Rules",
+     "body": "AGENTS.md and .cursor/rules"
+    },
+    {
+     "heading": "Sessions",
+     "body": "Zetaris hardening, FRED FILESTORE, UI polish"
+    },
+    {
+     "heading": "NVIDIA",
+     "body": "NIM is the first-choice narrative LLM"
+    }
+   ]
+  },
+  {
+   "layout": "section",
+   "eyebrow": "02",
+   "title": "Proof and next",
+   "body": "Conformance, tests and the road ahead."
+  },
+  {
+   "layout": "metrics",
+   "title": "Results",
+   "items": [
+    {
+     "value": "13/13",
+     "heading": "H-MEM conformance",
+     "body": "Official Meterless runner, unmodified, driving the Python engine"
+    },
+    {
+     "value": "1.00",
+     "heading": "Scout eval top-1",
+     "body": "Official harness PASS on corpus v1 (32 examples), injection recall 1.00"
+    },
+    {
+     "value": "58",
+     "heading": "Offline tests",
+     "body": "Harness, Scout, H-MEM, web API and end-to-end analyst"
+    },
+    {
+     "value": "0.70-0.94",
+     "heading": "Confidence on 4 saved runs",
+     "body": "Intel, UK inflation, Nvidia, US unemployment"
+    }
+   ],
+   "notes": "Sources: conformance/meterless/hmem-scorecard.txt, conformance/meterless/scout-eval-report.md, pytest -q (58 passed), examples/outputs/. The v1 Scout corpus is a smoke set, treat as conformance not a benchmark."
+  },
+  {
+   "layout": "table",
+   "title": "Stack",
+   "columns": [
+    "Layer",
+    "Technology"
+   ],
+   "rows": [
+    [
+     "Routing",
+     "Meterless Scout Intent"
+    ],
+    [
+     "Memory",
+     "Meterless H-MEM"
+    ],
+    [
+     "Data harness",
+     "Zetaris Lightning, DuckDB fallback"
+    ],
+    [
+     "Data",
+     "SEC EDGAR, ONS, FRED, Wikipedia"
+    ],
+    [
+     "Narrative",
+     "NVIDIA NIM, Groq or Gemini"
+    ],
+    [
+     "App",
+     "Python, FastAPI, Vercel"
+    ]
+   ],
+   "notes": "Dependencies: duckdb, httpx, fastapi, uvicorn, python-dotenv; optional JayDeBeApi + JPype1 for Zetaris JDBC."
+  },
+  {
+   "layout": "timeline",
+   "title": "Next",
+   "items": [
+    {
+     "heading": "Semantic layer",
+     "body": "Zetaris USL model joining EDGAR facts and macro series"
+    },
+    {
+     "heading": "Markovian",
+     "body": "Bounded state for long, multi-company investigations"
+    },
+    {
+     "heading": "Richer data",
+     "body": "CPI weights, XBRL segments, Eurostat"
+    },
+    {
+     "heading": "Dreaming",
+     "body": "Cross-question insights proposed for approval"
+    }
+   ],
+   "notes": "From README Next steps."
+  },
+  {
+   "layout": "closing",
+   "title": "Read the trace",
+   "body": "because-agent.vercel.app  \u00b7  github.com/OlsOls4/because",
+   "items": [
+    {
+     "heading": "Demo",
+     "body": "because-agent.vercel.app"
+    },
+    {
+     "heading": "Code",
+     "body": "github.com/OlsOls4/because"
+    }
+   ],
+   "notes": "MIT licence. Built during the build window from 22 Oct 2026; pre-existing components declared in README and docs/SPONSORS.md."
+  }
+ ]
+}
