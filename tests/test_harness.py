@@ -1,9 +1,10 @@
-import os
+import json
 
-from because.harness.base import SourceSpec
+from because.harness.base import HarnessError, SourceSpec
 from because.harness.duckdb_backend import DuckDBBackend
 from because.harness.sources import zetaris_ddl
-from because.harness.zetaris_backend import ZetarisBackend
+from because.harness import zetaris_backend as zb
+from because.harness.zetaris_backend import ZetarisBackend, _norm_col, _parse_ui_result, _ui_org_id, _ui_token
 
 
 def loader(spec):
@@ -46,6 +47,7 @@ class FakeChannel:
     def __init__(self):
         self.sql = []
         self.created = set()
+        self.fail_cache = False
 
     def run(self, sql):
         self.sql.append(sql)
@@ -53,31 +55,102 @@ class FakeChannel:
             if sql.split()[3] not in self.created:
                 raise RuntimeError("Table or view not found")
             return ["1"], [[1]]
+        if sql.startswith("CACHE TABLE") and self.fail_cache:
+            raise RuntimeError("cache not supported")
         if sql.startswith("CREATE SCHEMASTORE VIEW"):
             self.created.add("because." + sql.split()[3])
         if sql.startswith("SELECT period_end"):
             return ["period_end", "value_usd"], [["2024-12-28", 90.0]]
+        if sql.startswith("SELECT 1 AS"):
+            return ["one"], [[1]]
+        if sql.startswith("SHOW LIGHTNING"):
+            return ["database"], [["BECAUSE_REST"]]
         return [], []
 
     def close(self):
         pass
 
 
-def test_zetaris_backend_registers_then_queries():
+def _zetaris_with_fake(monkeypatch, channel=None):
+    monkeypatch.setattr("because.harness.sources._get", lambda url, ttl_s=86400: b"{}")
     z = ZetarisBackend.__new__(ZetarisBackend)
     from because.harness.base import DataHarness
 
     DataHarness.__init__(z)
-    z.channel, z.name, z.ddl_log, z._bootstrapped, z._local = FakeChannel(), "zetaris-fake", [], False, None
+    z.channel = channel or FakeChannel()
+    z.name = f"zetaris-{z.channel.name}"
+    z.ddl_log, z._bootstrapped, z._local, z._absent = [], False, None, set()
+    return z
+
+
+def test_zetaris_backend_registers_then_queries(monkeypatch):
+    z = _zetaris_with_fake(monkeypatch)
     spec = SourceSpec("edgar_concept", "0000050863:GrossProfit")
     r = z.query(SQL, {"t": spec})
     kinds = [s.split()[0:3] for s in z.channel.sql]
     assert ["CREATE", "LIGHTNING", "DATABASE"] in kinds and ["CREATE", "SCHEMASTORE", "CONTAINER"] in kinds
+    assert ["CACHE", "TABLE", "because_rest.edgar_concept_0000050863_grossprofit_raw"] in kinds
+    rest_i = next(i for i, s in enumerate(z.channel.sql) if s.startswith("CREATE LIGHTNING REST TABLE"))
+    cache_i = next(i for i, s in enumerate(z.channel.sql) if s.startswith("CACHE TABLE"))
+    view_i = next(i for i, s in enumerate(z.channel.sql) if s.startswith("CREATE SCHEMASTORE VIEW"))
+    assert rest_i < cache_i < view_i
     assert r.rows == [["2024-12-28", 90.0]] and "because.edgar_concept_0000050863_grossprofit" in r.sql
     n = len(z.channel.sql)
     z._registered.clear()
     z.query(SQL, {"t": spec})  # second session: view exists -> reused, nothing re-created
     assert not any(s.startswith("CREATE") for s in z.channel.sql[n:])
+
+
+def test_zetaris_cache_skip_on_failure(monkeypatch):
+    ch = FakeChannel()
+    ch.fail_cache = True
+    z = _zetaris_with_fake(monkeypatch, ch)
+    spec = SourceSpec("edgar_concept", "0000050863:GrossProfit")
+    r = z.query(SQL, {"t": spec})
+    assert r.error is None and r.rows
+    assert any(line.startswith("-- cache skipped:") for line in z.ddl_log)
+    assert any(s.startswith("CREATE SCHEMASTORE VIEW") for s in z.channel.sql)
+
+
+def test_zetaris_cache_disabled(monkeypatch):
+    monkeypatch.setenv("BECAUSE_ZETARIS_CACHE", "0")
+    z = _zetaris_with_fake(monkeypatch)
+    z.query(SQL, {"t": SourceSpec("edgar_concept", "0000050863:GrossProfit")})
+    assert not any(s.startswith("CACHE TABLE") for s in z.channel.sql)
+
+
+def test_zetaris_absent_edgar_404(monkeypatch):
+    def boom(url, ttl_s=86400):
+        raise HarnessError(f"404 for {url}")
+
+    monkeypatch.setattr("because.harness.sources._get", boom)
+    z = ZetarisBackend.__new__(ZetarisBackend)
+    from because.harness.base import DataHarness
+
+    DataHarness.__init__(z)
+    z.channel, z.name = FakeChannel(), "zetaris-fake"
+    z.ddl_log, z._bootstrapped, z._local, z._absent = [], False, None, set()
+    spec = SourceSpec("edgar_concept", "0000050863:NeverReportedTag")
+    r = z.query(SQL, {"t": spec})
+    assert r.error is None and r.rows == [] and "period_end" in r.columns
+    assert z.log[-1].get("note") == "source returned 404 (concept not reported); empty table"
+    assert not any(s.startswith("CREATE LIGHTNING REST TABLE") for s in z.channel.sql)
+
+
+def test_zetaris_probe_other_error_still_registers(monkeypatch):
+    def boom(url, ttl_s=86400):
+        raise HarnessError("503 upstream")
+
+    monkeypatch.setattr("because.harness.sources._get", boom)
+    z = ZetarisBackend.__new__(ZetarisBackend)
+    from because.harness.base import DataHarness
+
+    DataHarness.__init__(z)
+    z.channel, z.name = FakeChannel(), "zetaris-fake"
+    z.ddl_log, z._bootstrapped, z._local, z._absent = [], False, None, set()
+    r = z.query(SQL, {"t": SourceSpec("edgar_concept", "0000050863:GrossProfit")})
+    assert r.error is None and r.rows
+    assert any(s.startswith("CREATE LIGHTNING REST TABLE") for s in z.channel.sql)
 
 
 def test_zetaris_hybrid_routes_fred_without_key(monkeypatch):
@@ -89,5 +162,141 @@ def test_zetaris_hybrid_routes_fred_without_key(monkeypatch):
     z.channel, z.name, z.ddl_log, z._bootstrapped = FakeChannel(), "zetaris-fake", [], False
     z._local = DuckDBBackend(row_loader=loader)
     z._local.name = "duckdb (hybrid: FRED without key)"
+    z._absent = set()
     r = z.query("SELECT period, value FROM {t} ORDER BY period", {"t": SourceSpec("fred_series", "UNRATE")})
     assert r.backend.startswith("duckdb (hybrid") and len(r.rows) == 2 and not z.channel.sql
+
+
+def test_norm_col_strips_hive_qualifiers():
+    assert _norm_col("period_end") == "period_end"
+    assert _norm_col("view.Period_End") == "period_end"
+    assert _norm_col("because.view.value_usd") == "value_usd"
+
+
+def test_rest_channel_normalises_columns(monkeypatch):
+    monkeypatch.setenv("ZETARIS_API_KEY", "k")
+
+    class Resp:
+        def read(self):
+            return json.dumps({"data": [{"because.view.Period_End": "2024-01-01", "Value_USD": 1}]}).encode()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    monkeypatch.setattr(zb, "urlopen", lambda req, timeout=None: Resp())
+    cols, rows = zb._RestChannel().run("SELECT 1")
+    assert cols == ["period_end", "value_usd"] and rows == [["2024-01-01", 1]]
+
+
+def test_ui_token_and_org_parsing():
+    jwt = "aaaaaaaa.bbbbbbbb.cccccccc"
+    assert _ui_token({"data": {"idToken": "tok-1"}}) == "tok-1"
+    assert _ui_token({"nested": {"accessToken": "tok-2"}}) == "tok-2"
+    assert _ui_token({"msg": f"bearer {jwt}"}) == jwt
+    assert _ui_org_id({"user": {"orgId": 42}}) == 42
+    assert _ui_org_id({"x": 1}) is None
+
+
+def test_parse_ui_result_shapes():
+    cols, rows = _parse_ui_result({"data": [{"a": 1, "b": 2}, {"a": 3, "b": 4}]})
+    assert cols == ["a", "b"] and rows == [[1, 2], [3, 4]]
+    cols, rows = _parse_ui_result({"result": {"columns": ["x", {"name": "y"}], "rows": [[9, 8]]}})
+    assert cols == ["x", "y"] and rows == [[9, 8]]
+    assert _parse_ui_result({"ok": True}) == ([], [])
+    assert _parse_ui_result({"data": []}) == ([], [])
+
+
+def test_ui_channel_login_and_query(monkeypatch):
+    monkeypatch.setenv("ZETARIS_USERNAME", "admin")
+    monkeypatch.setenv("ZETARIS_PASSWORD", "secret")
+    monkeypatch.setenv("ZETARIS_UI_URL", "http://ui.test")
+    calls = []
+
+    class Resp:
+        def __init__(self, payload):
+            self._payload = json.dumps(payload).encode()
+
+        def read(self):
+            return self._payload
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    def fake_urlopen(req, timeout=None):
+        url = req.full_url
+        calls.append(url)
+        data = req.data.decode() if req.data else ""
+        hdrs = {k.lower(): v for k, v in req.headers.items()}
+        assert "secret" not in str(hdrs)
+        if url.endswith("/api/auth/login"):
+            assert json.loads(data)["username"] == "admin"
+            return Resp({"idToken": "hdr.payload.sig", "orgId": 7})
+        assert "authorization" in hdrs and hdrs["authorization"].startswith("Bearer ")
+        assert "secret" not in hdrs["authorization"]
+        return Resp({"data": [{"One": 1}]})
+
+    monkeypatch.setattr(zb, "urlopen", fake_urlopen)
+    ch = zb._UiChannel()
+    assert ch.org == "7"
+    cols, rows = ch.run("SELECT 1 AS one")
+    assert cols == ["one"] and rows == [[1]]
+    assert any("/api/auth/login" in u for u in calls)
+    assert any("run-query" in u for u in calls)
+
+
+def test_auto_channel_falls_back_to_ui(monkeypatch):
+    class BoomJdbc:
+        name = "jdbc"
+
+        def __init__(self):
+            raise HarnessError("jdbc unavailable")
+
+    class OkUi:
+        name = "ui"
+
+        def __init__(self):
+            pass
+
+        def run(self, sql):
+            return ["one"], [[1]]
+
+        def close(self):
+            pass
+
+    monkeypatch.setenv("ZETARIS_CHANNEL", "auto")
+    monkeypatch.setattr(zb, "_JdbcChannel", BoomJdbc)
+    monkeypatch.setattr(zb, "_UiChannel", OkUi)
+    z = ZetarisBackend()
+    assert z.channel.name == "ui" and z.name == "zetaris-ui"
+
+
+def test_auto_channel_both_fail(monkeypatch):
+    class BoomJdbc:
+        def __init__(self):
+            raise HarnessError("jdbc down")
+
+    class BoomUi:
+        def __init__(self):
+            raise HarnessError("ui down")
+
+    monkeypatch.setenv("ZETARIS_CHANNEL", "auto")
+    monkeypatch.setattr(zb, "_JdbcChannel", BoomJdbc)
+    monkeypatch.setattr(zb, "_UiChannel", BoomUi)
+    try:
+        ZetarisBackend()
+        assert False, "expected HarnessError"
+    except HarnessError as e:
+        msg = str(e).lower()
+        assert "jdbc" in msg and "ui" in msg
+
+
+def test_ping_includes_channel(monkeypatch):
+    z = _zetaris_with_fake(monkeypatch)
+    out = z.ping()
+    assert out["channel"] == "fake" and out["select_1"] == 1
