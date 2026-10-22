@@ -12,6 +12,9 @@ harness, tests competing explanations, and answers with:
 
 Built for the GenAI Works Open Agent Hackathon 2026, track **The Agent That Can Explain Why**.
 
+**Try it:** [because-agent.vercel.app](https://because-agent.vercel.app) (public demo in `SAMPLE_MODE`: the same agent and SQL on the DuckDB fallback; saved runs load instantly, live questions take about 10 s).
+**Real Zetaris:** [`zetaris-e2e` workflow](.github/workflows/zetaris-e2e.yml) boots the Zetaris Lightning Docker bundle on a GitHub runner and runs the agent over JDBC; traces land in [`examples/zetaris_runs/`](examples/zetaris_runs/).
+
 ![flow](https://img.shields.io/badge/Scout-H--MEM-4338ca) ![harness](https://img.shields.io/badge/harness-Zetaris%20%7C%20DuckDB-0f766e) ![llm](https://img.shields.io/badge/LLM-NVIDIA%20NIM%20%7C%20Groq%20%7C%20Gemini%20%7C%20none-6b7280) ![license](https://img.shields.io/badge/license-MIT-green)
 
 ## The problem and who it is for
@@ -66,7 +69,7 @@ flowchart TB
     P --> X[Macro series<br/>drivers, lead correlation]
     C & X -->|portable SQL| H[DataHarness]
     subgraph Harness
-      H --> Z[ZetarisBackend<br/>JDBC to Zetaris Lightning<br/>REST tables + SchemaStore views]
+      H --> Z[ZetarisBackend<br/>JDBC / UI proxy to Zetaris Lightning<br/>REST + FILESTORE CSV tables, SchemaStore views]
       H --> D[DuckDBBackend<br/>SAMPLE_MODE fallback]
     end
     Z & D --> SRC[(SEC EDGAR XBRL - ONS - FRED)]
@@ -107,8 +110,14 @@ flowchart TB
   into canonical columns ([`sources.zetaris_ddl`](because/harness/sources.py), full SQL in [`docs/zetaris_ddl.sql`](docs/zetaris_ddl.sql)).
   New companies are registered lazily on first question. Existing views are reused, never dropped.
 - Agent SQL is portable ANSI, so the identical queries run on the **DuckDB fallback** over the same endpoints (no instance needed).
+- **FRED without an API key** goes through Zetaris too, as **Lightning FILESTORE CSV tables** (`CREATE LIGHTNING FILESTORE TABLE ... FORMAT CSV`
+  in a `BECAUSE_FILES` database, flattened by a SchemaStore view), so all three source families are federated by Lightning.
+  Raw REST tables are `CACHE TABLE`d right after registration (the cookbook's advice: uncached REST tables re-fetch the endpoint on every query).
+- Three channels: **JDBC** (default), the **UI proxy** (`/api/proxy/sql-editor/sqls/run-query` after `/api/auth/login`, as the bundle's `verify.sh` does), and the API-key REST channel; `ZETARIS_CHANNEL=auto` tries JDBC then the UI proxy.
 - **One-command local setup** for the free Hobby tier: [`scripts/zetaris_setup.sh`](scripts/zetaris_setup.sh), documented in [`docs/ZETARIS.md`](docs/ZETARIS.md).
-- Status: unit-tested against a fake JDBC channel. Not yet run against a live instance, because the build sandbox has no Docker (see docs/ZETARIS.md).
+- **Runs on a real Zetaris instance in CI**: [`.github/workflows/zetaris-e2e.yml`](.github/workflows/zetaris-e2e.yml) downloads the bundle, starts the
+  seven containers on `ubuntu-latest`, waits for `verify.sh`, registers every source, asks the example questions with `--backend zetaris --strict`, and uploads traces,
+  DDL logs and compose logs. Recorded runs: [`examples/zetaris_runs/`](examples/zetaris_runs/).
 
 ### Meterless: context engines (implemented from their AGENTS.md specs)
 - **H-MEM** ([`because/meterless/hmem.py`](because/meterless/hmem.py)): canonical record with mandatory source and provenance, tiered layers,
@@ -132,8 +141,13 @@ flowchart TB
   Scout's model profiles route to these with data-class clearance. With no key, Because runs fully deterministic.
 
 ### Cursor
-- Built to be developed in **Cursor**: [`AGENTS.md`](AGENTS.md) plus project rules in [`.cursor/rules/`](.cursor/rules/) (evidence-first rules,
-  portable SQL, contract enforcement, Zetaris conventions). Open the folder in Cursor and the agent picks them up.
+- Developed with **Cursor**: [`AGENTS.md`](AGENTS.md) plus project rules in [`.cursor/rules/`](.cursor/rules/) (evidence-first rules,
+  portable SQL, contract enforcement, Zetaris conventions) steer every Cursor agent run.
+- The **Cursor Agent CLI** (`cursor-agent -p --force --output-format stream-json`, headless with a Cursor user API key) did real work on this repo.
+  Each session's prompt, tool calls, final message and raw event stream are in [`docs/cursor-sessions/`](docs/cursor-sessions/):
+  1. [Zetaris backend hardening](docs/cursor-sessions/01-zetaris-backend-hardening.md): UI-proxy channel, `auto` channel fallback, `CACHE TABLE`, EDGAR 404 as empty table, JDBC column-label normalisation, 12 new tests.
+  2. [FRED as FILESTORE CSV tables + `because zetaris sql`](docs/cursor-sessions/02-fred-filestore-and-sql-cli.md) (stopped by the free plan's usage limit; one test fixed by hand, noted in the log).
+  3. [Web UI polish](docs/cursor-sessions/03-web-ui-polish.md): pipeline strip, Meterless card, Zetaris badge, citation tooltips, recorded-Zetaris-run chips, `tests/test_web.py`.
 
 ## Setup
 
@@ -149,8 +163,15 @@ git clone https://github.com/OlsOls4/because && cd because
 Or by hand: `python -m venv .venv && . .venv/bin/activate && pip install -e ".[dev]" && cp .env.example .env.local`.
 Set `BECAUSE_USER_AGENT="your-app you@example.com"` (SEC asks for a contact).
 
+No Zetaris instance? Set `SAMPLE_MODE=1` (the default backend is DuckDB anyway): the identical agent SQL runs locally over the same public endpoints.
+
 **Zetaris backend** (local Lightning via Docker, JDBC): `./scripts/zetaris_setup.sh ~/Downloads/zetaris-platform.zip`, then `because serve`.
 See [`docs/ZETARIS.md`](docs/ZETARIS.md).
+
+**Zetaris in GitHub Actions** (no local Docker needed): fork, add repository secrets `ZETARIS_BUNDLE_URL` (a direct download URL for your
+`zetaris-platform.zip`), `ZETARIS_ACR_USER` and `ZETARIS_ACR_PASSWORD` (the registry login from the Zetaris download page), then run
+**Actions → zetaris-e2e → Run workflow**. The bundle and its `.env` are never committed. Artifacts: traces (`*.md`, `*.json`), `SUMMARY.md`, `register.log`,
+`SHOW LIGHTNING TABLES` output and the compose logs of all seven services.
 
 **LLM narrative (optional)**: put one of `NVIDIA_API_KEY`, `GROQ_API_KEY`, `GEMINI_API_KEY` in `.env.local`.
 
@@ -170,7 +191,9 @@ because examples                                                    # regenerate
 because serve
 ```
 
-**Web UI**: question box and example chips (saved runs load instantly; shift-click re-runs live), answer card with clickable
+**Web UI** ([live demo](https://because-agent.vercel.app)): a pipeline strip (plan → Zetaris SQL → evidence → hypothesis tests → answer) with counts,
+a backend badge (Zetaris Lightning vs DuckDB fallback), a Meterless card (Scout intent, signed contract, capabilities, H-MEM recall/writes/conflicts),
+question box and example chips (saved runs load instantly; shift-click re-runs live), answer card with clickable
 citations, the evidence graph (question -> hypotheses -> findings -> queries), and tabs for evidence, hypotheses, queries (SQL + source URLs),
 reasoning trace, Scout contract and memory (with feedback buttons and a "why?" audit view).
 
@@ -180,7 +203,7 @@ macro: UK and US inflation, US and UK unemployment. Other questions get a clarif
 ## Tests
 
 ```bash
-pytest -q            # 35 offline tests: H-MEM conformance port, Scout, harness (incl. Zetaris flow with a fake JDBC channel), end-to-end analyst
+pytest -q            # 58 offline tests: H-MEM conformance port, Scout, harness (Zetaris JDBC/UI/file-store flows with fake channels), web API, end-to-end analyst
 pytest -m live       # live SEC/ONS/FRED checks
 bash conformance/meterless/run.sh   # official Meterless suites
 ```
@@ -213,7 +236,7 @@ Everything else in this repository was written during the hackathon (from 22 Oct
 
 ## Next steps
 
-- Run end to end on a live Zetaris instance and record the demo; add a **Unified Semantic Layer** (`COMPILE USL`) model joining EDGAR facts and macro series.
+- Add a **Unified Semantic Layer** (`COMPILE USL`) model joining EDGAR facts and macro series.
 - **Markovian** engine for long investigations (bounded state between hypothesis rounds) and multi-company comparisons.
 - CPI component weights (ONS), segment revenue from XBRL frames, more countries (Eurostat is already a Zetaris cookbook source).
 - A dreaming pass that proposes cross-question insights ("energy shocks explain both UK and euro-area inflation") for approval in the UI.

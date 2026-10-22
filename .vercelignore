@@ -1,0 +1,12 @@
+.venv
+.because
+.git
+tests
+conformance
+docs
+scripts
+*.egg-info
+__pycache__
+.pytest_cache
+.env.local
+zetaris-platform
