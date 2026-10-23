@@ -14,7 +14,8 @@ source and a file/REST source:
 * US inflation:       FRED CPI view  JOIN  ONS UK CPI view on month (was it global?).
 
 Portability: plain ANSI SELECT / JOIN / GROUP BY / CASE / CAST / SUBSTR / ROUND /
-AVG / CORR / ROW_NUMBER() OVER, subqueries and UNION ALL. All of these exist in
+AVG / CORR / ROW_NUMBER() and LAG() OVER, subqueries and UNION ALL; no self-joins of one view
+(Spark cannot resolve them over SchemaStore views). All of these exist in
 DuckDB and in Spark SQL (Zetaris Lightning). No CTEs, no VALUES lists, no date
 functions: periods are ISO strings in both backends, so month arithmetic is done
 on SUBSTR(...) casts.
@@ -62,29 +63,28 @@ def company_sql(since: str) -> str:
     )
 
 
-def _series_expr(alias: str, transform: str) -> str:
-    if transform == "yoy":
-        return f"({alias}.value / {alias}0.value - 1) * 100"
-    return f"{alias}.value"
-
-
-def _yoy_join(alias: str, placeholder: str, transform: str) -> str:
+def _series(placeholder: str, transform: str) -> str:
+    """One scan of a series view -> (period, v). YoY uses LAG(12) over the period order and keeps only
+    rows whose lagged period is exactly 12 months earlier. A window instead of a self-join: Spark
+    (Zetaris Lightning) fails to resolve a self-join of the same SchemaStore view
+    (MISSING_ATTRIBUTES.RESOLVED_ATTRIBUTE_APPEAR_IN_OPERATION), seen in CI run 39948332772."""
     if transform != "yoy":
-        return ""
-    return f" JOIN {{{placeholder}}} {alias}0 ON {_midx(alias + '0.period')} = {_midx(alias + '.period')} - 12"
+        return f"(SELECT period, value AS v FROM {{{placeholder}}})"
+    inner = (f"SELECT period, value, LAG(value, 12) OVER (ORDER BY period) AS v12, "
+             f"LAG(period, 12) OVER (ORDER BY period) AS p12 FROM {{{placeholder}}}")
+    return (f"(SELECT s.period, (s.value / s.v12 - 1) * 100 AS v FROM ({inner}) s "
+            f"WHERE s.v12 IS NOT NULL AND s.v12 <> 0 AND {_midx('s.period')} - {_midx('s.p12')} = 12)")
 
 
 def lead_sql(x_tr: str, y_tr: str, start: str, end: str) -> str:
     """Target {x} JOIN driver {y} (driver leads by lag_m months) -> CORR per lag. Placeholders {x}, {y}."""
     lags = " UNION ALL ".join(f"SELECT {k} AS lag_m" for k in LAGS)
     return (
-        f"SELECT l.lag_m, ROUND(CORR({_series_expr('x', x_tr)}, {_series_expr('y', y_tr)}), 3) AS r, COUNT(*) AS n "
-        "FROM {x} x"
-        + _yoy_join("x", "x", x_tr)
-        + f" CROSS JOIN ({lags}) l"
-        + f" JOIN {{y}} y ON {_midx('y.period')} + l.lag_m = {_midx('x.period')}"
-        + _yoy_join("y", "y", y_tr)
-        + f" WHERE SUBSTR(x.period, 1, 7) >= '{start}' AND SUBSTR(x.period, 1, 7) <= '{end}'"
+        "SELECT l.lag_m, ROUND(CORR(x.v, y.v), 3) AS r, COUNT(*) AS n "
+        f"FROM {_series('x', x_tr)} x"
+        f" CROSS JOIN ({lags}) l"
+        f" JOIN {_series('y', y_tr)} y ON {_midx('y.period')} + l.lag_m = {_midx('x.period')}"
+        f" WHERE SUBSTR(x.period, 1, 7) >= '{start}' AND SUBSTR(x.period, 1, 7) <= '{end}'"
         " GROUP BY l.lag_m ORDER BY l.lag_m"
     )
 
@@ -205,7 +205,7 @@ def _macro(ctx: Any, pb: Any):
     tname, oname = _name(label, tr), _name(olabel, otr)
     when = "in the same month" if bl == 0 else f"{bl} months earlier"
     stmt = (f"Cross-source ({fam[kind]} x {fam[okind]}, one federated SQL JOIN on month): over {start} to {end}, "
-            f"{tname[0].upper() + tname[1:]} tracks {oname} {when} most closely "
+            f"{tname} tracks {oname} {when} most closely "
             f"(r = {br:.2f}, n = {bn} months, {strength})"
             + (f"; same-month r = {float(r0['r']):.2f}" if r0 is not None and bl != 0 else ""))
     f = t.add_finding(statement=stmt, kind="cross-source", query_id=res.query_id,

@@ -13,6 +13,8 @@
 -- the raw tables) in a continue-on-error step and logs each statement's result to
 -- zetaris_runs/usl.log. A failure there never fails the job.
 --
+-- NOT NULL columns must be COALESCEd in ACTIVATE (Lightning rejects nullable -> NOT NULL; CI run 39948332772).
+--
 -- Statements are separated by lines that read exactly `-- @@` (not by semicolons:
 -- the multi-table COMPILE payload must be sent as ONE statement).
 --
@@ -48,10 +50,10 @@ UPDATE USL lightning.metastore.because.because_usl SET DESCRIPTION 'Because agen
 -- @@
 ACTIVATE USL TABLE lightning.metastore.because.because_usl.annual_fact AS
 SELECT
-    fact.accn AS accession_number,
+    COALESCE(fact.accn, '') AS accession_number,
     tag AS concept,
     fact.`start` AS period_start,
-    fact.`end` AS period_end,
+    COALESCE(fact.`end`, '') AS period_end,
     CAST(fact.val AS DOUBLE) AS value_usd,
     fact.fp AS fiscal_period,
     fact.form AS form_type,
@@ -62,7 +64,7 @@ WHERE fact.form = '10-K' AND fact.fp = 'FY'
 -- @@
 ACTIVATE USL TABLE lightning.metastore.because.because_usl.price_index AS
 SELECT
-    CAST(`observation_date` AS STRING) AS period,
+    COALESCE(CAST(`observation_date` AS STRING), '') AS period,
     CAST(`value` AS DOUBLE) AS value
 FROM because_files.fred_series_pcu33443344_raw
 WHERE `value` <> '.'

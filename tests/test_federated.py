@@ -124,7 +124,7 @@ def test_macro_cross_source_on_uk_cpi(tmp_path, harness):
     assert f is not None and f.kind == "cross-source"
     assert "ONS x FRED" in f.statement and "6 months earlier" in f.statement
     q = a.trace.queries[-1]
-    assert q["federated"] == ["fred_series", "ons_series"] and q["sql"].count(" JOIN ") >= 2
+    assert q["federated"] == ["fred_series", "ons_series"] and " JOIN " in q["sql"] and "LAG(value, 12)" in q["sql"]
 
 
 def test_cross_source_failure_never_breaks_the_run(tmp_path, monkeypatch, harness):
@@ -136,3 +136,9 @@ def test_cross_source_failure_never_breaks_the_run(tmp_path, monkeypatch, harnes
     t = a.ask("Why did Intel's gross margin fall in 2024?")
     assert "fell" in t.answer["summary"] and not [f for f in t.findings if f.kind == "cross-source"]
     assert any("Cross-source join skipped: RuntimeError: boom" in s["message"] for s in t.steps)
+
+
+def test_no_self_join_of_one_view():
+    """Spark/Zetaris cannot resolve a self-join of one SchemaStore view: each placeholder is scanned once."""
+    for sql in (company_sql("2020-01-01"), lead_sql("yoy", "yoy", "2015-01", "2022-12"), lead_sql("level", "yoy", "2015-01", "2022-12")):
+        assert sql.count("{x}") <= 1 and sql.count("{y}") <= 1 and sql.count("{e}") <= 1 and sql.count("{m}") <= 1, sql
