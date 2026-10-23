@@ -1,0 +1,55 @@
+{
+  "id": "msft-ni-fy23",
+  "question": "Why did Microsoft's net income fall in fiscal 2023?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "down",
+  "measured_direction": "down",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "r&d|sg&a|restructuring|impairment"
+  ],
+  "driver_patterns": [
+    "r&d|sg&a|restructuring|impairment"
+  ],
+  "confidence": 0.74,
+  "confidence_label": "High",
+  "summary": "Microsoft's net income fell in FY2023: $72.74B -> $72.36B (-0.5%). The evidence is consistent with these drivers: (1) income tax expense rose; (2) R&D expense rose.",
+  "supported": [
+    "R&D expense rose",
+    "Income tax expense rose"
+  ],
+  "verdicts": {
+    "H1": [
+      "contradicted",
+      "Gross profit fell"
+    ],
+    "H2": [
+      "supported",
+      "R&D expense rose"
+    ],
+    "H3": [
+      "inconclusive",
+      "SG&A expense rose"
+    ],
+    "H4": [
+      "inconclusive",
+      "Restructuring and impairment charges rose"
+    ],
+    "H5": [
+      "supported",
+      "Income tax expense rose"
+    ],
+    "H6": [
+      "contradicted",
+      "Revenue fell in the same direction as profit"
+    ]
+  },
+  "reference": "Net income slipped 1% as operating expenses grew (R&D, plus a Q2 charge for severance, hardware portfolio changes and lease consolidation) faster than gross margin (Microsoft FY2023 10-K).",
+  "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=MSFT&type=10-K&dateb=&owner=include&count=40",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 6.0
+}

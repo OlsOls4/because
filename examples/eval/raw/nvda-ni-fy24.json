@@ -1,0 +1,55 @@
+{
+  "id": "nvda-ni-fy24",
+  "question": "Why did Nvidia's net income jump in fiscal 2024?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "up",
+  "measured_direction": "up",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "gross profit|revenue"
+  ],
+  "driver_patterns": [
+    "gross profit|revenue"
+  ],
+  "confidence": 0.55,
+  "confidence_label": "Medium",
+  "summary": "Nvidia's net income rose in FY2024: $4.37B -> $29.76B (+581.3%). The evidence is consistent with one driver: revenue grew in the same direction as profit. Only one independent driver was supported, so treat this as a partial explanation.",
+  "supported": [
+    "Gross profit rose",
+    "Revenue grew in the same direction as profit"
+  ],
+  "verdicts": {
+    "H1": [
+      "supported",
+      "Gross profit rose"
+    ],
+    "H2": [
+      "inconclusive",
+      "R&D expense fell"
+    ],
+    "H3": [
+      "inconclusive",
+      "SG&A expense fell"
+    ],
+    "H4": [
+      "inconclusive",
+      "Restructuring and impairment charges fell"
+    ],
+    "H5": [
+      "contradicted",
+      "Income tax expense fell"
+    ],
+    "H6": [
+      "supported",
+      "Revenue grew in the same direction as profit"
+    ]
+  },
+  "reference": "Net income rose to $29.8B from $4.4B on revenue growth and gross margin expansion to 72.7% (NVIDIA FY2024 10-K).",
+  "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=NVDA&type=10-K&dateb=&owner=include&count=40",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 0.5
+}

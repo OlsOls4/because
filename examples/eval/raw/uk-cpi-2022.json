@@ -1,0 +1,79 @@
+{
+  "id": "uk-cpi-2022",
+  "question": "Why did UK inflation spike in 2022?",
+  "trap": false,
+  "showcase": true,
+  "reference_direction": "up",
+  "measured_direction": "up",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "household energy|gas prices",
+    "food"
+  ],
+  "driver_patterns": [
+    "household energy|gas prices",
+    "food"
+  ],
+  "confidence": 0.81,
+  "confidence_label": "High",
+  "summary": "UK inflation rose in 2022: 5.4% (2021-12) -> 11.1% (2022-10 peak), +5.7 pts; 2020 average 0.8%. The evidence is consistent with these drivers: (1) household energy inflation (CPI housing, water & fuels) rose during the run-up to the 2022 peak; (2) food inflation (CPI food & non-alcoholic drinks) rose during the run-up to the 2022 peak; (3) the 12-month change in the pound's value against the dollar fell during the run-up to the 2022 peak.",
+  "supported": [
+    "Household energy inflation (CPI housing, water & fuels) rose during the run-up to the 2022 peak",
+    "Food inflation (CPI food & non-alcoholic drinks) rose during the run-up to the 2022 peak",
+    "Transport inflation (CPI transport, incl. motor fuel) rose during the run-up to the 2022 peak",
+    "Services inflation (CPI services) rose during the run-up to the 2022 peak",
+    "The 12-month change in wholesale European gas prices rose during the run-up to the 2022 peak",
+    "The 12-month change in the pound's value against the dollar fell during the run-up to the 2022 peak",
+    "UK short-term interest rates were low (average below 1%) in the 6-18 months before the 2022 peak",
+    "UK unemployment was at least 0.3 pts below its 2020 average in the 6-18 months before the 2022 peak"
+  ],
+  "verdicts": {
+    "H1": [
+      "supported",
+      "Household energy inflation (CPI housing, water & fuels) rose during the run-up to the 2022 peak"
+    ],
+    "H2": [
+      "supported",
+      "Food inflation (CPI food & non-alcoholic drinks) rose during the run-up to the 2022 peak"
+    ],
+    "H3": [
+      "supported",
+      "Transport inflation (CPI transport, incl. motor fuel) rose during the run-up to the 2022 peak"
+    ],
+    "H4": [
+      "supported",
+      "Services inflation (CPI services) rose during the run-up to the 2022 peak"
+    ],
+    "H5": [
+      "supported",
+      "The 12-month change in wholesale European gas prices rose during the run-up to the 2022 peak"
+    ],
+    "H6": [
+      "contradicted",
+      "The 12-month change in Brent crude oil prices rose during the run-up to the 2022 peak"
+    ],
+    "H7": [
+      "inconclusive",
+      "The 12-month change in global food commodity prices rose during the run-up to the 2022 peak"
+    ],
+    "H8": [
+      "supported",
+      "The 12-month change in the pound's value against the dollar fell during the run-up to the 2022 peak"
+    ],
+    "H9": [
+      "supported",
+      "UK short-term interest rates were low (average below 1%) in the 6-18 months before the 2022 peak"
+    ],
+    "H10": [
+      "supported",
+      "UK unemployment was at least 0.3 pts below its 2020 average in the 6-18 months before the 2022 peak"
+    ]
+  },
+  "reference": "CPI rose to 11.1% in October 2022, the largest upward contributions from housing and household services (electricity and gas) and food (ONS, Consumer price inflation, October 2022).",
+  "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/october2022",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 3.2
+}

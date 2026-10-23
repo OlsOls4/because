@@ -1,0 +1,66 @@
+{
+  "id": "us-cpi-2023",
+  "question": "Why did US inflation fall in 2023?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "down",
+  "measured_direction": "down",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "energy|oil"
+  ],
+  "driver_patterns": [
+    "energy|oil"
+  ],
+  "confidence": 0.83,
+  "confidence_label": "High",
+  "summary": "US inflation fell in 2023: 6.4% (2022-12) -> 3.1% (2023-06 low), -3.3 pts; 2021 average 4.7%. The evidence is consistent with these drivers: (1) energy inflation (US CPI energy) fell during the 2023 decline; (2) used-car price inflation (US CPI used cars) fell during the 2023 decline; (3) food inflation (US CPI food) fell during the 2023 decline.",
+  "supported": [
+    "Energy inflation (US CPI energy) fell during the 2023 decline",
+    "Food inflation (US CPI food) fell during the 2023 decline",
+    "Used-car price inflation (US CPI used cars) fell during the 2023 decline",
+    "The 12-month change in Brent crude oil prices fell during the 2023 decline",
+    "The federal funds rate rose during the 2023 decline"
+  ],
+  "verdicts": {
+    "H1": [
+      "supported",
+      "Energy inflation (US CPI energy) fell during the 2023 decline"
+    ],
+    "H2": [
+      "supported",
+      "Food inflation (US CPI food) fell during the 2023 decline"
+    ],
+    "H3": [
+      "supported",
+      "Used-car price inflation (US CPI used cars) fell during the 2023 decline"
+    ],
+    "H4": [
+      "inconclusive",
+      "Shelter inflation (US CPI shelter) fell during the 2023 decline"
+    ],
+    "H5": [
+      "supported",
+      "The 12-month change in Brent crude oil prices fell during the 2023 decline"
+    ],
+    "H6": [
+      "inconclusive",
+      "M2 money supply growth (12-month %) fell during the 2023 decline"
+    ],
+    "H7": [
+      "supported",
+      "The federal funds rate rose during the 2023 decline"
+    ],
+    "H8": [
+      "inconclusive",
+      "US unemployment rose during the 2023 decline"
+    ]
+  },
+  "reference": "CPI-U inflation fell from 6.5% (Dec 2022) to 3.4% (Dec 2023); the energy index declined over the year (BLS CPI, December 2023).",
+  "source": "https://www.bls.gov/news.release/archives/cpi_01112024.htm",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 0.1
+}

@@ -1,0 +1,67 @@
+{
+  "id": "us-unemp-2020",
+  "question": "Why did US unemployment spike in 2020?",
+  "trap": false,
+  "showcase": true,
+  "reference_direction": "up",
+  "measured_direction": "up",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "leisure",
+    "jobless claims",
+    "payroll"
+  ],
+  "driver_patterns": [
+    "leisure",
+    "jobless claims",
+    "payroll"
+  ],
+  "confidence": 0.85,
+  "confidence_label": "High",
+  "summary": "US unemployment rose in 2020: 3.6% (2019-12) -> 14.8% (2020-04 peak), +11.2 pts; 2018 average 3.9%. The evidence is consistent with these drivers: (1) leisure & hospitality employment fell during the run-up to the 2020 peak; (2) initial jobless claims rose during the run-up to the 2020 peak; (3) industrial production fell during the run-up to the 2020 peak.",
+  "supported": [
+    "Initial jobless claims rose during the run-up to the 2020 peak",
+    "Total payroll employment fell during the run-up to the 2020 peak",
+    "Leisure & hospitality employment fell during the run-up to the 2020 peak",
+    "Construction employment fell during the run-up to the 2020 peak",
+    "Manufacturing employment fell during the run-up to the 2020 peak",
+    "Industrial production fell during the run-up to the 2020 peak"
+  ],
+  "verdicts": {
+    "H1": [
+      "supported",
+      "Initial jobless claims rose during the run-up to the 2020 peak"
+    ],
+    "H2": [
+      "supported",
+      "Total payroll employment fell during the run-up to the 2020 peak"
+    ],
+    "H3": [
+      "supported",
+      "Leisure & hospitality employment fell during the run-up to the 2020 peak"
+    ],
+    "H4": [
+      "supported",
+      "Construction employment fell during the run-up to the 2020 peak"
+    ],
+    "H5": [
+      "supported",
+      "Manufacturing employment fell during the run-up to the 2020 peak"
+    ],
+    "H6": [
+      "supported",
+      "Industrial production fell during the run-up to the 2020 peak"
+    ],
+    "H7": [
+      "inconclusive",
+      "The federal funds rate rose during the run-up to the 2020 peak"
+    ]
+  },
+  "reference": "Unemployment jumped to 14.7% in April 2020 as COVID-19 shutdowns cut 20.5M payroll jobs, with leisure and hospitality down 7.7M (BLS Employment Situation, April 2020).",
+  "source": "https://www.bls.gov/news.release/archives/empsit_05082020.htm",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 1.9
+}

@@ -1,0 +1,41 @@
+{
+  "id": "intc-rev-2023",
+  "question": "Why did Intel's revenue fall in 2023?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "down",
+  "measured_direction": "down",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": false,
+  "drivers_matched": [],
+  "driver_patterns": [
+    "demand"
+  ],
+  "confidence": 0.55,
+  "confidence_label": "Medium",
+  "summary": "Intel's revenue fell in FY2023: $63.05B -> $54.23B (-14.0%). The evidence is consistent with one driver: pricing pressure accompanied lower volumes (gross margin contracted). Only one independent driver was supported, so treat this as a partial explanation.",
+  "supported": [
+    "Pricing pressure accompanied lower volumes (gross margin contracted)",
+    "Operating leverage amplified the move (operating income moved more than revenue)"
+  ],
+  "verdicts": {
+    "H1": [
+      "supported",
+      "Pricing pressure accompanied lower volumes (gross margin contracted)"
+    ],
+    "H2": [
+      "inconclusive",
+      "Inventory piled up as demand fell (demand-led decline)"
+    ],
+    "H3": [
+      "supported",
+      "Operating leverage amplified the move (operating income moved more than revenue)"
+    ]
+  },
+  "reference": "Revenue fell 14% on weaker PC and server demand (customer inventory digestion) across CCG and DCAI (Intel 2023 10-K).",
+  "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=INTC&type=10-K&dateb=&owner=include&count=40",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 0.0
+}

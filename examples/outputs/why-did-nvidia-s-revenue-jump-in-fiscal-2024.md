@@ -1,18 +1,18 @@
 # Why did Nvidia's revenue jump in fiscal 2024?
 
-_Backend: **duckdb** · LLM: none · started 2026-10-22T10:48:01Z_
+_Backend: **duckdb** · LLM: none · started 2026-10-23T09:47:18Z_
 
 ## Answer
 
-Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence points mainly to (1) demand outstripped supply and pricing power rose (gross margin expanded with revenue); (2) sales ran ahead of inventory (demand-led growth); (3) operating leverage amplified the move (operating income moved more than revenue).
+Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence is consistent with these drivers: (1) demand outstripped supply and pricing power rose (gross margin expanded with revenue); (2) sales ran ahead of inventory (demand-led growth).
 
-**Confidence: High (0.7)** - 3 of 3 hypotheses supported; supported drivers cover ~100% of the move; 88% of queries returned data; 1 context corroborations.
+**Confidence: High (0.7)** - 3 of 3 hypotheses supported across 2 independent cause group(s); 100% of the indirect revenue signals agree; 88% of queries returned data; 1 context corroborations.
 
 ## Because
 
 - **Demand outstripped supply and pricing power rose (gross margin expanded with revenue)** - Margin moved with revenue - consistent with pricing power / mix. [F5, F6, F7]
-- **Sales ran ahead of inventory (demand-led growth)** -  [F8, F9, F10, F16]
-- **Operating leverage amplified the move (operating income moved more than revenue)** -  [F11, F12, F13]
+- **Sales ran ahead of inventory (demand-led growth)** - Revenue grew +125.9% vs inventory +2.4% (gap +123 pts). [F8, F9, F10, F16]
+- **Operating leverage amplified the move (operating income moved more than revenue)** - Operating income moved +680.6% vs revenue +125.9%. [F11, F12, F13]
 
 ## Caveats
 
@@ -25,8 +25,8 @@ Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence poin
 | # | Hypothesis | Test | Verdict | Detail |
 |---|---|---|---|---|
 | H1 | Demand outstripped supply and pricing power rose (gross margin expanded with revenue) | Gross margin change alongside revenue (>= 2 pts) | **supported** | Margin moved with revenue - consistent with pricing power / mix. |
-| H2 | Sales ran ahead of inventory (demand-led growth) | Inventory growth vs revenue growth (10-pt gap) | **supported** |  |
-| H3 | Operating leverage amplified the move (operating income moved more than revenue) | Operating income % change vs revenue % change | **supported** |  |
+| H2 | Sales ran ahead of inventory (demand-led growth) | Inventory growth vs revenue growth (10-pt gap) | **supported** | Revenue grew +125.9% vs inventory +2.4% (gap +123 pts). |
+| H3 | Operating leverage amplified the move (operating income moved more than revenue) | Operating income % change vs revenue % change | **supported** | Operating income moved +680.6% vs revenue +125.9%. |
 
 ## Evidence (every claim's source)
 
@@ -184,7 +184,7 @@ flowchart LR
 
 ## Reasoning trace
 
-1. **scout** - Intent explain.company_metric (band high, risk low); signed contract 001A1633999DD0000DF268187CA
+1. **scout** - Intent explain.company_metric (band high, risk low); signed contract 001A16828600C00001F0FABE6CC
 1. **recall** - H-MEM recalled 1 prior beliefs (minimal)
 1. **plan** - Resolve NVIDIA CORP (CIK 0001045810) and pull revenue for FY2021-FY2024 from SEC EDGAR
 1. **queries** - Ran 16 harness queries over 13 XBRL concepts
@@ -192,11 +192,11 @@ flowchart LR
 1. **hypotheses** - Revenue: test pricing power, demand vs supply signals and operating leverage
 1. **context** - Background search found 4 context snippets (context corroborates, never supplies numbers)
 1. **remember** - Wrote 10 memories with provenance; 0 conflicts with prior beliefs
-1. **done** - Finished in 6.6s
+1. **done** - Finished in 3.2s
 
 ## Scout execution contract
 
-Intent `explain.company_metric` (band high, risk low). Contract `001A1633999DD0000DF268187CA`, capabilities ['background.search', 'harness.query', 'llm.narrate', 'memory.recall', 'memory.write'], expires 2026-10-22T10:53:01Z, HMAC `408da924d9320580…`.
+Intent `explain.company_metric` (band high, risk low). Contract `001A16828600C00001F0FABE6CC`, capabilities ['background.search', 'harness.query', 'llm.narrate', 'memory.recall', 'memory.write'], expires 2026-10-23T09:52:18Z, HMAC `efe533fafbc76ee7…`.
 
 ## Recalled from memory (H-MEM)
 

@@ -23,6 +23,30 @@ INDICATORS = [("inflation", r"inflation|\bcpi\b|consumer prices|cost of living")
 COUNTRIES = [
     ("GB", r"\bu\.?k\.?\b|britain|british|united kingdom|england"),
     ("US", r"\bu\.?s\.?a?\.?\b|america|united states"),
+    # recognised so the answer can say "not supported yet" instead of asking for a country
+    ("DE", r"\bgerman|\bgermany\b"),
+    ("FR", r"\bfrench\b|\bfrance\b"),
+    ("EA", r"euro\s?(area|zone)|\beurozone\b"),
+    ("JP", r"\bjapan"),
+    ("CN", r"\bchina\b|\bchinese\b"),
+    ("IT", r"\bital(y|ian)\b"),
+    ("ES", r"\bspain\b|\bspanish\b"),
+    ("CA", r"\bcanad(a|ian)\b"),
+    ("AU", r"\baustralia"),
+    ("IN", r"\bindia\b|\bindian\b"),
+    ("IE", r"\bireland\b|\birish\b"),
+]
+COUNTRY_NAMES = {"GB": "UK", "US": "US", "DE": "German", "FR": "French", "EA": "euro-area", "JP": "Japanese", "CN": "Chinese",
+                 "IT": "Italian", "ES": "Spanish", "CA": "Canadian", "AU": "Australian", "IN": "Indian", "IE": "Irish"}
+# macro topics people ask about that have no playbook yet (named in the reply instead of a raw intent id)
+UNSUPPORTED_TOPICS = [
+    ("house prices", r"house\s+prices?|home\s+prices?|housing\s+market|property\s+prices?"),
+    ("GDP / economic growth", r"\bgdp\b|economic\s+growth|\brecession\b|\beconomy\b"),
+    ("wages", r"\bwages?\b|\bpay\s+growth|\bearnings\s+growth"),
+    ("interest rates", r"interest\s+rates?|bank\s+rate|fed\s+funds|mortgage\s+rates?"),
+    ("exchange rates", r"exchange\s+rate|\bpound\b|\bsterling\b|\bdollar\b|\beuro\b(?!\s?(area|zone))"),
+    ("stock prices", r"stock\s+(price|market)|share\s+price|\bs&p\b|\bftse\b|\bnasdaq\b"),
+    ("oil / energy prices", r"\boil\s+prices?|\bpetrol\s+prices?|\bgas\s+prices?|energy\s+prices?"),
 ]
 DOWN = r"fall|fell|drop|declin|shrink|shrank|collaps|plung|slump|lower|decreas|weak|squeez|crash|down"
 UP = r"rise|rose|jump|spike|surg|soar|grow|grew|increas|higher|boom|up\b|climb|rocket|balloon"
@@ -99,6 +123,11 @@ def parse_question(question: str) -> dict[str, Any]:
         co = resolve_company(question)
         if co:
             out["company"] = co
+        if not co and "metric" not in out:
+            for name, pat in UNSUPPORTED_TOPICS:
+                if re.search(pat, q):
+                    out["unsupported_topic"] = name
+                    break
     return out
 
 

@@ -1,0 +1,59 @@
+{
+  "id": "meta-ni-2022",
+  "question": "Why did Meta's net income drop in 2022?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "down",
+  "measured_direction": "down",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "r&d",
+    "gross profit fell|revenue fell"
+  ],
+  "driver_patterns": [
+    "r&d",
+    "restructuring",
+    "sg&a",
+    "gross profit fell|revenue fell"
+  ],
+  "confidence": 0.7,
+  "confidence_label": "High",
+  "summary": "Meta Platforms's net income fell in FY2022: $39.37B -> $23.20B (-41.1%). The evidence is consistent with these drivers: (1) R&D expense rose; (2) gross profit fell.",
+  "supported": [
+    "Gross profit fell",
+    "R&D expense rose"
+  ],
+  "verdicts": {
+    "H1": [
+      "supported",
+      "Gross profit fell"
+    ],
+    "H2": [
+      "supported",
+      "R&D expense rose"
+    ],
+    "H3": [
+      "inconclusive",
+      "SG&A expense rose"
+    ],
+    "H4": [
+      "inconclusive",
+      "Restructuring and impairment charges rose"
+    ],
+    "H5": [
+      "contradicted",
+      "Income tax expense rose"
+    ],
+    "H6": [
+      "inconclusive",
+      "Revenue fell in the same direction as profit"
+    ]
+  },
+  "reference": "Net income fell 41%: revenue declined 1% while costs and expenses rose 22% (Reality Labs R&D, headcount, $4.6B restructuring charges) (Meta Q4/FY2022 results; 2022 10-K).",
+  "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=META&type=10-K&dateb=&owner=include&count=40",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 2.0
+}

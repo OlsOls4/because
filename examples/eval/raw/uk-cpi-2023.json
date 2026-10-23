@@ -1,0 +1,80 @@
+{
+  "id": "uk-cpi-2023",
+  "question": "Why did UK inflation fall in 2023?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "down",
+  "measured_direction": "down",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "household energy|gas prices",
+    "transport|oil",
+    "food"
+  ],
+  "driver_patterns": [
+    "household energy|gas prices",
+    "transport|oil",
+    "food"
+  ],
+  "confidence": 0.83,
+  "confidence_label": "High",
+  "summary": "UK inflation fell in 2023: 10.5% (2022-12) -> 3.9% (2023-11 low), -6.6 pts; 2021 average 2.6%. The evidence is consistent with these drivers: (1) transport inflation (CPI transport, incl. motor fuel) fell during the 2023 decline; (2) food inflation (CPI food & non-alcoholic drinks) fell during the 2023 decline; (3) the 12-month change in the pound's value against the dollar rose during the 2023 decline.",
+  "supported": [
+    "Household energy inflation (CPI housing, water & fuels) fell during the 2023 decline",
+    "Food inflation (CPI food & non-alcoholic drinks) fell during the 2023 decline",
+    "Transport inflation (CPI transport, incl. motor fuel) fell during the 2023 decline",
+    "The 12-month change in wholesale European gas prices fell during the 2023 decline",
+    "The 12-month change in Brent crude oil prices fell during the 2023 decline",
+    "The 12-month change in global food commodity prices fell during the 2023 decline",
+    "The 12-month change in the pound's value against the dollar rose during the 2023 decline"
+  ],
+  "verdicts": {
+    "H1": [
+      "supported",
+      "Household energy inflation (CPI housing, water & fuels) fell during the 2023 decline"
+    ],
+    "H2": [
+      "supported",
+      "Food inflation (CPI food & non-alcoholic drinks) fell during the 2023 decline"
+    ],
+    "H3": [
+      "supported",
+      "Transport inflation (CPI transport, incl. motor fuel) fell during the 2023 decline"
+    ],
+    "H4": [
+      "inconclusive",
+      "Services inflation (CPI services) fell during the 2023 decline"
+    ],
+    "H5": [
+      "supported",
+      "The 12-month change in wholesale European gas prices fell during the 2023 decline"
+    ],
+    "H6": [
+      "supported",
+      "The 12-month change in Brent crude oil prices fell during the 2023 decline"
+    ],
+    "H7": [
+      "supported",
+      "The 12-month change in global food commodity prices fell during the 2023 decline"
+    ],
+    "H8": [
+      "supported",
+      "The 12-month change in the pound's value against the dollar rose during the 2023 decline"
+    ],
+    "H9": [
+      "inconclusive",
+      "UK short-term interest rates rose during the 2023 decline"
+    ],
+    "H10": [
+      "inconclusive",
+      "UK unemployment rose during the 2023 decline"
+    ]
+  },
+  "reference": "CPI fell from 10.5% (Dec 2022) to about 4% by late 2023; the largest downward contributions were household energy (Ofgem price cap falls), motor fuels and, later, food (ONS consumer price inflation bulletins, 2023).",
+  "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/november2023",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 0.1
+}

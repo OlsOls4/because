@@ -35,6 +35,9 @@ class Hypothesis:
     evidence: list[str] = field(default_factory=list)
     counter: list[str] = field(default_factory=list)
     detail: str = ""
+    group: str = ""  # cause group: correlated drivers share one (evidence weight is de-duplicated by group)
+    context: str = ""  # narrative/mechanism note, shown only when supported and always labelled as context
+    one_off: str = ""  # set when the driver looks like a one-off item (tax benefit reversal, large single-year charge)
 
 
 @dataclass

@@ -1,0 +1,71 @@
+{
+  "id": "us-cpi-2021",
+  "question": "Why did US inflation rise in 2021?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "up",
+  "measured_direction": "up",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "energy",
+    "used-car",
+    "oil"
+  ],
+  "driver_patterns": [
+    "energy",
+    "used-car",
+    "oil"
+  ],
+  "confidence": 0.75,
+  "confidence_label": "High",
+  "summary": "US inflation rose in 2021: 1.3% (2020-12) -> 7.2% (2021-12 peak), +5.9 pts; 2019 average 1.8%. The evidence is consistent with these drivers: (1) energy inflation (US CPI energy) rose during the run-up to the 2021 peak; (2) used-car price inflation (US CPI used cars) rose during the run-up to the 2021 peak; (3) M2 money supply growth (12-month %) rose during the run-up to the 2021 peak.",
+  "supported": [
+    "Energy inflation (US CPI energy) rose during the run-up to the 2021 peak",
+    "Food inflation (US CPI food) rose during the run-up to the 2021 peak",
+    "Used-car price inflation (US CPI used cars) rose during the run-up to the 2021 peak",
+    "The 12-month change in Brent crude oil prices rose during the run-up to the 2021 peak",
+    "M2 money supply growth (12-month %) rose during the run-up to the 2021 peak",
+    "The federal funds rate was low (average below 1%) in the 6-18 months before the 2021 peak"
+  ],
+  "verdicts": {
+    "H1": [
+      "supported",
+      "Energy inflation (US CPI energy) rose during the run-up to the 2021 peak"
+    ],
+    "H2": [
+      "supported",
+      "Food inflation (US CPI food) rose during the run-up to the 2021 peak"
+    ],
+    "H3": [
+      "supported",
+      "Used-car price inflation (US CPI used cars) rose during the run-up to the 2021 peak"
+    ],
+    "H4": [
+      "inconclusive",
+      "Shelter inflation (US CPI shelter) rose during the run-up to the 2021 peak"
+    ],
+    "H5": [
+      "supported",
+      "The 12-month change in Brent crude oil prices rose during the run-up to the 2021 peak"
+    ],
+    "H6": [
+      "supported",
+      "M2 money supply growth (12-month %) rose during the run-up to the 2021 peak"
+    ],
+    "H7": [
+      "supported",
+      "The federal funds rate was low (average below 1%) in the 6-18 months before the 2021 peak"
+    ],
+    "H8": [
+      "contradicted",
+      "US unemployment was at least 0.3 pts below its 2019 average in the 6-18 months before the 2021 peak"
+    ]
+  },
+  "reference": "CPI-U rose 7.0% over 2021; energy +29.3% and used cars and trucks +37.3% were among the largest increases (BLS CPI, December 2021).",
+  "source": "https://www.bls.gov/news.release/archives/cpi_01122022.htm",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 1.1
+}

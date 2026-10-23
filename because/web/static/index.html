@@ -4,84 +4,166 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Because - the analyst that shows its work</title>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<meta name="description" content="Ask why. Every claim links to the exact SQL query and source row behind it, with counter-evidence and an auditable confidence.">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
 <style>
-  :root { --ink:#111827; --muted:#6b7280; --line:#e5e7eb; --bg:#fafaf9; --card:#fff; --accent:#4338ca;
-          --sup:#047857; --con:#b91c1c; --inc:#6b7280; --ctx:#a16207; --teal:#0f766e; --amber:#b45309; --amber-bg:#fffbeb; }
+  :root { --ink:#111827; --muted:#6b7280; --line:#e5e7eb; --bg:#fafaf9; --card:#fff; --accent:#4338ca; --accent-bg:#eef2ff;
+          --sup:#047857; --sup-bg:#d1fae5; --con:#b91c1c; --con-bg:#fee2e2; --inc:#6b7280; --ctx:#a16207;
+          --teal:#0f766e; --teal-bg:#ccfbf1; --amber:#b45309; --amber-bg:#fffbeb; }
   * { box-sizing: border-box; }
   body { margin:0; font:15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif; color:var(--ink); background:var(--bg); overflow-x:hidden; }
-  header { padding:28px 32px 8px; max-width:1200px; margin:auto; }
+  header { padding:24px 32px 4px; max-width:1200px; margin:auto; }
   .header-row { display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:12px; }
   h1 { margin:0; font-size:28px; letter-spacing:-.02em; } h1 span { color:var(--accent); }
-  .tag { color:var(--muted); margin:4px 0 0; }
-  .backend-badge { display:inline-flex; flex-direction:column; align-items:flex-end; gap:4px; }
-  .badge { display:inline-block; padding:5px 12px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:.02em; }
-  .badge.zetaris { background:#ccfbf1; color:var(--teal); }
-  .badge.duckdb { background:#f3f4f6; color:#4b5563; }
-  .hybrid-note { font-size:12px; color:var(--muted); max-width:280px; text-align:right; }
-  .fallback-box { margin-top:12px; padding:10px 14px; background:var(--amber-bg); border:1px solid #fcd34d; border-radius:10px; color:var(--amber); font-size:13.5px; }
-  main { max-width:1200px; margin:auto; padding:8px 32px 60px; }
-  form { display:flex; gap:8px; margin:16px 0 8px; }
+  .tag { color:var(--muted); margin:4px 0 0; max-width:720px; }
+  .proof { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+  .zbadge { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:999px; border:1px solid #5eead4; background:var(--teal-bg); color:var(--teal); font-size:13px; font-weight:700; cursor:pointer; }
+  .zbadge:hover { border-color:var(--teal); }
+  .zbadge .tick { display:inline-grid; place-items:center; width:16px; height:16px; border-radius:50%; background:var(--teal); color:#fff; font-size:11px; }
+  a.extlink { color:var(--teal); font-size:12.5px; font-weight:600; text-decoration:none; white-space:nowrap; }
+  a.extlink:hover { text-decoration:underline; }
+  main { max-width:1200px; margin:auto; padding:4px 32px 60px; }
+  form { display:flex; gap:8px; margin:14px 0 8px; }
   input[type=text] { flex:1; min-width:0; padding:12px 14px; font-size:16px; border:1px solid var(--line); border-radius:10px; background:#fff; }
-  button { padding:10px 16px; border-radius:10px; border:1px solid var(--accent); background:var(--accent); color:#fff; font-weight:600; cursor:pointer; }
+  button { padding:10px 16px; border-radius:10px; border:1px solid var(--accent); background:var(--accent); color:#fff; font-weight:600; cursor:pointer; font:inherit; font-weight:600; }
   button.ghost { background:#fff; color:var(--accent); }
+  button.small { padding:5px 11px; font-size:13px; }
   button:disabled { opacity:.5; cursor:wait; }
-  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
   .chips.disabled { opacity:.55; pointer-events:none; }
-  .chip { font-size:13px; padding:5px 10px; border-radius:999px; border:1px solid var(--line); background:#fff; cursor:pointer; color:var(--ink); font-weight:500; }
+  .chip { font-size:13px; padding:5px 11px; border-radius:999px; border:1px solid var(--line); background:#fff; cursor:pointer; color:var(--ink); font-weight:500; white-space:nowrap; }
+  .chip:hover, .chip.on { border-color:var(--accent); color:var(--accent); }
   .chip .zmark { display:inline-block; margin-left:6px; padding:0 5px; border-radius:4px; background:var(--teal); color:#fff; font-size:10px; font-weight:800; vertical-align:middle; }
-  .zrow-label { font-size:12px; color:var(--muted); margin:4px 0 6px; }
-  .status { color:var(--muted); font-size:13px; min-height:20px; }
+  details.how { margin:2px 0 10px; font-size:14px; }
+  details.how summary { cursor:pointer; color:var(--accent); font-weight:600; width:max-content; max-width:100%; }
+  .how-body { margin-top:8px; padding:12px 16px; background:#fff; border:1px solid var(--line); border-radius:12px; display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; }
+  .how-body h3 { font-size:13px; margin:0 0 4px; }
+  .how-body p, .how-body ul { margin:0; color:#374151; font-size:13.5px; } .how-body ul { padding-left:18px; }
+  .zstrip { border:1px solid #99f6e4; background:#f0fdfa; border-radius:12px; padding:10px 14px 4px; margin:4px 0 10px; }
+  .zstrip-head { display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:13.5px; color:#134e4a; margin-bottom:8px; }
+  .zstrip-head b { color:var(--teal); }
+  .zstrip .chips { margin-bottom:6px; }
+  .zstrip .chip { font-size:12px; padding:3px 9px; }
+  .zstrip { padding:8px 12px 2px; } .zstrip-head { margin-bottom:6px; }
+  .runbar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin:8px 0 4px; min-height:32px; }
+  .status { color:var(--muted); font-size:13px; }
   .status.loading::after { content:""; display:inline-block; width:.6em; margin-left:2px; animation:blink 1s steps(2,end) infinite; }
   @keyframes blink { 50% { opacity:0; } }
-  .pipeline { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 16px; align-items:stretch; }
-  .pipe-step { flex:1 1 120px; min-width:110px; text-align:left; padding:10px 12px; border-radius:12px; border:1px solid var(--line); background:#fff; cursor:pointer; color:var(--ink); font-weight:600; font-size:12px; }
+  .pipeline { display:flex; gap:6px; margin:8px 0 14px; align-items:stretch; }
+  .pipe-step { flex:1 1 0; min-width:0; text-align:left; padding:9px 12px; border-radius:12px; border:1px solid var(--line); background:#fff; cursor:pointer; color:var(--ink); font-weight:600; font-size:12px; }
   .pipe-step:hover { border-color:var(--accent); }
-  .pipe-step .label { color:var(--accent); text-transform:uppercase; letter-spacing:.04em; font-size:11px; }
-  .pipe-step .count { display:block; margin-top:4px; font-size:12.5px; font-weight:500; color:var(--ink); line-height:1.35; }
-  .grid { display:grid; grid-template-columns: 1.15fr 1fr; gap:16px; }
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: 1fr; }
-    header, main { padding-left:16px; padding-right:16px; }
-    .backend-badge { align-items:flex-start; }
-    .hybrid-note { text-align:left; }
-  }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin-bottom:16px; }
-  .card h2 { font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 10px; }
-  .summary { font-size:18px; line-height:1.45; }
+  .pipe-step .label { color:var(--accent); font-size:12px; font-weight:700; }
+  .pipe-step .count { display:block; margin-top:3px; font-size:12.5px; font-weight:500; color:var(--ink); line-height:1.35; }
+  .pipeline-m { display:none !important; }
+  .grid { display:grid; grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); gap:16px; }
+  .grid > div { min-width:0; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin-bottom:16px; min-width:0; }
+  .card h2 { font-size:12.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 10px; display:flex; align-items:center; gap:6px; }
+  .answer-head { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .answer-head h2 { margin:0; }
+  .confbadge { display:inline-flex; align-items:center; gap:6px; padding:4px 12px; border-radius:999px; font-size:13px; font-weight:700; background:#f3f4f6; color:#374151; }
+  .confbadge.high { background:var(--sup-bg); color:var(--sup); } .confbadge.medium { background:#fef3c7; color:var(--amber); } .confbadge.low { background:var(--con-bg); color:var(--con); }
+  .srcline { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:-2px 0 10px; }
+  .src { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:600; border:1px solid var(--line); background:#f9fafb; color:#4b5563; }
+  button.src { cursor:pointer; font-size:12px; }
+  .src.z { background:var(--teal-bg); border-color:#5eead4; color:var(--teal); }
+  .summary { font-size:18px; line-height:1.45; overflow-wrap:anywhere; }
+  td, .claims li, .hlist li { overflow-wrap:break-word; }
+  td.nw, th.nw { white-space:nowrap; }
+  .grp { display:inline-flex; align-items:center; white-space:nowrap; }
+  .memlist li { margin:8px 0 !important; } .memlist .muted { font-size:12.5px; }
+  .summary ul { font-size:14.5px; margin:8px 0 0; padding-left:18px; } .summary li { margin:4px 0; }
   .narr { margin-top:10px; padding:10px 12px; background:#f5f3ff; border-radius:10px; font-size:14.5px; }
   .conf { display:flex; align-items:center; gap:10px; margin-top:12px; font-size:13px; color:var(--muted); }
-  .bar { flex:0 0 160px; max-width:40%; height:8px; background:#eee; border-radius:4px; overflow:hidden; } .bar i { display:block; height:100%; background:var(--accent); }
+  .bar { flex:0 0 140px; max-width:35%; height:8px; background:#eee; border-radius:4px; overflow:hidden; } .bar i { display:block; height:100%; background:var(--accent); }
+  .friendly { margin-top:10px; padding:12px 14px; border-radius:10px; background:#f9fafb; border:1px dashed #d1d5db; font-size:14px; color:#374151; }
+  .suggest { margin-top:12px; } .suggest .k { font-size:13px; color:var(--muted); margin-bottom:6px; }
+  .suggest .chips { flex-wrap:wrap; }
   ul.claims { padding-left:18px; margin:6px 0; } ul.claims li { margin:6px 0; }
-  .cite { display:inline-block; font-size:11.5px; padding:1px 6px; margin:0 2px; border-radius:6px; background:#eef2ff; color:var(--accent); cursor:pointer; font-weight:600; }
+  .cite { display:inline-block; font:inherit; font-size:11.5px; line-height:1.5; padding:1px 7px; margin:0 2px; border-radius:6px; border:1px solid transparent; background:var(--accent-bg); color:var(--accent); cursor:pointer; font-weight:700; }
+  .cite:hover, .cite[aria-expanded=true] { border-color:var(--accent); }
   .cite.ctx { background:#fef9c3; color:var(--ctx); }
+  .cite.against { background:var(--con-bg); color:var(--con); }
+  .info { display:inline-grid; place-items:center; width:17px; height:17px; padding:0; margin:0 2px; border-radius:50%; border:1px solid #c7d2fe; background:#fff; color:var(--accent); font:700 11px/1 Georgia, serif; font-style:italic; cursor:pointer; vertical-align:middle; text-transform:none; letter-spacing:0; }
+  .info:hover, .info[aria-expanded=true] { background:var(--accent); color:#fff; }
+  .pop { position:absolute; z-index:50; width:340px; max-width:calc(100vw - 24px); background:#fff; border:1px solid #c7d2fe; border-radius:12px; box-shadow:0 12px 32px rgba(17,24,39,.18); padding:12px 14px; font-size:13.5px; line-height:1.45; }
+  .pop .ph { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px; font-weight:700; }
+  .pop .x { background:none; border:none; color:var(--muted); font-size:18px; line-height:1; padding:0 2px; cursor:pointer; }
+  .pop .meta { color:var(--muted); font-size:12.5px; margin-top:6px; word-break:break-word; }
+  .pop .acts { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; align-items:center; }
+  .pop a { color:var(--accent); font-weight:600; }
   .muted { color:var(--muted); font-size:13px; }
-  .tabs { display:flex; gap:4px; border-bottom:1px solid var(--line); margin-bottom:12px; flex-wrap:wrap; }
-  .tab { padding:8px 12px; cursor:pointer; border:none; border-bottom:2px solid transparent; background:transparent; color:var(--muted); font-weight:600; font-size:13px; border-radius:0; }
+  .tabs { display:flex; gap:2px; border-bottom:1px solid var(--line); margin-bottom:12px; overflow-x:auto; scrollbar-width:thin; -webkit-overflow-scrolling:touch; }
+  .tab { flex:0 0 auto; padding:8px 12px; cursor:pointer; border:none; border-bottom:2px solid transparent; background:transparent; color:var(--muted); font-weight:600; font-size:13px; border-radius:0; white-space:nowrap; }
   .tab.on { color:var(--accent); border-bottom-color:var(--accent); }
+  .panel-intro { display:flex; align-items:flex-start; gap:6px; margin:0 0 10px; color:#374151; font-size:13.5px; }
   .table-wrap { overflow:auto; width:100%; -webkit-overflow-scrolling:touch; }
   table { width:100%; border-collapse:collapse; font-size:13px; } th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
   th { color:var(--muted); font-weight:600; }
-  tr.hl { background:#fffbeb; }
+  tr.hl, .hl-card { background:#fffbeb; }
+  .query-block { padding:2px 0; }
   .query-block.hl { outline:2px solid #fcd34d; background:#fffbeb; border-radius:10px; padding:8px; }
   .v-supported { color:var(--sup); font-weight:700; } .v-contradicted { color:var(--con); font-weight:700; } .v-inconclusive { color:var(--inc); font-weight:700; }
+  .vpill { display:inline-block; padding:1px 8px; border-radius:999px; font-size:11.5px; font-weight:700; text-transform:capitalize; }
+  .vpill.supported { background:var(--sup-bg); color:var(--sup); } .vpill.contradicted { background:var(--con-bg); color:var(--con); } .vpill.inconclusive { background:#f3f4f6; color:#4b5563; }
   pre { background:#0f172a; color:#e2e8f0; padding:10px 12px; border-radius:8px; overflow:auto; font-size:12px; white-space:pre-wrap; max-width:100%; }
-  .steps li { margin:4px 0; } .steps b { display:inline-block; min-width:90px; color:var(--accent); }
-  #graph { overflow:auto; min-height:120px; max-width:100%; }
+  .steps { padding-left:20px; } .steps li { margin:4px 0; } .steps b { display:inline-block; min-width:90px; color:var(--accent); }
+  .gtoggle { display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; margin-left:auto; }
+  .gtoggle button { border:none; border-radius:0; background:#fff; color:var(--muted); padding:3px 10px; font-size:12px; text-transform:none; letter-spacing:0; }
+  .gtoggle button.on { background:var(--accent-bg); color:var(--accent); }
+  .g-graph { overflow:auto; min-height:120px; max-width:100%; }
+  .g-list { display:none; }
+  #graph.mode-list .g-graph { display:none; } #graph.mode-list .g-list { display:block; }
+  .hlist { list-style:none; padding:0; margin:0; }
+  .hlist li { padding:8px 0; border-bottom:1px solid var(--line); font-size:14px; } .hlist li:last-child { border-bottom:none; }
+  .hlist .ev { margin-top:3px; font-size:12.5px; color:var(--muted); }
   .pill { display:inline-block; padding:2px 8px; border-radius:999px; background:#f3f4f6; font-size:12px; margin:2px 4px 2px 0; }
-  .pill.teal { background:#ccfbf1; color:var(--teal); font-weight:600; }
+  .pill.teal { background:var(--teal-bg); color:var(--teal); font-weight:600; }
   .pill.grey { background:#e5e7eb; color:#4b5563; font-weight:600; }
-  .pill.ok { background:#d1fae5; color:var(--sup); font-weight:600; }
+  .pill.ok { background:var(--sup-bg); color:var(--sup); font-weight:600; }
+  .pill.warn { background:#fef3c7; color:var(--amber); font-weight:600; }
   .query-head { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:14px 0 6px; }
   .query-head:first-child { margin-top:0; }
-  .copy-sql { padding:4px 10px; font-size:12px; }
   .meter-grid { display:grid; gap:8px; font-size:13.5px; }
-  .meter-grid .row { display:flex; flex-wrap:wrap; gap:6px; align-items:baseline; }
-  .meter-grid .k { color:var(--muted); min-width:88px; font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+  .meter-grid .row { display:flex; flex-wrap:wrap; gap:4px 6px; align-items:center; }
+  .meter-grid .k { color:var(--muted); min-width:96px; font-size:12px; font-weight:600; }
   .linkish { background:none; border:none; color:var(--accent); padding:0; font:inherit; font-weight:600; cursor:pointer; text-decoration:underline; }
-  .hidden { display:none; }
+  .hidden { display:none !important; }
+  .m-only { display:none; }
   footer { color:var(--muted); font-size:12px; text-align:center; padding:20px; }
   a.qid { color:var(--accent); font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; }
+  code { font-size:12.5px; word-break:break-all; }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: minmax(0,1fr); }
+    header, main { padding-left:16px; padding-right:16px; }
+    .how-body { grid-template-columns:1fr; }
+  }
+  @media (max-width: 700px) {
+    header { padding-top:16px; }
+    h1 { font-size:24px; } .tag { font-size:14px; }
+    .card { padding:14px 14px; }
+    .summary { font-size:16.5px; }
+    /* example chips: one swipeable row instead of a tall wrap */
+    #chips, #zchips { flex-wrap:nowrap; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+    #chips::-webkit-scrollbar, #zchips::-webkit-scrollbar { display:none; }
+    /* pipeline: compact 2-column stack, shown under the answer */
+    #pipeline { display:none !important; } .pipeline-m { display:grid !important; margin-top:-4px; }
+    main { display:flex; flex-direction:column; } #zrow { order:5; margin-top:8px; }
+    .pipeline { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+    .pipe-step { padding:7px 10px; }
+    .pipe-step:last-child { grid-column:1 / -1; }
+    /* evidence graph: list view only (mermaid labels become unreadable) */
+    #graph .g-graph, .gtoggle { display:none !important; } #graph .g-list { display:block !important; }
+    /* tables become stacked cards */
+    table.resp thead { display:none; }
+    table.resp, table.resp tbody, table.resp tr, table.resp td { display:block; width:100%; }
+    table.resp tr { border:1px solid var(--line); border-radius:10px; padding:8px 10px; margin-bottom:8px; }
+    table.resp td { border:none; padding:3px 0; }
+    table.resp td[data-label]::before { content:attr(data-label); display:block; font-size:11px; font-weight:600; color:var(--muted); }
+    .m-only { display:inline-block; } table.resp td.d-only { display:none; }
+    .conf { flex-direction:column; align-items:stretch; gap:6px; } .bar { flex:0 0 8px; max-width:none; width:100%; }
+    .meter-grid .k { min-width:100%; }
+  }
 </style>
 </head>
 <body>
@@ -91,42 +173,71 @@
       <h1>Because<span>.</span></h1>
       <p class="tag">Ask <b>why</b>. Get an answer where every claim links to the exact query and source row behind it, with counter-evidence and a confidence you can audit.</p>
     </div>
-    <div class="backend-badge" id="backend-badge" aria-live="polite"></div>
+    <div class="proof">
+      <button type="button" class="zbadge" id="zbadge" title="Open the run recorded on a live Zetaris Lightning instance"><span class="tick">✓</span>Ran on Zetaris Lightning</button>
+      <a class="extlink" id="cilink" href="https://github.com/OlsOls4/because/actions/runs/39928173953" target="_blank" rel="noopener">CI run ↗</a>
+    </div>
   </div>
-  <div id="fallback" class="fallback-box hidden" role="status"></div>
 </header>
 <main>
   <form id="f">
-    <input id="q" type="text" placeholder="Why did Intel's gross margin fall in 2024?" autocomplete="off" aria-label="Question">
+    <input id="q" type="text" placeholder="Why did Intel's gross margin fall in 2024?" autocomplete="off" maxlength="300" aria-label="Question">
     <button id="go" type="submit">Investigate</button>
   </form>
-  <div class="chips" id="chips"></div>
-  <div id="zrow" class="hidden">
-    <div class="zrow-label">Recorded on a live Zetaris instance:</div>
+  <div class="chips" id="chips" aria-label="Example questions"></div>
+  <details class="how" id="how">
+    <summary>How it works · what it can answer</summary>
+    <div class="how-body">
+      <div><h3>What it can answer</h3>
+        <ul>
+          <li><b>US SEC filers</b> (Intel, Nvidia, Apple…): revenue, gross margin, operating margin, operating income, net income, by fiscal year.</li>
+          <li><b>Macro</b>: UK and US inflation and unemployment, by year.</li>
+          <li><b>Memory</b>: “What do you already know about …?”</li>
+        </ul></div>
+      <div><h3>How it answers</h3>
+        <p>Scout routes the question and signs a contract for the allowed tools. The analyst runs SQL over public data (SEC EDGAR, ONS, FRED) through Zetaris Lightning, turns rows into findings, tests each candidate cause against explicit thresholds, then scores confidence.</p></div>
+      <div><h3>How to check it</h3>
+        <p>Tap any citation chip (<span class="cite" style="cursor:default">F2</span>) to see its source row, query and link. The tabs show every SQL query, the full reasoning trace and what was remembered for next time.</p></div>
+    </div>
+  </details>
+  <div class="zstrip hidden" id="zrow">
+    <div class="zstrip-head"><span class="zbadge" style="cursor:default;padding:3px 10px;font-size:12px"><span class="tick">✓</span>Ran on Zetaris Lightning</span>
+      <span>All 5 questions recorded over JDBC on a live instance, 0 query errors. Open a trace:</span>
+      <a class="extlink" href="https://github.com/OlsOls4/because/actions/runs/39928173953" target="_blank" rel="noopener">GitHub Actions run ↗</a></div>
     <div class="chips" id="zchips"></div>
   </div>
-  <div class="status" id="status"></div>
-  <div class="pipeline hidden" id="pipeline" role="navigation" aria-label="Investigation pipeline"></div>
+  <div class="runbar">
+    <div class="status" id="status" aria-live="polite"></div>
+    <button type="button" class="ghost small hidden" id="rerun">↻ Re-run live</button>
+  </div>
 
   <div id="result" class="hidden">
+    <div class="pipeline" id="pipeline" role="navigation" aria-label="Investigation pipeline"></div>
     <div class="grid">
       <div>
-        <div class="card" id="answer-card"><h2>Answer</h2>
+        <div class="card" id="answer-card">
+          <div class="answer-head"><h2>Answer</h2><span class="confbadge" id="confbadge"></span></div>
+          <div class="srcline" id="srcline"></div>
           <div class="summary" id="summary"></div>
+          <div class="friendly hidden" id="friendly"></div>
+          <div class="suggest hidden" id="suggest"><div class="k">Try one of these:</div><div class="chips" id="suggest-chips"></div></div>
           <div class="narr hidden" id="narr"></div>
-          <div class="conf"><div class="bar"><i id="confbar"></i></div><span id="conf"></span></div>
+          <div class="conf" id="confrow"><div class="bar"><i id="confbar"></i></div><span id="conf"></span></div>
         </div>
-        <div class="card"><h2>Because</h2><ul class="claims" id="because"></ul></div>
-        <div class="card"><h2>Counter-evidence and limits</h2><ul class="claims" id="counter"></ul><div id="caveats" class="muted"></div></div>
+        <div class="pipeline pipeline-m" id="pipeline-m" role="navigation" aria-label="Investigation pipeline"></div>
+        <div class="card" id="because-card"><h2>Because</h2><ul class="claims" id="because"></ul></div>
+        <div class="card" id="counter-card"><h2>Counter-evidence and limits</h2><ul class="claims" id="counter"></ul><div id="caveats" class="muted"></div></div>
       </div>
       <div>
-        <div class="card"><h2>Evidence graph</h2><div id="graph"></div>
-          <div class="muted">question → hypotheses (green supported, red contradicted, grey inconclusive) → findings → harness queries</div></div>
-        <div class="card"><h2>Meterless</h2><div id="meterless"></div></div>
+        <div class="card"><h2>Evidence graph
+            <span class="gtoggle" role="group" aria-label="Graph view"><button type="button" data-g="graph" class="on">Graph</button><button type="button" data-g="list">List</button></span></h2>
+          <div id="graph" class="mode-graph"><div class="g-graph" id="g-graph"></div><div class="g-list" id="g-list"></div></div>
+          <div class="muted" id="graph-legend">question → hypotheses (green supported, red contradicted, grey inconclusive) → findings → SQL queries</div></div>
+        <div class="card"><h2>Routing &amp; memory <span style="text-transform:none;letter-spacing:0">(Meterless)</span></h2><div id="meterless"></div></div>
         <div class="card"><h2>Run</h2><div id="meta" class="muted"></div></div>
       </div>
     </div>
-    <div class="card">
+    <div class="card" id="tabs-card">
       <div class="tabs" id="tabs" role="tablist">
         <button type="button" class="tab on" role="tab" aria-selected="true" data-t="evidence">Evidence</button>
         <button type="button" class="tab" role="tab" aria-selected="false" data-t="hyp">Hypotheses</button>
@@ -144,100 +255,199 @@
     </div>
   </div>
 </main>
-<footer>Data: SEC EDGAR, ONS, FRED (St. Louis Fed), Wikipedia. Data harness: Zetaris Lightning (or local DuckDB). Memory & routing: Meterless H-MEM + Scout Intent. LLM (optional): NVIDIA NIM / Groq / Gemini.</footer>
+<footer id="footer">Data: SEC EDGAR, ONS, FRED (St. Louis Fed), Wikipedia. Data harness: Zetaris Lightning. Routing &amp; memory: Meterless Scout + H-MEM. LLM narration (optional): NVIDIA NIM / Groq / Gemini.</footer>
+<div class="pop hidden" id="pop" role="dialog" aria-modal="false"></div>
 <script>
-mermaid.initialize({ startOnLoad:false, theme:"neutral", flowchart:{ htmlLabels:true, curve:"basis" } });
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const escAttr = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let T = null;
-let loadTimer = null;
+const CI_RUN = "https://github.com/OlsOls4/because/actions/runs/39928173953";
+const MEMORY_Q = "What do you already know about Intel's margins?";
+const MEMORY_SLUG = "memory-recall-intel";
 const LOAD_STAGES = ["Scout", "H-MEM recall", "Zetaris queries", "hypothesis tests", "answer"];
+const INTENT_LABEL = {
+  "explain.company_metric": "a company's financials (SEC filers)",
+  "explain.macro_series": "a UK/US macro indicator",
+  "memory.explain_belief": "what I already remember",
+};
+const INTENT_EXAMPLES = {
+  "explain.company_metric": ["Why did Intel's gross margin fall in 2024?", "Why did Nvidia's revenue jump in fiscal 2024?"],
+  "explain.macro_series": ["Why did UK inflation spike in 2022?", "Why did US unemployment spike in 2020?"],
+  "memory.explain_belief": [MEMORY_Q],
+};
+const JARGON = {
+  confidence: ["Confidence", "Scored from the evidence, not guessed: share of hypotheses supported, how much of the move the supported drivers explain, how many queries returned data, and context corroborations. It is capped when a key breakdown is missing from the data."],
+  corroborations: ["Context corroborations", "Context findings (e.g. Wikipedia, news) that independently agree with a supported driver. They add a little confidence but never supply the numbers; every number comes from a SQL query."],
+  band: ["Band", "How strongly the question matched a supported intent. High: proceed. Medium or low: ask a clarifying question instead of guessing. Reject: out of scope."],
+  risk: ["Risk", "Result of Scout's guard stack (prompt-injection, policy and scope checks) before any tool runs. Block means nothing was executed."],
+  contract: ["Scout contract", "Scout classifies the question and issues a short-lived, HMAC-signed contract listing the only tools the analyst may call. The executor checks it before every tool call, so a crafted prompt can't make the agent do anything else."],
+  hmem: ["H-MEM", "Hierarchical memory. Every finding is stored with its provenance (query, rows, source URL) and a confidence, recalled before the next investigation, and adjustable with 👍 / ✗ feedback."],
+  demo: ["Demo data", "This public demo answers from a local DuckDB copy of the same public tables, running the same SQL the agent sends to Zetaris Lightning. The recorded Zetaris runs show the identical pipeline over JDBC on a live instance."],
+};
+let T = null, MERMAID = "", loadTimer = null, current = null;  // current = {kind:'saved'|'zetaris'|'live', slug, question}
+let SAVED = [], ZRUNS = [];
 
-function setChipsEnabled(on) {
-  ["chips", "zchips"].forEach(id => {
-    const el = $(id); if (el) el.classList.toggle("disabled", !on);
-  });
+/* ---------- popovers (tap / click; work on touch) ---------- */
+let popAnchor = null;
+function closePop() {
+  $("pop").classList.add("hidden");
+  if (popAnchor) popAnchor.setAttribute("aria-expanded", "false");
+  popAnchor = null;
 }
+function openPop(anchor, html) {
+  if (popAnchor === anchor) { closePop(); return; }
+  closePop();
+  const p = $("pop");
+  p.innerHTML = html; p.classList.remove("hidden");
+  popAnchor = anchor; anchor.setAttribute("aria-expanded", "true");
+  const r = anchor.getBoundingClientRect();
+  const w = p.offsetWidth, vw = document.documentElement.clientWidth;
+  let left = r.left + window.scrollX + r.width / 2 - w / 2;
+  left = Math.max(window.scrollX + 12, Math.min(left, window.scrollX + vw - w - 12));
+  let top = r.bottom + window.scrollY + 6;
+  if (r.bottom + p.offsetHeight + 12 > window.innerHeight && r.top > p.offsetHeight + 12) top = r.top + window.scrollY - p.offsetHeight - 6;
+  p.style.left = left + "px"; p.style.top = top + "px";
+  const x = p.querySelector(".x"); if (x) x.onclick = closePop;
+}
+function popHead(title) { return `<div class="ph"><span>${title}</span><button type="button" class="x" aria-label="Close">×</button></div>`; }
+function info(key) { return `<button type="button" class="info" data-info="${key}" aria-label="What is ${escAttr(JARGON[key][0])}?" aria-expanded="false">i</button>`; }
+document.addEventListener("click", (e) => {
+  const c = e.target.closest(".cite[data-f]");
+  if (c) { e.preventDefault(); openPop(c, findingPop(c.dataset.f)); return; }
+  const i = e.target.closest(".info[data-info]");
+  if (i) { e.preventDefault(); const [t, body] = JARGON[i.dataset.info]; openPop(i, popHead(esc(t)) + `<div>${esc(body)}</div>`); return; }
+  const act = e.target.closest("[data-act]");
+  if (act) {
+    const a = act.dataset.act, v = act.dataset.v;
+    closePop();
+    if (a === "jump") jump(v); else if (a === "query") jumpQuery(v); else if (a === "tab") tab(v);
+    return;
+  }
+  if (!e.target.closest("#pop")) closePop();
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closePop(); });
+window.addEventListener("resize", closePop);
+
+function finding(id) { return (T.findings || []).find(x => x.id === id); }
+function findingPop(id) {
+  const f = finding(id);
+  if (!f) return popHead(esc(id)) + `<div class="muted">Not in this run's findings.</div>`;
+  const kind = f.kind === "context" ? "context (corroboration only)" : f.kind;
+  return popHead(`${esc(f.id)} <span class="muted" style="font-weight:500">· ${esc(kind)}</span>`)
+    + `<div>${esc(f.statement)}</div>`
+    + (f.kind === "derived" ? `<div class="meta">Calculated from the query results in this run (no extra query).</div>` : "")
+    + (f.kind === "context" ? `<div class="meta">Context only: it can corroborate a driver but never supplies a number.</div>` : "")
+    + (f.query_id ? `<div class="meta">From SQL query <code>${esc(f.query_id)}</code>${f.rows ? ` · row ${esc((f.rows || []).join(", "))}` : ""}</div>` : "")
+    + `<div class="acts">`
+    + (f.source_url ? `<a href="${escAttr(f.source_url)}" target="_blank" rel="noopener">Open source ↗</a>` : "")
+    + (f.query_id ? `<button type="button" class="ghost small" data-act="query" data-v="${escAttr(f.query_id)}">Show SQL</button>` : "")
+    + `<button type="button" class="ghost small" data-act="jump" data-v="${escAttr(f.id)}">In evidence table</button></div>`;
+}
+function cites(ids, cls) {
+  return (ids || []).map(id => {
+    const f = finding(id);
+    const k = cls || (f && f.kind === "context" ? "ctx" : "");
+    return `<button type="button" class="cite ${k}" data-f="${escAttr(id)}" aria-expanded="false" aria-label="Source for ${escAttr(id)}">${esc(id)}</button>`;
+  }).join("");
+}
+
+/* ---------- loading ---------- */
+function setChipsEnabled(on) { ["chips", "zchips", "suggest-chips"].forEach(id => { const el = $(id); if (el) el.classList.toggle("disabled", !on); }); }
 function stopLoading() {
   if (loadTimer) { clearInterval(loadTimer); loadTimer = null; }
-  $("status").classList.remove("loading");
-  setChipsEnabled(true);
+  $("status").classList.remove("loading"); setChipsEnabled(true); $("go").disabled = false;
 }
-
-async function boot() {
-  const h = await (await fetch("/api/health")).json();
-  const saved = await (await fetch("/api/examples")).json();
-  const zruns = await (await fetch("/api/zetaris_runs")).json();
-  const savedSet = new Set(saved.map(s => s.question));
-  $("chips").innerHTML = h.examples.map(q => `<button type="button" class="chip" data-q="${escAttr(q)}">${esc(q)}${savedSet.has(q) ? " ⚡" : ""}</button>`).join("")
-    + `<button type="button" class="chip" data-q="What do you already know about Intel's margins?">Memory: what do you know about Intel?</button>`;
-  document.querySelectorAll("#chips .chip").forEach(c => c.onclick = (ev) => {
-    const q = c.dataset.q; $("q").value = q;
-    const s = saved.find(x => x.question === q);
-    if (s && !ev.shiftKey) loadSaved(s.slug); else run(q);
-  });
-  if (zruns.length) {
-    $("zrow").classList.remove("hidden");
-    $("zchips").innerHTML = zruns.map(z =>
-      `<button type="button" class="chip" data-slug="${escAttr(z.slug)}" data-q="${escAttr(z.question)}">${esc(z.question)}<span class="zmark" title="Recorded on Zetaris">Z</span></button>`
-    ).join("");
-    document.querySelectorAll("#zchips .chip").forEach(c => c.onclick = () => {
-      $("q").value = c.dataset.q;
-      loadZetaris(c.dataset.slug);
-    });
-  }
-  $("status").textContent = `Backend: ${h.backend}${h.llm ? " · LLM: " + h.llm.provider + " (" + h.llm.model + ")" : " · LLM: none (deterministic answers)"}. ⚡ = saved run (instant); shift-click to re-run live.`;
+async function getJSON(url) { const r = await fetch(url); if (!r.ok) throw new Error(`${r.status} ${url}`); return r.json(); }
+function savedFor(q) {
+  if (q === MEMORY_Q) return SAVED.find(s => s.question === q) || (SAVED.memory ? { question: q, slug: MEMORY_SLUG } : null);
+  return SAVED.find(s => s.question === q) || null;
 }
-async function loadSaved(slug) { show(await (await fetch(`/api/examples/${slug}`)).json(), true); }
-async function loadZetaris(slug) { show(await (await fetch(`/api/zetaris_runs/${slug}`)).json(), true); }
+function zrunFor(q) { return ZRUNS.find(z => z.question === q) || null; }
+function ask(q) {  // instant saved run when we have one, else live
+  $("q").value = q;
+  const s = savedFor(q);
+  if (s) loadSaved(s.slug, q); else run(q);
+}
+async function loadSaved(slug, q) {
+  try { current = { kind: "saved", slug, question: q }; show(await getJSON(`/api/examples/${encodeURIComponent(slug)}`)); }
+  catch (e) { run(q); }
+}
+async function loadZetaris(slug) {
+  const z = ZRUNS.find(x => x.slug === slug);
+  current = { kind: "zetaris", slug, question: z ? z.question : "" };
+  if (z) $("q").value = z.question;
+  show(await getJSON(`/api/zetaris_runs/${encodeURIComponent(slug)}`));
+  history.replaceState(null, "", "#zetaris=" + encodeURIComponent(slug));
+}
 async function run(q) {
-  $("go").disabled = true;
-  setChipsEnabled(false);
+  closePop();
+  $("go").disabled = true; setChipsEnabled(false); $("rerun").classList.add("hidden");
   let i = 0;
   $("status").classList.add("loading");
-  $("status").textContent = `Investigating… ${LOAD_STAGES[0]}`;
-  loadTimer = setInterval(() => {
-    i = (i + 1) % LOAD_STAGES.length;
-    $("status").textContent = `Investigating… ${LOAD_STAGES[i]}`;
-  }, 1100);
+  $("status").textContent = `Investigating live… ${LOAD_STAGES[0]}`;
+  loadTimer = setInterval(() => { i = (i + 1) % LOAD_STAGES.length; $("status").textContent = `Investigating live… ${LOAD_STAGES[i]}`; }, 1100);
   try {
     const r = await fetch("/api/ask", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ question:q }) });
-    if (!r.ok) throw new Error(await r.text());
-    stopLoading();
-    show(await r.json(), false);
-  } catch (e) {
-    stopLoading();
-    $("status").textContent = "Error: " + e.message;
+    if (!r.ok) {
+      const txt = await r.text(); let msg = txt;
+      try { const j = JSON.parse(txt); msg = typeof j.detail === "string" ? j.detail : (Array.isArray(j.detail) ? j.detail.map(d => d.msg).join("; ") : txt); } catch (e) {}
+      throw new Error(msg || `HTTP ${r.status}`);
+    }
+    const data = await r.json();
+    stopLoading(); current = { kind: "live", question: q };
+    if (location.hash) history.replaceState(null, "", location.pathname);
+    show(data);
+  } catch (e) { stopLoading(); $("status").textContent = "Couldn't finish that one: " + e.message; if (T) $("rerun").classList.remove("hidden"); }
+}
+
+/* ---------- boot ---------- */
+async function boot() {
+  const exP = getJSON("/api/examples").catch(() => []);
+  const zP = getJSON("/api/zetaris_runs").catch(() => []);
+  const hP = getJSON("/api/health").catch(() => ({ examples: [] }));
+  const memP = fetch(`/api/examples/${MEMORY_SLUG}`, { method: "GET" }).then(r => r.ok).catch(() => false);
+  SAVED = await exP;
+  ZRUNS = (await zP).filter(z => /\?\s*$/.test(z.question || ""));
+  // first screen: the Intel answer, straight away (or a deep-linked Zetaris run)
+  const hz = (location.hash.match(/zetaris=([^&]+)/) || [])[1];
+  if (hz && ZRUNS.find(z => z.slug === decodeURIComponent(hz))) loadZetaris(decodeURIComponent(hz));
+  else if (SAVED.length) { $("q").value = SAVED[0].question; loadSaved(SAVED[0].slug, SAVED[0].question); }
+  const [h, memOk] = await Promise.all([hP, memP]);
+  SAVED.memory = memOk;
+  const qs = (h.examples && h.examples.length ? h.examples : SAVED.map(s => s.question)).concat([MEMORY_Q]);
+  $("chips").innerHTML = qs.map(q => `<button type="button" class="chip" data-q="${escAttr(q)}">${esc(q)}${savedFor(q) ? " ⚡" : ""}</button>`).join("");
+  document.querySelectorAll("#chips .chip").forEach(c => c.onclick = (ev) => { if (ev.shiftKey) { $("q").value = c.dataset.q; run(c.dataset.q); } else ask(c.dataset.q); });
+  if (ZRUNS.length) {
+    $("zrow").classList.remove("hidden");
+    $("zchips").innerHTML = ZRUNS.map(z => `<button type="button" class="chip" data-slug="${escAttr(z.slug)}">${esc(z.question)}<span class="zmark">Z</span></button>`).join("");
+    document.querySelectorAll("#zchips .chip").forEach(c => c.onclick = () => loadZetaris(c.dataset.slug));
   }
-  $("go").disabled = false;
+  const llm = h.llm ? `LLM narration: ${h.llm.provider} (${h.llm.model})` : "LLM: none (deterministic answers)";
+  $("footer").textContent = `⚡ = saved run (instant) · ${llm} · Data: SEC EDGAR, ONS, FRED (St. Louis Fed), Wikipedia · Data harness: Zetaris Lightning · Routing & memory: Meterless Scout + H-MEM.`;
+  markChips();
 }
 $("f").onsubmit = (e) => { e.preventDefault(); const q = $("q").value.trim(); if (q) run(q); };
+$("rerun").onclick = () => { const q = (current && current.question) || (T && T.question); if (q) { $("q").value = q; run(q); } };
+$("zbadge").onclick = () => {
+  const q = (T && T.question) || "";
+  const z = zrunFor(q) || ZRUNS[0];
+  if (z) loadZetaris(z.slug); else window.open(CI_RUN, "_blank", "noopener");
+};
 document.querySelectorAll(".tab").forEach(t => t.onclick = () => tab(t.dataset.t));
+document.querySelectorAll(".gtoggle button").forEach(b => b.onclick = () => setGraphMode(b.dataset.g));
+function markChips() {
+  const q = T ? T.question : "";
+  document.querySelectorAll("#chips .chip").forEach(c => c.classList.toggle("on", current && current.kind !== "zetaris" && c.dataset.q === q));
+  document.querySelectorAll("#zchips .chip").forEach(c => c.classList.toggle("on", !!current && current.kind === "zetaris" && c.dataset.slug === current.slug));
+}
 function tab(name) {
-  document.querySelectorAll(".tab").forEach(x => {
-    const on = x.dataset.t === name;
-    x.classList.toggle("on", on);
-    x.setAttribute("aria-selected", on ? "true" : "false");
-  });
+  document.querySelectorAll(".tab").forEach(x => { const on = x.dataset.t === name; x.classList.toggle("on", on); x.setAttribute("aria-selected", on ? "true" : "false"); if (on) x.scrollIntoView({ block:"nearest", inline:"nearest" }); });
   ["evidence","hyp","queries","trace","contract","memory"].forEach(p => $("p-" + p).classList.toggle("hidden", p !== name));
-}
-function fkind(id) { const f = (T.findings || []).find(x => x.id === id); return f ? f.kind : ""; }
-function findingTip(id) {
-  const f = (T.findings || []).find(x => x.id === id);
-  if (!f) return id;
-  const bits = [f.statement, f.query_id ? `query ${f.query_id}` : null, f.source_url || null].filter(Boolean);
-  return bits.join(" · ");
-}
-function cites(ids) {
-  return (ids || []).map(id =>
-    `<span class="cite ${fkind(id) === "context" ? "ctx" : ""}" title="${escAttr(findingTip(id))}" onclick="jump('${id}')">${id}</span>`
-  ).join("");
 }
 function jump(id) {
   tab("evidence");
   document.querySelectorAll("#p-evidence tr").forEach(r => r.classList.toggle("hl", r.dataset.f === id));
-  const row = document.querySelector(`#p-evidence tr[data-f="${id}"]`);
+  const row = document.querySelector(`#p-evidence tr[data-f="${CSS.escape(id)}"]`);
   if (row) row.scrollIntoView({ behavior:"smooth", block:"center" });
 }
 function qidAttr(qid) { return "q-" + String(qid || "").replace(/[^A-Za-z0-9_-]/g, "_"); }
@@ -247,144 +457,270 @@ function jumpQuery(qid) {
   const el = document.getElementById(qidAttr(qid));
   if (el) el.scrollIntoView({ behavior:"smooth", block:"center" });
 }
-function backendPill(name) {
-  const n = String(name || "");
-  const cls = n.toLowerCase().startsWith("zetaris") ? "teal" : "grey";
-  return `<span class="pill ${cls}">${esc(n || "—")}</span>`;
-}
+function isZ(name) { return String(name || "").toLowerCase().startsWith("zetaris"); }
+function backendName(name) { return isZ(name) ? "Zetaris Lightning" : (String(name || "").toLowerCase() === "duckdb" ? "DuckDB (demo data)" : (name || "—")); }
+function backendPill(name) { return `<span class="pill ${isZ(name) ? "teal" : "grey"}">${esc(isZ(name) ? "Zetaris Lightning" : (name || "—"))}</span>`; }
 function copySql(btn) {
   const sql = btn.getAttribute("data-sql") || "";
-  navigator.clipboard.writeText(sql).then(() => {
-    const prev = btn.textContent; btn.textContent = "Copied";
-    setTimeout(() => { btn.textContent = prev; }, 1200);
-  }).catch(() => {});
+  navigator.clipboard.writeText(sql).then(() => { const prev = btn.textContent; btn.textContent = "Copied"; setTimeout(() => { btn.textContent = prev; }, 1200); }).catch(() => {});
 }
-function renderBackendBadge() {
-  const be = String(T.backend || "");
-  const isZ = be.toLowerCase().startsWith("zetaris");
-  let html = `<span class="badge ${isZ ? "zetaris" : "duckdb"}">${isZ ? "Zetaris Lightning (JDBC)" : "DuckDB fallback (SAMPLE_MODE)"}</span>`;
-  const hybrid = (T.queries || []).filter(q => String(q.backend || "").toLowerCase().includes("hybrid"));
-  if (hybrid.length) {
-    html += `<span class="hybrid-note">${hybrid.length} quer${hybrid.length === 1 ? "y" : "ies"} answered locally (FRED without key)</span>`;
-  }
-  $("backend-badge").innerHTML = html;
-  if (T.fallback_reason) {
-    $("fallback").classList.remove("hidden");
-    $("fallback").textContent = T.fallback_reason;
+
+/* ---------- rendering ---------- */
+function confInfo(c) {
+  const na = c.label == null || String(c.label).toLowerCase() === "n/a" || (!c.score && String(c.label).toLowerCase() !== "low");
+  return { na, text: na ? "—" : `${c.label}${c.score != null ? " · " + c.score : ""}`, cls: na ? "" : String(c.label).toLowerCase() };
+}
+function renderSource() {
+  const z = isZ(T.backend);
+  const zr = zrunFor(T.question);
+  let html = "";
+  if (z) {
+    html = `<span class="src z">✓ Ran on Zetaris Lightning (JDBC)</span><a class="extlink" href="${CI_RUN}" target="_blank" rel="noopener">recorded in CI ↗</a>`;
+    const s = savedFor(T.question);
+    if (s) html += `<button type="button" class="src" id="to-demo">Compare with demo run</button>`;
   } else {
-    $("fallback").classList.add("hidden");
-    $("fallback").textContent = "";
+    html = `<span class="src">Demo data: same SQL as on Zetaris ${info("demo")}</span>`;
+    if (zr) html += `<button type="button" class="src z" id="to-z">✓ See this run on Zetaris</button>`;
+    const hybrid = (T.queries || []).filter(q => String(q.backend || "").toLowerCase().includes("hybrid"));
+    if (hybrid.length) html += `<span class="muted">${hybrid.length} quer${hybrid.length === 1 ? "y" : "ies"} answered locally (FRED without key)</span>`;
   }
+  if (T.fallback_reason) html += `<span class="muted" style="flex-basis:100%">${esc(T.fallback_reason)}</span>`;
+  $("srcline").innerHTML = html;
+  const tz = $("to-z"); if (tz) tz.onclick = () => loadZetaris(zr.slug);
+  const td = $("to-demo"); if (td) td.onclick = () => { const s = savedFor(T.question); history.replaceState(null, "", location.pathname); loadSaved(s.slug, s.question); };
 }
-function renderPipeline() {
+function renderPipeline(ci) {
   const planSteps = Array.isArray((T.plan || {}).steps) ? T.plan.steps.length : (Array.isArray(T.plan) ? T.plan.length : 0);
-  const qs = T.queries || [];
-  const be = T.backend || "backend";
-  const findings = (T.findings || []).length;
-  const hyps = T.hypotheses || [];
-  const sup = hyps.filter(h => h.verdict === "supported").length;
-  const con = hyps.filter(h => h.verdict === "contradicted").length;
-  const conf = (T.answer || {}).confidence || {};
-  const confTxt = conf.label != null ? `${conf.label}${conf.score != null ? " " + conf.score : ""}` : (conf.score != null ? String(conf.score) : "—");
+  const qs = T.queries || [], findings = (T.findings || []).length, hyps = T.hypotheses || [];
+  const sup = hyps.filter(h => h.verdict === "supported").length, con = hyps.filter(h => h.verdict === "contradicted").length;
+  const where = isZ(T.backend) ? "on Zetaris" : "on DuckDB (demo)";
   const steps = [
-    { key:"plan", label:"Plan", count:`${planSteps} step${planSteps === 1 ? "" : "s"}`, go:() => tab("trace") },
-    { key:"sql", label:"Zetaris SQL", count:`${qs.length} quer${qs.length === 1 ? "y" : "ies"} on ${be}`, go:() => tab("queries") },
-    { key:"ev", label:"Evidence", count:`${findings} finding${findings === 1 ? "" : "s"}`, go:() => tab("evidence") },
-    { key:"hyp", label:"Hypothesis tests", count:`${hyps.length} · ${sup} supported / ${con} contradicted`, go:() => tab("hyp") },
-    { key:"ans", label:"Answer", count:`confidence ${confTxt}`, go:() => { $("answer-card").scrollIntoView({ behavior:"smooth", block:"start" }); } },
+    { label:"Plan", count: planSteps ? `${planSteps} step${planSteps === 1 ? "" : "s"}` : "—", go:() => tab("trace") },
+    { label:"SQL queries", count: qs.length ? `${qs.length} ${where}` : "—", go:() => tab("queries") },
+    { label:"Evidence", count: findings ? `${findings} finding${findings === 1 ? "" : "s"}` : "—", go:() => tab("evidence") },
+    { label:"Hypothesis tests", count: hyps.length ? `${hyps.length} · ${sup} supported / ${con} contradicted` : "—", go:() => tab("hyp") },
+    { label:"Answer", count: (Array.isArray((T.answer||{}).memory) && T.answer.memory.length) ? `${T.answer.memory.length} beliefs recalled` : `confidence ${ci.text}`, go:() => $("answer-card").scrollIntoView({ behavior:"smooth", block:"start" }) },
   ];
-  $("pipeline").classList.remove("hidden");
-  $("pipeline").innerHTML = steps.map((s, i) =>
-    `<button type="button" class="pipe-step" data-k="${s.key}" aria-label="${escAttr(s.label)}: ${escAttr(s.count)}"><span class="label">${i + 1}. ${esc(s.label)}</span><span class="count">${esc(s.count)}</span></button>`
-  ).join("");
-  $("pipeline").querySelectorAll(".pipe-step").forEach((btn, i) => { btn.onclick = steps[i].go; });
+  const html = steps.map((s, i) =>
+    `<button type="button" class="pipe-step" aria-label="${escAttr(s.label)}: ${escAttr(s.count)}"><span class="label">${i + 1}. ${esc(s.label)}</span><span class="count">${esc(s.count)}</span></button>`).join("");
+  ["pipeline", "pipeline-m"].forEach(id => {
+    $(id).innerHTML = html;
+    $(id).querySelectorAll(".pipe-step").forEach((btn, i) => { btn.onclick = () => { steps[i].go(); if (i < 4) $("tabs-card").scrollIntoView({ behavior:"smooth", block:"start" }); }; });
+  });
 }
 function renderMeterless() {
-  const sc = T.scout || {};
-  const k = sc.contract || null;
+  const sc = T.scout || {}, k = sc.contract || null;
   const caps = ((k || {}).scope || {}).capabilities || [];
   const cid = k && (k.contractId || k.id) ? String(k.contractId || k.id) : "";
   const risk = (sc.risk || {}).level || "—";
-  const sig = k && k.signature;
-  const recalled = (T.memory_recall || []).length;
-  const written = (T.memory_written || []).length;
-  const conflicts = (T.conflicts || []).length;
+  const recalled = (T.memory_recall || []).length, written = (T.memory_written || []).length, conflicts = (T.conflicts || []).length;
   $("meterless").innerHTML = `
     <div class="meter-grid">
-      <div class="row"><span class="k">Scout</span>
-        <span class="pill">${esc(sc.intent || "—")}</span>
-        <span class="pill">band ${esc(sc.band || "—")}</span>
-        <span class="pill">risk ${esc(risk)}</span>
+      <div class="row"><span class="k">Scout intent</span>
+        <span class="pill">${esc(INTENT_LABEL[sc.intent] || sc.intent || "—")}</span>
+        <span class="grp"><span class="pill">band ${esc(sc.band || "—")}</span>${info("band")}</span>
+        <span class="grp"><span class="pill">risk ${esc(risk)}</span>${info("risk")}</span>
       </div>
-      <div class="row"><span class="k">Contract</span>
-        <code title="${escAttr(cid)}">${esc(cid ? cid.slice(0, 12) : "—")}</code>
-        ${k && k.expiresAt ? `<span class="muted">expires ${esc(k.expiresAt)}</span>` : `<span class="muted">TTL —</span>`}
+      <div class="row"><span class="k grp">Contract ${info("contract")}</span>
+        ${cid ? `<code title="${escAttr(cid)}">${esc(cid.slice(0, 12))}</code>` : `<span class="muted">none issued</span>`}
+        ${k && k.signature ? `<span class="pill ok">HMAC-signed</span>` : ""}
+        ${k && k.expiresAt ? `<span class="muted">expires ${esc(k.expiresAt)}</span>` : ""}
+        <button type="button" class="linkish" data-act="tab" data-v="contract">details</button>
       </div>
-      <div class="row"><span class="k">Capabilities</span>${caps.length ? caps.map(c => `<span class="pill">${esc(c)}</span>`).join("") : `<span class="muted">—</span>`}</div>
-      <div class="row"><span class="k">Signature</span>
-        <span class="pill">HMAC-SHA256</span>
-        ${sig ? `<span class="pill ok" title="HMAC-SHA256 signature present; the executor verifies it before every tool call">signed</span>` : `<span class="muted">unsigned</span>`}
-        <button type="button" class="linkish" onclick="tab('contract')">details</button>
-      </div>
-      <div class="row"><span class="k">H-MEM</span>
+      <div class="row"><span class="k">Allowed tools</span>${caps.length ? caps.map(c => `<span class="pill">${esc(c)}</span>`).join("") : `<span class="muted">—</span>`}</div>
+      <div class="row"><span class="k grp">H-MEM ${info("hmem")}</span>
         recalled ${recalled} · written ${written} · conflicts ${conflicts}
-        <button type="button" class="linkish" onclick="tab('memory')">details</button>
+        <button type="button" class="linkish" data-act="tab" data-v="memory">details</button>
       </div>
     </div>`;
 }
-async function show(data, saved) {
-  T = data.trace; const a = T.answer || {};
+function prettyText(s) {
+  return String(s || "").replace(/\b(explain\.company_metric|explain\.macro_series|memory\.explain_belief)\b/g, m => INTENT_LABEL[m]);
+}
+function renderSummaryText(s) {
+  const lines = prettyText(s).split("\n");
+  let head = [], items = [];
+  lines.forEach(l => { if (/^\s*[-•]\s+/.test(l)) items.push(l.replace(/^\s*[-•]\s+/, "")); else if (l.trim()) head.push(l); });
+  const fmt = (t) => esc(t).replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  return head.map(fmt).join("<br>") + (items.length ? `<ul>${items.map(i => `<li>${fmt(i)}</li>`).join("")}</ul>` : "");
+}
+function suggestionsFrom(opts) {
+  const out = [];
+  (opts || []).forEach(o => {
+    if (o && typeof o === "object") {
+      const q = o.question || o.example || o.query || o.label || o.text;
+      if (q) out.push({ label: o.label || o.text || q, q });
+    } else if (typeof o === "string") {
+      if (INTENT_EXAMPLES[o]) INTENT_EXAMPLES[o].forEach(q => out.push({ label: q, q }));
+      else if (o.trim() && o !== "GENERAL") out.push({ label: o, q: o });
+    }
+  });
+  const seen = new Set();
+  const uniq = out.filter(x => !seen.has(x.label) && seen.add(x.label));
+  if (uniq.length) return uniq.slice(0, 6);
+  return Object.values(INTENT_EXAMPLES).flat().map(q => ({ label: q, q }));
+}
+function renderSuggestions(list) {
+  if (!list) { $("suggest").classList.add("hidden"); return; }
+  $("suggest").classList.remove("hidden");
+  $("suggest-chips").innerHTML = list.map(s => `<button type="button" class="chip" data-q="${escAttr(s.q)}">${esc(s.label)}${savedFor(s.q) ? " ⚡" : ""}</button>`).join("");
+  $("suggest-chips").querySelectorAll(".chip").forEach(c => c.onclick = () => {
+    const q = c.dataset.q;
+    if (/\?\s*$/.test(q) || savedFor(q)) ask(q); else { $("q").value = q; $("q").focus(); }
+  });
+}
+function setGraphMode(m) {
+  $("graph").className = "mode-" + m;
+  document.querySelectorAll(".gtoggle button").forEach(b => b.classList.toggle("on", b.dataset.g === m));
+  if (m === "graph") renderMermaid();
+}
+let mermaidFor = null;
+async function renderMermaid() {
+  if (!T || mermaidFor === T || !(T.hypotheses || []).length) return;
+  if (window.matchMedia("(max-width: 700px)").matches) return;  // list view only on phones
+  if (!window.mermaid) { $("g-graph").innerHTML = `<p class="muted">Graph unavailable offline; use the list view.</p>`; return; }
+  if (!window._mInit) { mermaid.initialize({ startOnLoad:false, theme:"neutral", flowchart:{ htmlLabels:true, curve:"basis" } }); window._mInit = true; }
+  mermaidFor = T;
+  try { const { svg } = await mermaid.render("g" + Date.now(), MERMAID); $("g-graph").innerHTML = svg; }
+  catch (e) { $("g-graph").innerHTML = `<pre>${esc(MERMAID)}</pre>`; }
+}
+function renderGraph() {
+  const hyps = T.hypotheses || [];
+  const has = hyps.length > 0;
+  document.querySelector(".gtoggle").classList.toggle("hidden", !has);
+  $("graph-legend").classList.toggle("hidden", !has);
+  if (!has) {
+    $("graph").className = "mode-list";
+    $("g-list").innerHTML = `<p class="muted">No hypotheses were tested for this request${isMemory() ? " (a memory recall, not a new investigation)" : ""}.</p>`;
+    $("g-graph").innerHTML = ""; return;
+  }
+  $("g-list").innerHTML = `<p class="muted" style="margin-top:0">${esc(T.question)}</p><ul class="hlist">` + hyps.map(h => {
+    const ag = (h.counter || []).length ? ` · ${h.verdict === "contradicted" ? "against" : "mixed"}: ${cites(h.counter, "against")}` : "";
+    return `<li><span class="vpill ${esc(h.verdict)}">${esc(h.verdict)}</span> <b>${esc(h.id)}</b> ${esc(h.statement)}<div class="ev">evidence: ${cites(h.evidence) || "—"}${ag}</div></li>`;
+  }).join("") + `</ul>`;
+  $("g-graph").innerHTML = `<p class="muted">Rendering graph…</p>`;
+  mermaidFor = null;
+  setGraphMode(document.querySelector(".gtoggle button.on")?.dataset.g || "graph");
+}
+function isMemory() { const a = (T && T.answer) || {}; return !!a.memory || (T && T.scout && T.scout.intent === "memory.explain_belief"); }
+async function show(data) {
+  closePop();
+  T = data.trace; MERMAID = data.mermaid || "";
+  const a = T.answer || {}, sc = T.scout || {}, k = sc.contract;
+  const c = a.confidence || {}, ci = confInfo(c);
   $("result").classList.remove("hidden");
-  renderBackendBadge();
-  renderPipeline();
-  renderMeterless();
-  $("status").textContent = (saved ? "Saved run · " : "") + `${(T.queries||[]).length} queries · ${(T.findings||[]).length} findings · ${(T.hypotheses||[]).length} hypotheses`;
-  $("summary").innerHTML = esc(a.summary).replace(/\n/g, "<br>");
+  renderSource(); renderPipeline(ci); renderMeterless(); markChips();
+  const tag = current && current.kind === "saved" ? "Saved run (instant)" : current && current.kind === "zetaris" ? "Recorded on Zetaris Lightning" : "Live run";
+  $("status").textContent = `${tag} · ${(T.queries||[]).length} queries · ${(T.findings||[]).length} findings · ${(T.hypotheses||[]).length} hypotheses`;
+  $("rerun").classList.toggle("hidden", !(current && current.kind !== "live"));
+
+  // answer card
+  $("confbadge").className = "confbadge " + ci.cls;
+  $("confbadge").innerHTML = ci.na ? `Confidence —` : `Confidence: ${esc(ci.text)}`;
+  const memItems = Array.isArray(a.memory) ? a.memory : null;
+  const emptyMemory = isMemory() && (!memItems || !memItems.length) && !(T.memory_recall || []).length;
+  const intent = sc.intent;
+  const needsSuggest = !!a.clarification || a.blocked || intent === "GENERAL" || emptyMemory || (!isMemory() && !(T.hypotheses || []).length && ci.na);
+  if (emptyMemory) $("summary").innerHTML = "Nothing remembered on this yet.";
+  else if (memItems && memItems.length) {
+    $("confbadge").className = "confbadge high"; $("confbadge").textContent = `Recalled ${memItems.length} belief${memItems.length === 1 ? "" : "s"}`;
+    const show = memItems.slice(0, 6);
+    $("summary").innerHTML = `Here is what I already know, from earlier investigations:<ul class="memlist">` + show.map(m => {
+      const c = String(m.content || ""), i = c.indexOf(" (");
+      const detail = i > 0 ? c.slice(i + 2, -1).replace(/^[\w-]+:[\w]+,\s*/, "") : "";
+      const pv = m.provenance || {}, ref = pv.refs || {};
+      return `<li><b>${esc(i > 0 ? c.slice(0, i) : c)}</b><div class="muted">${detail ? esc(detail) + " · " : ""}confidence ${m.confidence != null ? Number(m.confidence).toFixed(2) : "—"}${pv.label ? " · learned from " + esc(pv.label) : ""}${ref.source_url ? ` · <a href="${escAttr(ref.source_url)}" target="_blank" rel="noopener">source ↗</a>` : ""}</div></li>`;
+    }).join("") + `</ul>` + (memItems.length > show.length ? `<div class="muted">+${memItems.length - show.length} more in the Memory tab.</div>` : "");
+  } else if (a.clarification && a.clarification.question) {
+    const miss = (a.clarification.missing || []);
+    $("summary").innerHTML = renderSummaryText(miss.length ? `Which ${miss.join(", ").replace(/, ([^,]*)$/, " and $1")} do you mean? Name ${miss.length > 1 ? "them" : "it"} in the question, or pick a supported example below.` : a.clarification.question);
+  } else $("summary").innerHTML = renderSummaryText(a.summary);
+  $("friendly").classList.toggle("hidden", !emptyMemory);
+  if (emptyMemory) $("friendly").innerHTML = "I only remember what earlier investigations found, each with its source. Ask a why-question first, such as Intel's gross margin, and I'll keep the evidence for next time.";
+  if (needsSuggest) {
+    const opts = a.clarification ? (a.clarification.options || []) : [];
+    let list = suggestionsFrom(opts);
+    if (emptyMemory) list = [{ label: "Why did Intel's gross margin fall in 2024?", q: "Why did Intel's gross margin fall in 2024?" }];
+    renderSuggestions(list);
+  } else renderSuggestions(null);
   if (a.narrative) { $("narr").classList.remove("hidden"); $("narr").innerHTML = esc(a.narrative).replace(/\[(F\d+(?:,\s*F\d+)*)\]/g, (m, g) => cites(g.split(/,\s*/))); }
   else $("narr").classList.add("hidden");
-  const c = a.confidence || {}; $("confbar").style.width = ((c.score || 0) * 100) + "%";
-  $("conf").innerHTML = `<b>${esc(c.label)} ${c.score ?? ""}</b> · ${esc(c.rationale)}`;
-  $("because").innerHTML = (a.because || []).map(b => `<li><b>${esc(b.claim)}</b>. ${esc(b.detail)} ${cites(b.evidence)}</li>`).join("") || `<li class="muted">${a.memory ? "Recall only (see Memory tab)." : "No supported driver."}</li>`;
-  $("counter").innerHTML = (a.counter_evidence || []).map(b => `<li>${esc(b.claim)} ${cites(b.evidence)}</li>`).join("") || `<li class="muted">None found.</li>`;
+  $("confbar").style.width = (ci.na ? 0 : (c.score || 0) * 100) + "%";
+  document.querySelector("#confrow .bar").classList.toggle("hidden", ci.na);
+  let rat = esc(c.rationale || "");
+  if (/corroborat/i.test(rat)) rat = rat.replace(/(context corroborations?|corroborations?)/i, `$1${info("corroborations")}`);
+  $("conf").innerHTML = `<b>${esc(ci.text)}</b>${info("confidence")} · ${rat}`;
+
+  // because / counter
+  let becauseHtml = (a.because || []).map(b => `<li><b>${esc(b.claim)}</b>. ${esc(b.detail)} ${cites(b.evidence)}</li>`).join("");
+  if (!becauseHtml) {
+    if (isMemory()) becauseHtml = emptyMemory ? `<li class="muted">—</li>`
+      : `<li class="muted">Each item comes from an earlier investigation with its query and source. <button type="button" class="linkish" data-act="tab" data-v="memory">See provenance in the Memory tab</button>.</li>`;
+    else becauseHtml = `<li class="muted">${needsSuggest ? "—" : "No supported driver."}</li>`;
+  }
+  $("because").innerHTML = becauseHtml;
+  const hasInvestigation = (T.hypotheses || []).length > 0;
+  $("counter-card").classList.toggle("hidden", !hasInvestigation && !(a.caveats || []).length);
+  $("counter").innerHTML = (a.counter_evidence || []).map(b => `<li>${esc(b.claim)} ${cites(b.evidence, "against")}</li>`).join("")
+    || `<li class="muted">No contradicting evidence found in the data queried.</li>`;
   $("caveats").innerHTML = (a.caveats || []).map(x => "• " + esc(x)).join("<br>");
-  const sc = T.scout || {}, k = sc.contract;
-  $("meta").innerHTML = `<span class="pill">backend: ${esc(T.backend)}</span><span class="pill">intent: ${esc(sc.intent)}</span><span class="pill">LLM: ${esc((T.llm||{}).provider)}</span>`
-    + (T.fallback_reason ? `<p>${esc(T.fallback_reason)}</p>` : "") + `<p>Started ${esc(T.started_at)} · finished ${esc(T.finished_at)}</p>`;
-  if ((T.hypotheses || []).length) {
-    try { const { svg } = await mermaid.render("g" + Date.now(), data.mermaid); $("graph").innerHTML = svg; } catch (e) { $("graph").innerHTML = `<pre>${esc(data.mermaid)}</pre>`; }
-  } else $("graph").innerHTML = `<p class="muted">No hypotheses for this request.</p>`;
-  $("p-evidence").innerHTML = `<div class="table-wrap"><table><tr><th>#</th><th>Finding</th><th>Kind</th><th>Query · rows</th><th>Source</th></tr>` + (T.findings || []).map(f =>
-    `<tr data-f="${f.id}"><td><b>${f.id}</b></td><td>${esc(f.statement)}</td><td>${f.kind}</td><td>${f.query_id ? `<a class="qid" href="#${qidAttr(f.query_id)}" onclick="jumpQuery('${escAttr(f.query_id)}');return false;">${esc(f.query_id)}</a> · ${esc(JSON.stringify(f.rows))}` : ""}</td><td>${f.source_url ? `<a href="${escAttr(f.source_url)}" target="_blank" rel="noopener">open</a>` : ""}</td></tr>`).join("") + `</table></div>`;
-  $("p-hyp").innerHTML = `<div class="table-wrap"><table><tr><th>#</th><th>Hypothesis</th><th>Test</th><th>Verdict</th><th>Evidence</th></tr>` + (T.hypotheses || []).map(h =>
-    `<tr><td>${h.id}</td><td>${esc(h.statement)}<div class="muted">${esc(h.detail)}</div></td><td class="muted">${esc(h.test)}</td><td class="v-${h.verdict}">${h.verdict}</td><td>${cites(h.evidence)}${(h.counter||[]).length ? " against: " + cites(h.counter) : ""}</td></tr>`).join("") + `</table></div>`;
+
+  $("meta").innerHTML = `<span class="pill ${isZ(T.backend) ? "teal" : ""}">data: ${esc(backendName(T.backend))}</span><span class="pill">intent: ${esc(INTENT_LABEL[sc.intent] || sc.intent || "—")}</span><span class="pill">LLM: ${esc((T.llm||{}).provider || "none")}</span>`
+    + `<p>Started ${esc(T.started_at)} · finished ${esc(T.finished_at)}</p>`;
+  renderGraph();
+
+  // tabs
+  const f = T.findings || [];
+  $("p-evidence").innerHTML = f.length ? `<div class="table-wrap"><table class="resp"><thead><tr><th>#</th><th>Finding</th><th>Kind</th><th>Query · rows</th><th>Source</th></tr></thead><tbody>` + f.map(x =>
+    `<tr data-f="${escAttr(x.id)}"><td class="nw"><b>${esc(x.id)}</b> <span class="muted m-only">${esc(x.kind)}</span></td><td data-label="Finding">${esc(x.statement)}</td><td data-label="Kind" class="d-only nw">${esc(x.kind)}</td><td data-label="Query · rows" class="nw">${x.query_id ? `<a class="qid" href="#${qidAttr(x.query_id)}" data-act="query" data-v="${escAttr(x.query_id)}">${esc(x.query_id)}</a> · ${esc(JSON.stringify(x.rows))}` : "—"}</td><td data-label="Source" class="nw">${x.source_url ? `<a href="${escAttr(x.source_url)}" target="_blank" rel="noopener">open ↗</a>` : "—"}</td></tr>`).join("") + `</tbody></table></div>`
+    : `<p class="muted">No findings: ${isMemory() ? "this was a memory recall, not a new investigation." : "no data was queried for this request."}</p>`;
+  const hy = T.hypotheses || [];
+  $("p-hyp").innerHTML = hy.length ? `<div class="table-wrap"><table class="resp"><thead><tr><th>#</th><th>Hypothesis</th><th>Test</th><th>Verdict</th><th>Evidence</th></tr></thead><tbody>` + hy.map(h => {
+    const counter = (h.counter || []).length ? (h.verdict === "contradicted" ? " against: " : " ") + cites(h.counter, "against") : "";
+    return `<tr><td class="nw"><b>${esc(h.id)}</b> <span class="vpill m-only ${esc(h.verdict)}">${esc(h.verdict)}</span></td><td data-label="Hypothesis">${esc(h.statement)}<div class="muted">${esc(h.detail)}</div></td><td data-label="Test" class="muted">${esc(h.test)}</td><td data-label="Verdict" class="d-only nw v-${esc(h.verdict)}">${esc(h.verdict)}</td><td data-label="Evidence">${cites(h.evidence)}${counter}</td></tr>`;
+  }).join("") + `</tbody></table></div>`
+    : `<p class="muted">No hypotheses were tested${isMemory() ? ": this was a memory recall, not a new investigation." : " for this request."}</p>`;
   $("p-queries").innerHTML = (T.queries || []).map(q => {
-    const id = qidAttr(q.query_id);
-    return `<div class="query-block" id="${id}" data-qid="${escAttr(q.query_id)}">
+    const n = q.rows_truncated || (q.rows || []).length;
+    return `<div class="query-block" id="${qidAttr(q.query_id)}" data-qid="${escAttr(q.query_id)}">
       <div class="query-head"><code>${esc(q.query_id)}</code>${backendPill(q.backend)}
-        <span class="muted">${esc(q.purpose)} · ${q.rows_truncated || (q.rows||[]).length} rows ${q.error ? `<b style="color:var(--con)">${esc(q.error)}</b>` : ""} · ${q.elapsed_ms} ms</span>
-        <button type="button" class="ghost copy-sql" aria-label="Copy SQL for ${escAttr(q.query_id)}" data-sql="${escAttr(q.sql)}" onclick="copySql(this)">Copy SQL</button>
+        <span class="muted">${esc(q.purpose)} · ${n ? `${n} rows` : `<span class="pill warn">0 rows</span>`} ${q.error ? `<b style="color:var(--con)">${esc(q.error)}</b>` : ""} · ${esc(q.elapsed_ms)} ms</span>
+        <button type="button" class="ghost small" aria-label="Copy SQL for ${escAttr(q.query_id)}" data-sql="${escAttr(q.sql)}" onclick="copySql(this)">Copy SQL</button>
       </div>
       <pre>${esc(q.sql)}</pre>
       ${(q.sources || []).map(s => `<div class="muted">table <code>${esc(s.table)}</code> ← <a href="${escAttr(s.url)}" target="_blank" rel="noopener">${esc(s.url)}</a></div>`).join("")}
     </div>`;
-  }).join("") || `<p class="muted">No queries.</p>`;
+  }).join("") || `<p class="muted">No SQL queries ran for this request.</p>`;
   $("p-trace").innerHTML = `<ol class="steps">` + (T.steps || []).map(s => `<li><b>${esc(s.stage)}</b>${esc(s.message)}</li>`).join("") + `</ol>`
     + `<p class="muted">Plan</p><pre>${esc(JSON.stringify(T.plan, null, 2))}</pre>`;
-  $("p-contract").innerHTML = k ? `<p>Scout classified the question as <b>${esc(sc.intent)}</b> (band ${esc(sc.band)}, risk ${esc((sc.risk||{}).level)}) and issued an HMAC-signed execution contract. The analyst's executor refuses any tool call outside <code>scope.capabilities</code> or after <code>expiresAt</code>.</p><pre>${esc(JSON.stringify(k, null, 2))}</pre><p class="muted">Candidates</p><pre>${esc(JSON.stringify(sc.candidates, null, 2))}</pre>`
-    : `<p>No contract issued.</p><pre>${esc(JSON.stringify({ risk: sc.risk, clarification: sc.clarification, candidates: sc.candidates }, null, 2))}</pre>`;
+  const cIntro = `<p class="panel-intro">${info("contract")}<span>Scout classified the question as <b>${esc(INTENT_LABEL[sc.intent] || sc.intent)}</b> (band ${esc(sc.band)}, risk ${esc((sc.risk||{}).level)})${k ? " and issued an HMAC-signed contract. The executor refuses any tool call outside <code>scope.capabilities</code> or after <code>expiresAt</code>." : ". No contract was issued, so no tools ran."}</span></p>`;
+  $("p-contract").innerHTML = cIntro + (k ? `<pre>${esc(JSON.stringify(k, null, 2))}</pre><p class="muted">Intent candidates</p><pre>${esc(JSON.stringify(sc.candidates, null, 2))}</pre>`
+    : `<pre>${esc(JSON.stringify({ risk: sc.risk, clarification: sc.clarification, candidates: sc.candidates }, null, 2))}</pre>`);
   renderMemory();
 }
 async function renderMemory() {
   const recalled = T.memory_recall || [];
-  const mem = await (await fetch("/api/memory?n=15")).json();
-  const row = (m) => `<tr><td><code>${esc(m.id)}</code></td><td>${esc(m.content)}<div class="muted">${esc((m.provenance||{}).origin)} · ${esc((m.provenance||{}).label)}${m.supersededBy ? " · superseded by " + esc(m.supersededBy) : ""}</div></td><td>${(m.confidence ?? 0).toFixed(2)}</td>
-    <td><button type="button" class="ghost" aria-label="Mark helpful" onclick="fb('${escAttr(m.id)}','helpful')">👍</button> <button type="button" class="ghost" aria-label="Mark wrong" onclick="fb('${escAttr(m.id)}','wrong')">✗ wrong</button> <button type="button" class="ghost" aria-label="Show provenance" onclick="why('${escAttr(m.id)}')">why?</button></td></tr>`;
-  $("p-memory").innerHTML = `<p class="muted">Recalled before this investigation (${recalled.length}):</p><div class="table-wrap"><table>${recalled.map(row).join("") || "<tr><td class='muted'>nothing yet</td></tr>"}</table></div>
-    <p class="muted" style="margin-top:14px">Latest memories (feedback adjusts confidence: helpful +0.05, wrong −0.20 and flags for review):</p><div class="table-wrap"><table>${mem.map(row).join("")}</table></div><div id="why"></div>`;
+  let mem = [];
+  try { mem = await getJSON("/api/memory?n=15"); } catch (e) { mem = []; }
+  const row = (m) => `<tr><td data-label="Memory"><code>${esc(m.id)}</code></td><td data-label="Belief">${esc(m.content)}<div class="muted">${esc((m.provenance||{}).origin)} · ${esc((m.provenance||{}).label)}${m.supersededBy ? " · superseded by " + esc(m.supersededBy) : ""}</div></td><td data-label="Confidence">${m.confidence != null ? Number(m.confidence).toFixed(2) : "—"}</td>
+    <td><button type="button" class="ghost small" aria-label="Mark helpful" onclick="fb('${escAttr(m.id)}','helpful')">👍</button> <button type="button" class="ghost small" aria-label="Mark wrong" onclick="fb('${escAttr(m.id)}','wrong')">✗ wrong</button> <button type="button" class="ghost small" aria-label="Show provenance" onclick="why('${escAttr(m.id)}')">why?</button></td></tr>`;
+  $("p-memory").innerHTML = `<p class="panel-intro">${info("hmem")}<span>Recalled before this investigation (${recalled.length}):</span></p>`
+    + (recalled.length ? `<div class="table-wrap"><table class="resp"><tbody>${recalled.map(row).join("")}</tbody></table></div>` : `<p class="muted">Nothing recalled: no earlier findings matched this question.</p>`)
+    + `<p class="muted" style="margin-top:14px">Latest memories on this server (feedback adjusts confidence: helpful +0.05, wrong −0.20 and flags for review):</p>`
+    + (mem.length ? `<div class="table-wrap"><table class="resp"><tbody>${mem.map(row).join("")}</tbody></table></div>` : `<p class="muted">No memories stored on this server yet.</p>`) + `<div id="why"></div>`;
 }
-async function fb(id, kind) { await fetch("/api/feedback", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ memory_id:id, kind }) }); renderMemory(); }
-async function why(id) { const r = await (await fetch(`/api/memory/${id}`)).json(); $("why").innerHTML = `<p class="muted">Provenance and audit trail</p><pre>${esc(JSON.stringify({ provenance: r.memory.provenance, source: r.memory.source, derivedFrom: r.memory.derivedFrom, history: r.history }, null, 2))}</pre>`; }
-boot();
+async function fb(id, kind) {
+  let j = {};
+  try { const r = await fetch("/api/feedback", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ memory_id:id, kind }) }); j = await r.json(); if (!r.ok) j = { note: typeof j.detail === "string" ? j.detail : "Feedback not accepted." }; }
+  catch (e) { j = { note: "Feedback failed: " + e.message }; }
+  await renderMemory();
+  if (j.simulated || j.note) $("why").innerHTML = `<p class="muted">${esc(j.note || "Feedback simulated.")}${j.simulated ? ` (it would set confidence for ${esc(id)}; demo memory stays read-only)` : ""}</p>`;
+}
+async function why(id) {
+  try { const r = await getJSON(`/api/memory/${encodeURIComponent(id)}`); $("why").innerHTML = `<p class="muted">Provenance and audit trail</p><pre>${esc(JSON.stringify({ provenance: r.memory.provenance, source: r.memory.source, derivedFrom: r.memory.derivedFrom, history: r.history }, null, 2))}</pre>`; }
+  catch (e) { $("why").innerHTML = `<p class="muted">This memory lives in the recorded run, not on this server.</p>`; }
+}
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 </script>
 </body>
 </html>

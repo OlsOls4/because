@@ -1,0 +1,41 @@
+{
+  "id": "aapl-rev-fy23",
+  "question": "Why did Apple's revenue decline in fiscal 2023?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "down",
+  "measured_direction": "down",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": false,
+  "drivers_matched": [],
+  "driver_patterns": [
+    "\\bmac\\b|ipad|currenc|exchange"
+  ],
+  "confidence": 0.66,
+  "confidence_label": "Medium",
+  "summary": "Apple Inc.'s revenue fell in FY2023: $394.33B -> $383.29B (-2.8%). The evidence is consistent with these drivers: (1) inventory piled up as demand fell (demand-led decline); (2) operating leverage amplified the move (operating income moved more than revenue).",
+  "supported": [
+    "Inventory piled up as demand fell (demand-led decline)",
+    "Operating leverage amplified the move (operating income moved more than revenue)"
+  ],
+  "verdicts": {
+    "H1": [
+      "inconclusive",
+      "Pricing pressure accompanied lower volumes (gross margin contracted)"
+    ],
+    "H2": [
+      "supported",
+      "Inventory piled up as demand fell (demand-led decline)"
+    ],
+    "H3": [
+      "supported",
+      "Operating leverage amplified the move (operating income moved more than revenue)"
+    ]
+  },
+  "reference": "Net sales fell 3% on lower Mac and iPad sales and a stronger US dollar, partly offset by Services (Apple FY2023 10-K, MD&A).",
+  "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AAPL&type=10-K&dateb=&owner=include&count=40",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 2.6
+}

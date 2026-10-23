@@ -1,0 +1,61 @@
+{
+  "id": "intc-ni-2024",
+  "question": "Why did Intel's net income fall in 2024?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "down",
+  "measured_direction": "down",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "income tax",
+    "restructuring|impairment",
+    "gross profit"
+  ],
+  "driver_patterns": [
+    "income tax",
+    "restructuring|impairment",
+    "gross profit"
+  ],
+  "confidence": 0.83,
+  "confidence_label": "High",
+  "summary": "Intel's net income fell in FY2024: $1.69B -> -$18.76B (-1210.5%). The evidence is consistent with these drivers: (1) revenue fell in the same direction as profit; (2) income tax expense rose; (3) restructuring and impairment charges rose.",
+  "supported": [
+    "Gross profit fell",
+    "Restructuring and impairment charges rose",
+    "Income tax expense rose",
+    "Revenue fell in the same direction as profit"
+  ],
+  "verdicts": {
+    "H1": [
+      "supported",
+      "Gross profit fell"
+    ],
+    "H2": [
+      "inconclusive",
+      "R&D expense rose"
+    ],
+    "H3": [
+      "inconclusive",
+      "SG&A expense rose"
+    ],
+    "H4": [
+      "supported",
+      "Restructuring and impairment charges rose"
+    ],
+    "H5": [
+      "supported",
+      "Income tax expense rose"
+    ],
+    "H6": [
+      "supported",
+      "Revenue fell in the same direction as profit"
+    ]
+  },
+  "reference": "Net loss of $18.8B: a non-cash charge to establish a valuation allowance on US deferred tax assets, restructuring and impairment charges, and lower gross margin (Intel 2024 10-K).",
+  "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=INTC&type=10-K&dateb=&owner=include&count=40",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 0.5
+}

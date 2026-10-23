@@ -1,0 +1,42 @@
+{
+  "id": "uk-unemp-2009",
+  "question": "Why did UK unemployment rise in 2009?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "up",
+  "measured_direction": "up",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "industrial production"
+  ],
+  "driver_patterns": [
+    "industrial production"
+  ],
+  "confidence": 0.47,
+  "confidence_label": "Medium",
+  "summary": "UK unemployment rose in 2009: 6.5% (2008-12) -> 7.9% (2009-06 peak), +1.4 pts; 2007 average 5.3%. The evidence is consistent with one driver: UK industrial production fell during the run-up to the 2009 peak. Only one independent driver was supported, so treat this as a partial explanation.",
+  "supported": [
+    "UK industrial production fell during the run-up to the 2009 peak"
+  ],
+  "verdicts": {
+    "H1": [
+      "supported",
+      "UK industrial production fell during the run-up to the 2009 peak"
+    ],
+    "H2": [
+      "contradicted",
+      "UK short-term interest rates rose during the run-up to the 2009 peak"
+    ],
+    "H3": [
+      "contradicted",
+      "The 12-month change in Brent crude oil prices rose during the run-up to the 2009 peak"
+    ]
+  },
+  "reference": "Unemployment rose to about 8% during the 2008-09 recession that followed the global financial crisis, as output fell (ONS labour market statistics; GDP fell about 4% in 2009).",
+  "source": "https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment/timeseries/mgsx/lms",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 0.2
+}

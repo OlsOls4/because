@@ -1,8 +1,8 @@
 {
   "question": "Why did US unemployment spike in 2020?",
   "backend": "duckdb",
-  "started_at": "2026-10-22T10:48:08Z",
-  "finished_at": "2026-10-22T10:48:10Z",
+  "started_at": "2026-10-23T09:47:22Z",
+  "finished_at": "2026-10-23T09:47:24Z",
   "fallback_reason": null,
   "scout": {
     "intent": "explain.macro_series",
@@ -89,9 +89,9 @@
     },
     "plan": [],
     "contract": {
-      "contractId": "001A16339B39000005014A6A8E4",
+      "contractId": "001A168286C6E00003B03D09E7D",
       "parentId": null,
-      "traceId": "b80edc0c145a4754a65522d807c62053",
+      "traceId": "a04bd2bf4857416cb08e841ac7c4f36b",
       "intent": {
         "primary": {
           "id": "explain.macro_series",
@@ -189,41 +189,41 @@
           "memory.write"
         ]
       },
-      "issuedAt": "2026-10-22T10:48:08Z",
-      "expiresAt": "2026-10-22T10:53:08Z",
+      "issuedAt": "2026-10-23T09:47:22Z",
+      "expiresAt": "2026-10-23T09:52:22Z",
       "registryVersion": 1,
       "policyPackVersion": "because-default@1",
       "signedBy": "scout",
-      "signature": "d46bbefcf4c13bfedd92071ee89b7f3a649a72b31d111cbce99f161516e97c19"
+      "signature": "dbd2f87666e3980707d2f2b563bdd740ed6cbd5f4b731e38b3f676020222206b"
     },
     "telemetry": [
       {
         "event": "contract.verified",
-        "ts": 1792666087.0371428,
-        "contractId": "001A1633999DD0000DF268187CA",
+        "ts": 1792748840.9369195,
+        "contractId": "001A16828600C00001F0FABE6CC",
         "engine": "because-analyst"
       },
       {
         "event": "contract.verified",
-        "ts": 1792666088.308316,
-        "contractId": "001A1633999DD0000DF268187CA",
+        "ts": 1792748842.0650065,
+        "contractId": "001A16828600C00001F0FABE6CC",
         "engine": "because-analyst"
       },
       {
         "event": "contract.issued",
-        "ts": 1792666088.3368926,
-        "contractId": "001A16339B39000005014A6A8E4",
+        "ts": 1792748842.0950716,
+        "contractId": "001A168286C6E00003B03D09E7D",
         "intent": "explain.macro_series",
         "risk": "low",
         "profile": "deterministic"
       },
       {
         "event": "scout.decision",
-        "ts": 1792666088.3368962,
-        "traceId": "b80edc0c145a4754a65522d807c62053",
+        "ts": 1792748842.095075,
+        "traceId": "a04bd2bf4857416cb08e841ac7c4f36b",
         "intent": "explain.macro_series",
         "band": "high",
-        "latencyMs": 0.85,
+        "latencyMs": 0.7,
         "stage2": "used"
       }
     ]
@@ -249,9 +249,9 @@
   },
   "memory_recall": [
     {
-      "id": "mem-9ff879ddca8e",
-      "content": "UK unemployment rate (FRED LRHUTTTTGBM156S): averaged 4.23 in the 6-18 months before the 2022-10 peak (vs 4.60 in 2020); 3.90 at the peak",
-      "score": 0.4557,
+      "id": "mem-bcc68aab19b5",
+      "content": "UK unemployment rate (FRED LRHUTTTTGBM156S): averaged 4.23 in the 6-18 months before the 2022-10 peak (vs 4.60 in 2020); 3.90 at 2022-10",
+      "score": 0.4524,
       "confidence": 0.9,
       "provenance": {
         "origin": "harness_query",
@@ -265,9 +265,9 @@
           "sql": "SELECT period, value FROM fred_series_lrhuttttgbm156s WHERE period >= '2018-01' AND period <= '2023-12-31' ORDER BY period",
           "backend": "duckdb"
         },
-        "learnedAt": 1792666081732
+        "learnedAt": 1792748838901
       },
-      "learnedAt": 1792666081732,
+      "learnedAt": 1792748838901,
       "layer": "working"
     }
   ],
@@ -578,7 +578,7 @@
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE"
         }
       ],
-      "elapsed_ms": 250.9,
+      "elapsed_ms": 174.9,
       "error": null,
       "purpose": "US unemployment rate (FRED UNRATE)"
     },
@@ -1852,7 +1852,7 @@
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ICSA"
         }
       ],
-      "elapsed_ms": 647.9,
+      "elapsed_ms": 582.9,
       "error": null,
       "purpose": "Initial jobless claims (FRED ICSA)"
     },
@@ -2162,9 +2162,9 @@
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PAYEMS"
         }
       ],
-      "elapsed_ms": 262.5,
+      "elapsed_ms": 197.1,
       "error": null,
-      "purpose": "Total nonfarm payrolls, YoY (FRED PAYEMS)"
+      "purpose": "Total nonfarm payrolls (FRED PAYEMS)"
     },
     {
       "query_id": "Q-998a31e690",
@@ -2472,9 +2472,629 @@
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=USLAH"
         }
       ],
-      "elapsed_ms": 264.9,
+      "elapsed_ms": 196.9,
       "error": null,
-      "purpose": "Leisure & hospitality employment, YoY (FRED USLAH)"
+      "purpose": "Leisure & hospitality employment (FRED USLAH)"
+    },
+    {
+      "query_id": "Q-6982017e39",
+      "sql": "SELECT period, value FROM fred_series_uscons WHERE period >= '2016-01' AND period <= '2021-12-31' ORDER BY period",
+      "backend": "duckdb",
+      "columns": [
+        "period",
+        "value"
+      ],
+      "rows": [
+        [
+          "2016-01-01",
+          6631.0
+        ],
+        [
+          "2016-02-01",
+          6640.0
+        ],
+        [
+          "2016-03-01",
+          6678.0
+        ],
+        [
+          "2016-04-01",
+          6702.0
+        ],
+        [
+          "2016-05-01",
+          6689.0
+        ],
+        [
+          "2016-06-01",
+          6701.0
+        ],
+        [
+          "2016-07-01",
+          6735.0
+        ],
+        [
+          "2016-08-01",
+          6736.0
+        ],
+        [
+          "2016-09-01",
+          6768.0
+        ],
+        [
+          "2016-10-01",
+          6799.0
+        ],
+        [
+          "2016-11-01",
+          6823.0
+        ],
+        [
+          "2016-12-01",
+          6818.0
+        ],
+        [
+          "2017-01-01",
+          6840.0
+        ],
+        [
+          "2017-02-01",
+          6881.0
+        ],
+        [
+          "2017-03-01",
+          6902.0
+        ],
+        [
+          "2017-04-01",
+          6916.0
+        ],
+        [
+          "2017-05-01",
+          6931.0
+        ],
+        [
+          "2017-06-01",
+          6962.0
+        ],
+        [
+          "2017-07-01",
+          6968.0
+        ],
+        [
+          "2017-08-01",
+          7002.0
+        ],
+        [
+          "2017-09-01",
+          7013.0
+        ],
+        [
+          "2017-10-01",
+          7031.0
+        ],
+        [
+          "2017-11-01",
+          7068.0
+        ],
+        [
+          "2017-12-01",
+          7091.0
+        ],
+        [
+          "2018-01-01",
+          7093.0
+        ],
+        [
+          "2018-02-01",
+          7184.0
+        ],
+        [
+          "2018-03-01",
+          7194.0
+        ],
+        [
+          "2018-04-01",
+          7212.0
+        ],
+        [
+          "2018-05-01",
+          7274.0
+        ],
+        [
+          "2018-06-01",
+          7292.0
+        ],
+        [
+          "2018-07-01",
+          7318.0
+        ],
+        [
+          "2018-08-01",
+          7347.0
+        ],
+        [
+          "2018-09-01",
+          7375.0
+        ],
+        [
+          "2018-10-01",
+          7389.0
+        ],
+        [
+          "2018-11-01",
+          7386.0
+        ],
+        [
+          "2018-12-01",
+          7396.0
+        ],
+        [
+          "2019-01-01",
+          7425.0
+        ],
+        [
+          "2019-02-01",
+          7395.0
+        ],
+        [
+          "2019-03-01",
+          7425.0
+        ],
+        [
+          "2019-04-01",
+          7468.0
+        ],
+        [
+          "2019-05-01",
+          7478.0
+        ],
+        [
+          "2019-06-01",
+          7502.0
+        ],
+        [
+          "2019-07-01",
+          7526.0
+        ],
+        [
+          "2019-08-01",
+          7530.0
+        ],
+        [
+          "2019-09-01",
+          7547.0
+        ],
+        [
+          "2019-10-01",
+          7553.0
+        ],
+        [
+          "2019-11-01",
+          7541.0
+        ],
+        [
+          "2019-12-01",
+          7527.0
+        ],
+        [
+          "2020-01-01",
+          7575.0
+        ],
+        [
+          "2020-02-01",
+          7610.0
+        ],
+        [
+          "2020-03-01",
+          7541.0
+        ],
+        [
+          "2020-04-01",
+          6522.0
+        ],
+        [
+          "2020-05-01",
+          7004.0
+        ],
+        [
+          "2020-06-01",
+          7159.0
+        ],
+        [
+          "2020-07-01",
+          7196.0
+        ],
+        [
+          "2020-08-01",
+          7226.0
+        ],
+        [
+          "2020-09-01",
+          7253.0
+        ],
+        [
+          "2020-10-01",
+          7301.0
+        ],
+        [
+          "2020-11-01",
+          7321.0
+        ],
+        [
+          "2020-12-01",
+          7357.0
+        ],
+        [
+          "2021-01-01",
+          7362.0
+        ],
+        [
+          "2021-02-01",
+          7278.0
+        ],
+        [
+          "2021-03-01",
+          7399.0
+        ],
+        [
+          "2021-04-01",
+          7400.0
+        ],
+        [
+          "2021-05-01",
+          7391.0
+        ],
+        [
+          "2021-06-01",
+          7393.0
+        ],
+        [
+          "2021-07-01",
+          7425.0
+        ],
+        [
+          "2021-08-01",
+          7432.0
+        ],
+        [
+          "2021-09-01",
+          7484.0
+        ],
+        [
+          "2021-10-01",
+          7518.0
+        ],
+        [
+          "2021-11-01",
+          7562.0
+        ],
+        [
+          "2021-12-01",
+          7595.0
+        ]
+      ],
+      "sources": [
+        {
+          "table": "fred_series_uscons",
+          "kind": "fred_series",
+          "key": "USCONS",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=USCONS"
+        }
+      ],
+      "elapsed_ms": 193.8,
+      "error": null,
+      "purpose": "Construction employment (FRED USCONS)"
+    },
+    {
+      "query_id": "Q-d90e36492d",
+      "sql": "SELECT period, value FROM fred_series_manemp WHERE period >= '2016-01' AND period <= '2021-12-31' ORDER BY period",
+      "backend": "duckdb",
+      "columns": [
+        "period",
+        "value"
+      ],
+      "rows": [
+        [
+          "2016-01-01",
+          12354.0
+        ],
+        [
+          "2016-02-01",
+          12337.0
+        ],
+        [
+          "2016-03-01",
+          12313.0
+        ],
+        [
+          "2016-04-01",
+          12325.0
+        ],
+        [
+          "2016-05-01",
+          12303.0
+        ],
+        [
+          "2016-06-01",
+          12321.0
+        ],
+        [
+          "2016-07-01",
+          12342.0
+        ],
+        [
+          "2016-08-01",
+          12319.0
+        ],
+        [
+          "2016-09-01",
+          12317.0
+        ],
+        [
+          "2016-10-01",
+          12316.0
+        ],
+        [
+          "2016-11-01",
+          12311.0
+        ],
+        [
+          "2016-12-01",
+          12324.0
+        ],
+        [
+          "2017-01-01",
+          12334.0
+        ],
+        [
+          "2017-02-01",
+          12350.0
+        ],
+        [
+          "2017-03-01",
+          12361.0
+        ],
+        [
+          "2017-04-01",
+          12367.0
+        ],
+        [
+          "2017-05-01",
+          12377.0
+        ],
+        [
+          "2017-06-01",
+          12390.0
+        ],
+        [
+          "2017-07-01",
+          12390.0
+        ],
+        [
+          "2017-08-01",
+          12435.0
+        ],
+        [
+          "2017-09-01",
+          12443.0
+        ],
+        [
+          "2017-10-01",
+          12457.0
+        ],
+        [
+          "2017-11-01",
+          12472.0
+        ],
+        [
+          "2017-12-01",
+          12501.0
+        ],
+        [
+          "2018-01-01",
+          12527.0
+        ],
+        [
+          "2018-02-01",
+          12551.0
+        ],
+        [
+          "2018-03-01",
+          12576.0
+        ],
+        [
+          "2018-04-01",
+          12595.0
+        ],
+        [
+          "2018-05-01",
+          12623.0
+        ],
+        [
+          "2018-06-01",
+          12656.0
+        ],
+        [
+          "2018-07-01",
+          12676.0
+        ],
+        [
+          "2018-08-01",
+          12688.0
+        ],
+        [
+          "2018-09-01",
+          12710.0
+        ],
+        [
+          "2018-10-01",
+          12731.0
+        ],
+        [
+          "2018-11-01",
+          12741.0
+        ],
+        [
+          "2018-12-01",
+          12761.0
+        ],
+        [
+          "2019-01-01",
+          12790.0
+        ],
+        [
+          "2019-02-01",
+          12782.0
+        ],
+        [
+          "2019-03-01",
+          12788.0
+        ],
+        [
+          "2019-04-01",
+          12785.0
+        ],
+        [
+          "2019-05-01",
+          12778.0
+        ],
+        [
+          "2019-06-01",
+          12787.0
+        ],
+        [
+          "2019-07-01",
+          12790.0
+        ],
+        [
+          "2019-08-01",
+          12789.0
+        ],
+        [
+          "2019-09-01",
+          12787.0
+        ],
+        [
+          "2019-10-01",
+          12733.0
+        ],
+        [
+          "2019-11-01",
+          12777.0
+        ],
+        [
+          "2019-12-01",
+          12760.0
+        ],
+        [
+          "2020-01-01",
+          12745.0
+        ],
+        [
+          "2020-02-01",
+          12743.0
+        ],
+        [
+          "2020-03-01",
+          12684.0
+        ],
+        [
+          "2020-04-01",
+          11382.0
+        ],
+        [
+          "2020-05-01",
+          11610.0
+        ],
+        [
+          "2020-06-01",
+          11950.0
+        ],
+        [
+          "2020-07-01",
+          11973.0
+        ],
+        [
+          "2020-08-01",
+          11999.0
+        ],
+        [
+          "2020-09-01",
+          12057.0
+        ],
+        [
+          "2020-10-01",
+          12086.0
+        ],
+        [
+          "2020-11-01",
+          12118.0
+        ],
+        [
+          "2020-12-01",
+          12153.0
+        ],
+        [
+          "2021-01-01",
+          12142.0
+        ],
+        [
+          "2021-02-01",
+          12172.0
+        ],
+        [
+          "2021-03-01",
+          12229.0
+        ],
+        [
+          "2021-04-01",
+          12193.0
+        ],
+        [
+          "2021-05-01",
+          12216.0
+        ],
+        [
+          "2021-06-01",
+          12247.0
+        ],
+        [
+          "2021-07-01",
+          12305.0
+        ],
+        [
+          "2021-08-01",
+          12353.0
+        ],
+        [
+          "2021-09-01",
+          12393.0
+        ],
+        [
+          "2021-10-01",
+          12453.0
+        ],
+        [
+          "2021-11-01",
+          12498.0
+        ],
+        [
+          "2021-12-01",
+          12537.0
+        ]
+      ],
+      "sources": [
+        {
+          "table": "fred_series_manemp",
+          "kind": "fred_series",
+          "key": "MANEMP",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=MANEMP"
+        }
+      ],
+      "elapsed_ms": 194.5,
+      "error": null,
+      "purpose": "Manufacturing employment (FRED MANEMP)"
     },
     {
       "query_id": "Q-4b322e1739",
@@ -2782,9 +3402,9 @@
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=INDPRO"
         }
       ],
-      "elapsed_ms": 293.4,
+      "elapsed_ms": 241.4,
       "error": null,
-      "purpose": "Industrial production, YoY (FRED INDPRO)"
+      "purpose": "Industrial production (FRED INDPRO)"
     },
     {
       "query_id": "Q-6d8ba26811",
@@ -3092,7 +3712,7 @@
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS"
         }
       ],
-      "elapsed_ms": 230.7,
+      "elapsed_ms": 159.0,
       "error": null,
       "purpose": "Federal funds rate (FRED FEDFUNDS)"
     }
@@ -3100,10 +3720,11 @@
   "findings": [
     {
       "id": "F1",
-      "statement": "US unemployment rate (FRED UNRATE): 14.8% in 2020-04 (the 2020 peak), vs a 2018 average of 3.9% (+10.9 pts)",
+      "statement": "US unemployment rate (FRED UNRATE): 3.6% in 2019-12 (start of 2020) -> 14.8% in 2020-04 (the 2020 peak), +11.2 pts; for context, the 2018 average was 3.9%",
       "kind": "data",
       "query_id": "Q-a0adfde54c",
       "rows": [
+        47,
         51
       ],
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE",
@@ -3113,76 +3734,111 @@
     },
     {
       "id": "F2",
-      "statement": "Initial jobless claims (FRED ICSA) (level): 219,454 average in 2018; reached 4,663,250 in the 12 months to 2020-04; best correlation with the target r=+0.99 at a 1-month lead",
+      "statement": "Initial jobless claims (FRED ICSA) (level): 224,400 in 2019-11 -> 2,335,250 in 2020-03 (its best lead, 1 month earlier), a change of +2,110,850; correlation with the target r=+0.99 at a 1-month lead",
       "kind": "data",
       "query_id": "Q-3730de9f03",
       "rows": [
-        170,
-        222
+        165,
+        200,
+        218
       ],
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ICSA",
-      "value": 4663250.0,
+      "value": 2335250.0,
       "unit": "",
       "fact_key": null
     },
     {
       "id": "F3",
-      "statement": "Total nonfarm payrolls, YoY (FRED PAYEMS) (YoY change): 1.6% average in 2018; reached -13.4% in the 12 months to 2020-04; best correlation with the target r=-0.97 at a 0-month lead",
-      "kind": "derived",
+      "statement": "Total nonfarm payrolls (FRED PAYEMS) (level): 151,794 in 2019-12 -> 130,426 in 2020-04, a change of -14.1%; correlation with the target r=-0.91 at a 0-month lead",
+      "kind": "data",
       "query_id": "Q-3cb198cf08",
       "rows": [
         39,
+        47,
         51
       ],
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PAYEMS",
-      "value": -13.390574469921845,
+      "value": 130426.0,
       "unit": "",
       "fact_key": null
     },
     {
       "id": "F4",
-      "statement": "Leisure & hospitality employment, YoY (FRED USLAH) (YoY change): 1.5% average in 2018; reached -47.2% in the 12 months to 2020-04; best correlation with the target r=-0.97 at a 0-month lead",
-      "kind": "derived",
+      "statement": "Leisure & hospitality employment (FRED USLAH) (level): 16,805 in 2019-12 -> 8,719 in 2020-04, a change of -48.1%; correlation with the target r=-1.00 at a 0-month lead",
+      "kind": "data",
       "query_id": "Q-998a31e690",
       "rows": [
         39,
+        47,
         51
       ],
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=USLAH",
-      "value": -47.243903914806076,
+      "value": 8719.0,
       "unit": "",
       "fact_key": null
     },
     {
       "id": "F5",
-      "statement": "Industrial production, YoY (FRED INDPRO) (YoY change): 3.2% average in 2018; reached -17.3% in the 12 months to 2020-04; best correlation with the target r=-0.76 at a 0-month lead",
-      "kind": "derived",
-      "query_id": "Q-4b322e1739",
+      "statement": "Construction employment (FRED USCONS) (level): 7,527 in 2019-12 -> 6,522 in 2020-04, a change of -13.4%; correlation with the target r=-0.59 at a 0-month lead",
+      "kind": "data",
+      "query_id": "Q-6982017e39",
       "rows": [
         39,
+        47,
         51
       ],
-      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=INDPRO",
-      "value": -17.318282261376304,
+      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=USCONS",
+      "value": 6522.0,
       "unit": "",
       "fact_key": null
     },
     {
       "id": "F6",
-      "statement": "Federal funds rate (FRED FEDFUNDS) (level): 1.8% average in 2018; 0.1% at 2020-04; best correlation with the target r=+0.07 at a 9-month lead",
+      "statement": "Manufacturing employment (FRED MANEMP) (level): 12,760 in 2019-12 -> 11,382 in 2020-04, a change of -10.8%; correlation with the target r=-0.87 at a 0-month lead",
       "kind": "data",
-      "query_id": "Q-6d8ba26811",
+      "query_id": "Q-d90e36492d",
       "rows": [
         39,
+        47,
         51
       ],
-      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS",
-      "value": 0.05,
+      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=MANEMP",
+      "value": 11382.0,
       "unit": "",
       "fact_key": null
     },
     {
       "id": "F7",
+      "statement": "Industrial production (FRED INDPRO) (level): 101.7 in 2019-12 -> 84.6 in 2020-04, a change of -16.9%; correlation with the target r=-0.91 at a 0-month lead",
+      "kind": "data",
+      "query_id": "Q-4b322e1739",
+      "rows": [
+        39,
+        47,
+        51
+      ],
+      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=INDPRO",
+      "value": 84.5619,
+      "unit": "",
+      "fact_key": null
+    },
+    {
+      "id": "F8",
+      "statement": "Federal funds rate (FRED FEDFUNDS) (level): 2.4% in 2019-03 -> 2.4% in 2019-07 (its best lead, 9 months earlier), a change of -0.0 pts; correlation with the target r=+0.07 at a 9-month lead",
+      "kind": "data",
+      "query_id": "Q-6d8ba26811",
+      "rows": [
+        30,
+        38,
+        42
+      ],
+      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS",
+      "value": 2.4,
+      "unit": "",
+      "fact_key": null
+    },
+    {
+      "id": "F9",
       "statement": "Context (Wikipedia, 'COVID-19 recession'): The recession began in most countries in February 2020.",
       "kind": "context",
       "query_id": null,
@@ -3193,7 +3849,7 @@
       "fact_key": null
     },
     {
-      "id": "F8",
+      "id": "F10",
       "statement": "Context (Wikipedia, 'COVID-19 recession'): After a year of global economic slowdown that saw stagnation of economic growth and consumer activity, the COVID-19 lockdowns and other precautions taken in early 2020 drove the global economy into crisis.",
       "kind": "context",
       "query_id": null,
@@ -3204,7 +3860,7 @@
       "fact_key": null
     },
     {
-      "id": "F9",
+      "id": "F11",
       "statement": "Context (Wikipedia, 'COVID-19 recession'): The first major sign of recession was the 2020 stock market crash, which saw major indices drop 20 to 30% in late February and March.",
       "kind": "context",
       "query_id": null,
@@ -3215,7 +3871,7 @@
       "fact_key": null
     },
     {
-      "id": "F10",
+      "id": "F12",
       "statement": "Context (Wikipedia, 'COVID-19 recession'): Recovery began in early April 2020; by April 2022, the GDP for most major economies had either returned to or exceeded pre-pandemic levels and many market indices recovered or even set new records by late 2020.",
       "kind": "context",
       "query_id": null,
@@ -3229,198 +3885,291 @@
   "hypotheses": [
     {
       "id": "H1",
-      "statement": "Mass layoffs (initial jobless claims exploded)",
-      "test": "Initial jobless claims (FRED ICSA): direction & size of move vs 2018, and best lead correlation (lag 0-9m)",
+      "statement": "Initial jobless claims rose during the run-up to the 2020 peak",
+      "test": "Initial jobless claims (FRED ICSA): sign and size of its change over the target's 2019-12 -> 2020-04 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
       "verdict": "supported",
-      "weight": 2.961,
+      "weight": 0.987,
       "evidence": [
         "F2",
-        "F7",
-        "F8",
         "F9",
-        "F10"
+        "F10",
+        "F11",
+        "F12"
       ],
       "counter": [],
-      "detail": "Moved 4,443,796 the expected way and co-moved with the target (r=+0.99, lead 1m)."
+      "detail": "Changed +2,110,850 over the same interval (its best lead, 1 month earlier), the direction needed, and co-moved with the target (r=+0.99). Co-movement, not proof of cause.",
+      "group": "layoffs",
+      "context": "Claims count new layoffs filing for benefits.",
+      "one_off": ""
     },
     {
       "id": "H2",
-      "statement": "Payroll employment collapsed",
-      "test": "Total nonfarm payrolls, YoY (FRED PAYEMS): direction & size of move vs 2018, and best lead correlation (lag 0-9m)",
+      "statement": "Total payroll employment fell during the run-up to the 2020 peak",
+      "test": "Total nonfarm payrolls (FRED PAYEMS): sign and size of its change over the target's 2019-12 -> 2020-04 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
       "verdict": "supported",
-      "weight": 1.335,
+      "weight": 0.91,
       "evidence": [
         "F3",
-        "F7",
-        "F8",
         "F9",
-        "F10"
+        "F10",
+        "F11",
+        "F12"
       ],
       "counter": [],
-      "detail": "Moved -14.9 the expected way and co-moved with the target (r=-0.97, lead 0m)."
+      "detail": "Changed -14.1% over the same interval, the direction needed, and co-moved with the target (r=-0.91). Co-movement, not proof of cause.",
+      "group": "layoffs",
+      "context": "",
+      "one_off": ""
     },
     {
       "id": "H3",
-      "statement": "Shutdowns hit leisure & hospitality hardest",
-      "test": "Leisure & hospitality employment, YoY (FRED USLAH): direction & size of move vs 2018, and best lead correlation (lag 0-9m)",
+      "statement": "Leisure & hospitality employment fell during the run-up to the 2020 peak",
+      "test": "Leisure & hospitality employment (FRED USLAH): sign and size of its change over the target's 2019-12 -> 2020-04 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
       "verdict": "supported",
-      "weight": 2.916,
+      "weight": 0.996,
       "evidence": [
-        "F4",
-        "F7",
-        "F8",
-        "F9",
-        "F10"
+        "F4"
       ],
       "counter": [],
-      "detail": "Moved -48.7 the expected way and co-moved with the target (r=-0.97, lead 0m)."
+      "detail": "Changed -48.1% over the same interval, the direction needed, and co-moved with the target (r=-1.00). Co-movement, not proof of cause.",
+      "group": "sector:leisure",
+      "context": "Context: in 2020 COVID-19 shutdowns closed restaurants, hotels and venues.",
+      "one_off": ""
     },
     {
       "id": "H4",
-      "statement": "Industrial output fell",
-      "test": "Industrial production, YoY (FRED INDPRO): direction & size of move vs 2018, and best lead correlation (lag 0-9m)",
+      "statement": "Construction employment fell during the run-up to the 2020 peak",
+      "test": "Construction employment (FRED USCONS): sign and size of its change over the target's 2019-12 -> 2020-04 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
       "verdict": "supported",
-      "weight": 1.427,
+      "weight": 0.589,
       "evidence": [
         "F5"
       ],
       "counter": [],
-      "detail": "Moved -20.5 the expected way and co-moved with the target (r=-0.76, lead 0m)."
+      "detail": "Changed -13.4% over the same interval, the direction needed, and co-moved with the target (r=-0.59). Co-movement, not proof of cause.",
+      "group": "sector:construction",
+      "context": "Construction is cyclical and sensitive to housing demand and credit.",
+      "one_off": ""
     },
     {
       "id": "H5",
-      "statement": "Tight monetary policy caused it",
-      "test": "Federal funds rate (FRED FEDFUNDS): direction & size of move vs 2018, and best lead correlation (lag 0-9m)",
-      "verdict": "contradicted",
-      "weight": 0.012,
-      "evidence": [],
-      "counter": [
+      "statement": "Manufacturing employment fell during the run-up to the 2020 peak",
+      "test": "Manufacturing employment (FRED MANEMP): sign and size of its change over the target's 2019-12 -> 2020-04 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
+      "verdict": "supported",
+      "weight": 0.866,
+      "evidence": [
         "F6"
       ],
-      "detail": "Moved the other way (-1.8)."
+      "counter": [],
+      "detail": "Changed -10.8% over the same interval, the direction needed, and co-moved with the target (r=-0.87). Co-movement, not proof of cause.",
+      "group": "sector:manufacturing",
+      "context": "",
+      "one_off": ""
+    },
+    {
+      "id": "H6",
+      "statement": "Industrial production fell during the run-up to the 2020 peak",
+      "test": "Industrial production (FRED INDPRO): sign and size of its change over the target's 2019-12 -> 2020-04 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
+      "verdict": "supported",
+      "weight": 0.906,
+      "evidence": [
+        "F7",
+        "F9",
+        "F10",
+        "F11",
+        "F12"
+      ],
+      "counter": [],
+      "detail": "Changed -16.9% over the same interval, the direction needed, and co-moved with the target (r=-0.91). Co-movement, not proof of cause.",
+      "group": "activity",
+      "context": "",
+      "one_off": ""
+    },
+    {
+      "id": "H7",
+      "statement": "The federal funds rate rose during the run-up to the 2020 peak",
+      "test": "Federal funds rate (FRED FEDFUNDS): sign and size of its change over the target's 2019-12 -> 2020-04 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
+      "verdict": "inconclusive",
+      "weight": 0.001,
+      "evidence": [],
+      "counter": [
+        "F8"
+      ],
+      "detail": "Change of -0.0 pts is below the materiality threshold (0.25 pts).",
+      "group": "policy",
+      "context": "Higher rates cool demand with a lag.",
+      "one_off": ""
     }
   ],
   "answer": {
-    "summary": "US unemployment rose in 2020: 3.9 -> 14.8 (+10.9 pts, peak 2020-04). The evidence points mainly to (1) mass layoffs (initial jobless claims exploded); (2) shutdowns hit leisure & hospitality hardest; (3) industrial output fell.",
+    "summary": "US unemployment rose in 2020: 3.6% (2019-12) -> 14.8% (2020-04 peak), +11.2 pts; 2018 average 3.9%. The evidence is consistent with these drivers: (1) leisure & hospitality employment fell during the run-up to the 2020 peak; (2) initial jobless claims rose during the run-up to the 2020 peak; (3) industrial production fell during the run-up to the 2020 peak.",
     "because": [
       {
-        "claim": "Mass layoffs (initial jobless claims exploded)",
-        "detail": "Moved 4,443,796 the expected way and co-moved with the target (r=+0.99, lead 1m).",
+        "claim": "Leisure & hospitality employment fell during the run-up to the 2020 peak",
+        "detail": "Changed -48.1% over the same interval, the direction needed, and co-moved with the target (r=-1.00). Co-movement, not proof of cause. Context (not tested): in 2020 COVID-19 shutdowns closed restaurants, hotels and venues.",
         "evidence": [
-          "F2",
-          "F7",
-          "F8",
-          "F9",
-          "F10"
-        ],
-        "hypothesis": "H1",
-        "weight": 2.961
-      },
-      {
-        "claim": "Shutdowns hit leisure & hospitality hardest",
-        "detail": "Moved -48.7 the expected way and co-moved with the target (r=-0.97, lead 0m).",
-        "evidence": [
-          "F4",
-          "F7",
-          "F8",
-          "F9",
-          "F10"
+          "F4"
         ],
         "hypothesis": "H3",
-        "weight": 2.916
+        "weight": 0.996,
+        "group": "sector:leisure",
+        "context": "Context: in 2020 COVID-19 shutdowns closed restaurants, hotels and venues."
       },
       {
-        "claim": "Industrial output fell",
-        "detail": "Moved -20.5 the expected way and co-moved with the target (r=-0.76, lead 0m).",
+        "claim": "Initial jobless claims rose during the run-up to the 2020 peak",
+        "detail": "Changed +2,110,850 over the same interval (its best lead, 1 month earlier), the direction needed, and co-moved with the target (r=+0.99). Co-movement, not proof of cause. Context (not tested): Claims count new layoffs filing for benefits.",
+        "evidence": [
+          "F2",
+          "F9",
+          "F10",
+          "F11",
+          "F12"
+        ],
+        "hypothesis": "H1",
+        "weight": 0.987,
+        "group": "layoffs",
+        "context": "Claims count new layoffs filing for benefits."
+      },
+      {
+        "claim": "Total payroll employment fell during the run-up to the 2020 peak",
+        "detail": "Changed -14.1% over the same interval, the direction needed, and co-moved with the target (r=-0.91). Co-movement, not proof of cause.",
+        "evidence": [
+          "F3",
+          "F9",
+          "F10",
+          "F11",
+          "F12"
+        ],
+        "hypothesis": "H2",
+        "weight": 0.91,
+        "group": "layoffs"
+      },
+      {
+        "claim": "Industrial production fell during the run-up to the 2020 peak",
+        "detail": "Changed -16.9% over the same interval, the direction needed, and co-moved with the target (r=-0.91). Co-movement, not proof of cause.",
+        "evidence": [
+          "F7",
+          "F9",
+          "F10",
+          "F11",
+          "F12"
+        ],
+        "hypothesis": "H6",
+        "weight": 0.906,
+        "group": "activity"
+      },
+      {
+        "claim": "Manufacturing employment fell during the run-up to the 2020 peak",
+        "detail": "Changed -10.8% over the same interval, the direction needed, and co-moved with the target (r=-0.87). Co-movement, not proof of cause.",
+        "evidence": [
+          "F6"
+        ],
+        "hypothesis": "H5",
+        "weight": 0.866,
+        "group": "sector:manufacturing"
+      },
+      {
+        "claim": "Construction employment fell during the run-up to the 2020 peak",
+        "detail": "Changed -13.4% over the same interval, the direction needed, and co-moved with the target (r=-0.59). Co-movement, not proof of cause. Context (not tested): Construction is cyclical and sensitive to housing demand and credit.",
         "evidence": [
           "F5"
         ],
         "hypothesis": "H4",
-        "weight": 1.427
-      },
-      {
-        "claim": "Payroll employment collapsed",
-        "detail": "Moved -14.9 the expected way and co-moved with the target (r=-0.97, lead 0m).",
-        "evidence": [
-          "F3",
-          "F7",
-          "F8",
-          "F9",
-          "F10"
-        ],
-        "hypothesis": "H2",
-        "weight": 1.335
+        "weight": 0.589,
+        "group": "sector:construction",
+        "context": "Construction is cyclical and sensitive to housing demand and credit."
       }
     ],
     "counter_evidence": [
       {
-        "claim": "Not supported: Tight monetary policy caused it. Moved the other way (-1.8).",
+        "claim": "Correlation is not causation: each supported driver moved the needed way over the same interval and co-moved with the target, which is consistent with it contributing but does not prove it did; component weights are not applied.",
         "evidence": [
-          "F6"
+          "F1"
+        ]
+      },
+      {
+        "claim": "Weak or no support: The federal funds rate rose during the run-up to the 2020 peak. Change of -0.0 pts is below the materiality threshold (0.25 pts).",
+        "evidence": [
+          "F8"
         ],
-        "hypothesis": "H5"
+        "hypothesis": "H7"
       }
     ],
-    "inconclusive": [],
+    "inconclusive": [
+      {
+        "claim": "The federal funds rate rose during the run-up to the 2020 peak",
+        "detail": "Change of -0.0 pts is below the materiality threshold (0.25 pts).",
+        "hypothesis": "H7"
+      }
+    ],
     "confidence": {
-      "score": 0.91,
+      "score": 0.85,
       "label": "High",
-      "rationale": "4 of 5 hypotheses supported; supported drivers cover ~100% of the move; 100% of queries returned data; 12 context corroborations; 1 hypotheses contradicted."
+      "rationale": "6 of 7 hypotheses supported across 5 independent cause group(s); supported drivers carry ~100% of the tested evidence weight (de-duplicated by cause; this is not a share of the move); 100% of queries returned data; 12 context corroborations; macro answers are capped at 0.85 (no CPI weights applied).",
+      "coverage": 1.0,
+      "coverage_kind": "weight",
+      "independent_drivers": 5
     },
     "caveats": [
+      "The move is measured from December of the prior year to the in-year extreme; drivers are tested over the same interval.",
       "Correlation over a short window is evidence of co-movement, not proof of causation; component weights are not applied.",
+      "Context notes are background mechanisms; they are not tested and never supply numbers.",
       "Context snippets from Wikipedia corroborate hypotheses but never supply numbers."
     ],
-    "target_finding": "F1"
+    "target_finding": "F1",
+    "premise_ok": true,
+    "actual_direction": "up"
   },
   "memory_written": [
-    "mem-aa40c7525ef2",
-    "mem-c3681bad2770",
-    "mem-a57cbe2a913a",
-    "mem-faf1b6329158",
-    "mem-0e3bac5ff3bc",
-    "mem-f6f1081f2265",
-    "mem-cf0b78ce2dc5"
+    "mem-6d2e3da6362f",
+    "mem-4ddbe8a2892d",
+    "mem-3b1a861ae718",
+    "mem-10ea82ee5668",
+    "mem-efc946edda8d",
+    "mem-19eb317199e2",
+    "mem-e0726610a3b0",
+    "mem-6541417466af",
+    "mem-2775a2476ea1"
   ],
   "conflicts": [],
   "steps": [
     {
-      "t": 1792666088.337,
+      "t": 1792748842.095,
       "stage": "scout",
-      "message": "Intent explain.macro_series (band high, risk low); signed contract 001A16339B39000005014A6A8E4"
+      "message": "Intent explain.macro_series (band high, risk low); signed contract 001A168286C6E00003B03D09E7D"
     },
     {
-      "t": 1792666088.339,
+      "t": 1792748842.096,
       "stage": "recall",
       "message": "H-MEM recalled 1 prior beliefs (minimal)"
     },
     {
-      "t": 1792666088.339,
+      "t": 1792748842.096,
       "stage": "plan",
-      "message": "Pull US unemployment rate (FRED UNRATE) for 2016-2021, find the 2020 extreme, then test 5 candidate drivers"
+      "message": "Pull US unemployment rate (FRED UNRATE) for 2016-2021; measure the move from Dec 2019 to the 2020 extreme; test 7 candidate drivers over the same interval"
     },
     {
-      "t": 1792666088.59,
+      "t": 1792748842.272,
       "stage": "findings",
-      "message": "Target 3.9 -> 14.8 (+10.9 pts, peak 2020-04)"
+      "message": "Target 3.6 (2019-12) -> 14.8 (2020-04), +11.2 pts: up"
     },
     {
-      "t": 1792666090.296,
+      "t": 1792748844.045,
       "stage": "hypotheses",
-      "message": "Tested 5 drivers; 4 supported"
+      "message": "Tested 7 drivers; 6 supported across 5 cause groups"
     },
     {
-      "t": 1792666090.983,
+      "t": 1792748844.782,
       "stage": "context",
       "message": "Background search found 4 context snippets (context corroborates, never supplies numbers)"
     },
     {
-      "t": 1792666091.001,
+      "t": 1792748844.807,
       "stage": "remember",
-      "message": "Wrote 7 memories with provenance; 0 conflicts with prior beliefs"
+      "message": "Wrote 9 memories with provenance; 0 conflicts with prior beliefs"
     },
     {
-      "t": 1792666091.001,
+      "t": 1792748844.807,
       "stage": "done",
       "message": "Finished in 2.7s"
     }

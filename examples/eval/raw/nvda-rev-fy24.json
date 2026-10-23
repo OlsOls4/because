@@ -1,0 +1,44 @@
+{
+  "id": "nvda-rev-fy24",
+  "question": "Why did Nvidia's revenue jump in fiscal 2024?",
+  "trap": false,
+  "showcase": true,
+  "reference_direction": "up",
+  "measured_direction": "up",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "demand"
+  ],
+  "driver_patterns": [
+    "demand"
+  ],
+  "confidence": 0.7,
+  "confidence_label": "High",
+  "summary": "Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence is consistent with these drivers: (1) demand outstripped supply and pricing power rose (gross margin expanded with revenue); (2) sales ran ahead of inventory (demand-led growth).",
+  "supported": [
+    "Demand outstripped supply and pricing power rose (gross margin expanded with revenue)",
+    "Sales ran ahead of inventory (demand-led growth)",
+    "Operating leverage amplified the move (operating income moved more than revenue)"
+  ],
+  "verdicts": {
+    "H1": [
+      "supported",
+      "Demand outstripped supply and pricing power rose (gross margin expanded with revenue)"
+    ],
+    "H2": [
+      "supported",
+      "Sales ran ahead of inventory (demand-led growth)"
+    ],
+    "H3": [
+      "supported",
+      "Operating leverage amplified the move (operating income moved more than revenue)"
+    ]
+  },
+  "reference": "Revenue rose 126% to $60.9B, led by Data Center (+217%) on demand for Hopper GPUs for large language models (NVIDIA FY2024 10-K). Because has no segment data, so only 'demand-led' is checkable.",
+  "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=NVDA&type=10-K&dateb=&owner=include&count=40",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 1.9
+}

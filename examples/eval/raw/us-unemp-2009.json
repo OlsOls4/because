@@ -1,0 +1,65 @@
+{
+  "id": "us-unemp-2009",
+  "question": "Why did US unemployment rise in 2009?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "up",
+  "measured_direction": "up",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "construction|manufacturing",
+    "payroll|jobless claims",
+    "industrial production"
+  ],
+  "driver_patterns": [
+    "construction|manufacturing",
+    "payroll|jobless claims",
+    "industrial production"
+  ],
+  "confidence": 0.71,
+  "confidence_label": "High",
+  "summary": "US unemployment rose in 2009: 7.3% (2008-12) -> 10.0% (2009-10 peak), +2.7 pts; 2007 average 4.6%. The evidence is consistent with these drivers: (1) construction employment fell during the run-up to the 2009 peak; (2) manufacturing employment fell during the run-up to the 2009 peak; (3) total payroll employment fell during the run-up to the 2009 peak.",
+  "supported": [
+    "Total payroll employment fell during the run-up to the 2009 peak",
+    "Construction employment fell during the run-up to the 2009 peak",
+    "Manufacturing employment fell during the run-up to the 2009 peak",
+    "Industrial production fell during the run-up to the 2009 peak"
+  ],
+  "verdicts": {
+    "H1": [
+      "inconclusive",
+      "Initial jobless claims rose during the run-up to the 2009 peak"
+    ],
+    "H2": [
+      "supported",
+      "Total payroll employment fell during the run-up to the 2009 peak"
+    ],
+    "H3": [
+      "inconclusive",
+      "Leisure & hospitality employment fell during the run-up to the 2009 peak"
+    ],
+    "H4": [
+      "supported",
+      "Construction employment fell during the run-up to the 2009 peak"
+    ],
+    "H5": [
+      "supported",
+      "Manufacturing employment fell during the run-up to the 2009 peak"
+    ],
+    "H6": [
+      "supported",
+      "Industrial production fell during the run-up to the 2009 peak"
+    ],
+    "H7": [
+      "contradicted",
+      "The federal funds rate rose during the run-up to the 2009 peak"
+    ]
+  },
+  "reference": "Unemployment reached 10.0% in October 2009 in the recession; job losses were concentrated in construction and manufacturing (BLS Monthly Labor Review, 'Job losses in 2009', 2010).",
+  "source": "https://www.bls.gov/opub/mlr/2010/04/art1full.pdf",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 0.1
+}

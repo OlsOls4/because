@@ -1,0 +1,216 @@
+[
+  {
+    "id": "intc-gm-2024",
+    "question": "Why did Intel's gross margin fall in 2024?",
+    "direction": "down",
+    "showcase": true,
+    "drivers": [
+      "restructuring|impairment",
+      "depreciation",
+      "inventory"
+    ],
+    "reference": "Gross margin fell to 32.7% on large restructuring/impairment and accelerated-depreciation charges (Intel 7 assets), higher inventory reserves and higher unit costs from new process nodes (Intel 2024 10-K, MD&A).",
+    "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=INTC&type=10-K&dateb=&owner=include&count=40"
+  },
+  {
+    "id": "uk-cpi-2022",
+    "question": "Why did UK inflation spike in 2022?",
+    "direction": "up",
+    "showcase": true,
+    "drivers": [
+      "household energy|gas prices",
+      "food"
+    ],
+    "reference": "CPI rose to 11.1% in October 2022, the largest upward contributions from housing and household services (electricity and gas) and food (ONS, Consumer price inflation, October 2022).",
+    "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/october2022"
+  },
+  {
+    "id": "nvda-rev-fy24",
+    "question": "Why did Nvidia's revenue jump in fiscal 2024?",
+    "direction": "up",
+    "showcase": true,
+    "drivers": [
+      "demand"
+    ],
+    "reference": "Revenue rose 126% to $60.9B, led by Data Center (+217%) on demand for Hopper GPUs for large language models (NVIDIA FY2024 10-K). Because has no segment data, so only 'demand-led' is checkable.",
+    "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=NVDA&type=10-K&dateb=&owner=include&count=40"
+  },
+  {
+    "id": "us-unemp-2020",
+    "question": "Why did US unemployment spike in 2020?",
+    "direction": "up",
+    "showcase": true,
+    "drivers": [
+      "leisure",
+      "jobless claims",
+      "payroll"
+    ],
+    "reference": "Unemployment jumped to 14.7% in April 2020 as COVID-19 shutdowns cut 20.5M payroll jobs, with leisure and hospitality down 7.7M (BLS Employment Situation, April 2020).",
+    "source": "https://www.bls.gov/news.release/archives/empsit_05082020.htm"
+  },
+  {
+    "id": "meta-ni-2022",
+    "question": "Why did Meta's net income drop in 2022?",
+    "direction": "down",
+    "drivers": [
+      "r&d",
+      "restructuring",
+      "sg&a",
+      "gross profit fell|revenue fell"
+    ],
+    "reference": "Net income fell 41%: revenue declined 1% while costs and expenses rose 22% (Reality Labs R&D, headcount, $4.6B restructuring charges) (Meta Q4/FY2022 results; 2022 10-K).",
+    "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=META&type=10-K&dateb=&owner=include&count=40"
+  },
+  {
+    "id": "tsla-gm-2023",
+    "question": "Why did Tesla's gross margin fall in 2023?",
+    "direction": "down",
+    "drivers": [
+      "pric"
+    ],
+    "reference": "Automotive gross margin fell mainly on lower average selling prices after price reductions across models (Tesla 2023 10-K, MD&A).",
+    "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=TSLA&type=10-K&dateb=&owner=include&count=40"
+  },
+  {
+    "id": "aapl-rev-fy23",
+    "question": "Why did Apple's revenue decline in fiscal 2023?",
+    "direction": "down",
+    "drivers": [
+      "\\bmac\\b|ipad|currenc|exchange"
+    ],
+    "reference": "Net sales fell 3% on lower Mac and iPad sales and a stronger US dollar, partly offset by Services (Apple FY2023 10-K, MD&A).",
+    "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AAPL&type=10-K&dateb=&owner=include&count=40"
+  },
+  {
+    "id": "msft-ni-fy23",
+    "question": "Why did Microsoft's net income fall in fiscal 2023?",
+    "direction": "down",
+    "drivers": [
+      "r&d|sg&a|restructuring|impairment"
+    ],
+    "reference": "Net income slipped 1% as operating expenses grew (R&D, plus a Q2 charge for severance, hardware portfolio changes and lease consolidation) faster than gross margin (Microsoft FY2023 10-K).",
+    "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=MSFT&type=10-K&dateb=&owner=include&count=40"
+  },
+  {
+    "id": "nvda-ni-fy24",
+    "question": "Why did Nvidia's net income jump in fiscal 2024?",
+    "direction": "up",
+    "drivers": [
+      "gross profit|revenue"
+    ],
+    "reference": "Net income rose to $29.8B from $4.4B on revenue growth and gross margin expansion to 72.7% (NVIDIA FY2024 10-K).",
+    "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=NVDA&type=10-K&dateb=&owner=include&count=40"
+  },
+  {
+    "id": "tsla-ni-2024",
+    "question": "Why did Tesla's net income fall in 2024?",
+    "direction": "down",
+    "drivers": [
+      "income tax"
+    ],
+    "reference": "Net income fell 53% mainly because 2023 included a one-time $5.9B non-cash tax benefit from releasing a valuation allowance; operating income also fell on lower vehicle prices (Tesla 2024 10-K).",
+    "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=TSLA&type=10-K&dateb=&owner=include&count=40"
+  },
+  {
+    "id": "intc-ni-2024",
+    "question": "Why did Intel's net income fall in 2024?",
+    "direction": "down",
+    "drivers": [
+      "income tax",
+      "restructuring|impairment",
+      "gross profit"
+    ],
+    "reference": "Net loss of $18.8B: a non-cash charge to establish a valuation allowance on US deferred tax assets, restructuring and impairment charges, and lower gross margin (Intel 2024 10-K).",
+    "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=INTC&type=10-K&dateb=&owner=include&count=40"
+  },
+  {
+    "id": "intc-rev-2023",
+    "question": "Why did Intel's revenue fall in 2023?",
+    "direction": "down",
+    "drivers": [
+      "demand"
+    ],
+    "reference": "Revenue fell 14% on weaker PC and server demand (customer inventory digestion) across CCG and DCAI (Intel 2023 10-K).",
+    "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=INTC&type=10-K&dateb=&owner=include&count=40"
+  },
+  {
+    "id": "uk-cpi-2023",
+    "question": "Why did UK inflation fall in 2023?",
+    "direction": "down",
+    "drivers": [
+      "household energy|gas prices",
+      "transport|oil",
+      "food"
+    ],
+    "reference": "CPI fell from 10.5% (Dec 2022) to 3.9% (Nov 2023); housing and household services (energy) inflation turned negative, motor fuel prices fell and food inflation eased from 19.2% in March (ONS, Consumer price inflation, November 2023).",
+    "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/november2023"
+  },
+  {
+    "id": "us-cpi-2021",
+    "question": "Why did US inflation rise in 2021?",
+    "direction": "up",
+    "drivers": [
+      "energy",
+      "used-car",
+      "oil"
+    ],
+    "reference": "CPI-U rose 7.0% over 2021; energy +29.3% and used cars and trucks +37.3% were among the largest increases (BLS CPI, December 2021).",
+    "source": "https://www.bls.gov/news.release/archives/cpi_01122022.htm"
+  },
+  {
+    "id": "us-cpi-2023",
+    "question": "Why did US inflation fall in 2023?",
+    "direction": "down",
+    "drivers": [
+      "energy|oil"
+    ],
+    "reference": "CPI-U inflation fell from 6.5% (Dec 2022) to 3.4% (Dec 2023); the energy index declined over the year (BLS CPI, December 2023).",
+    "source": "https://www.bls.gov/news.release/archives/cpi_01112024.htm"
+  },
+  {
+    "id": "uk-unemp-2009",
+    "question": "Why did UK unemployment rise in 2009?",
+    "direction": "up",
+    "drivers": [
+      "industrial production"
+    ],
+    "reference": "Unemployment rose to about 8% during the 2008-09 recession that followed the global financial crisis, as output fell (ONS labour market statistics; GDP fell about 4% in 2009).",
+    "source": "https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment/timeseries/mgsx/lms"
+  },
+  {
+    "id": "us-unemp-2009",
+    "question": "Why did US unemployment rise in 2009?",
+    "direction": "up",
+    "drivers": [
+      "construction|manufacturing",
+      "payroll|jobless claims",
+      "industrial production"
+    ],
+    "reference": "Unemployment rose to 10.2% in October 2009 as first published (10.0% after revisions), with payrolls still falling and the largest job losses in construction, manufacturing and retail (BLS Employment Situation, October 2009).",
+    "source": "https://www.bls.gov/news.release/archives/empsit_11062009.htm"
+  },
+  {
+    "id": "trap-uk-cpi-2023-rise",
+    "question": "Why did UK inflation rise in 2023?",
+    "direction": "down",
+    "trap": true,
+    "drivers": [
+      "household energy|gas prices",
+      "transport|oil",
+      "food"
+    ],
+    "reference": "False premise: UK CPI inflation fell during 2023 (ONS).",
+    "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/november2023"
+  },
+  {
+    "id": "trap-nvda-rev-fy24-fall",
+    "question": "Why did Nvidia's revenue fall in fiscal 2024?",
+    "direction": "up",
+    "trap": true,
+    "drivers": [
+      "demand"
+    ],
+    "reference": "False premise: NVIDIA revenue rose 126% in FY2024 (10-K).",
+    "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=NVDA&type=10-K&dateb=&owner=include&count=40"
+  }
+]

@@ -1,21 +1,22 @@
 # Why did Intel's gross margin fall in 2024?
 
-_Backend: **duckdb** · LLM: none · started 2026-10-22T10:47:53Z_
+_Backend: **duckdb** · LLM: none · started 2026-10-23T09:47:11Z_
 
 ## Answer
 
-Intel's gross margin fell in FY2024: 40.0% -> 32.7% (-7.4 pts). The evidence points mainly to (1) restructuring and impairment charges increased; (2) depreciation from heavy capital spending rose as a share of revenue; (3) revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption).
+Intel's gross margin fell in FY2024: 40.0% -> 32.7% (-7.4 pts). The evidence is consistent with these drivers: (1) restructuring and impairment charges increased; (2) depreciation from heavy capital spending rose as a share of revenue; (3) revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption).
 
-**Confidence: High (0.74)** - 3 of 4 hypotheses supported; supported drivers cover ~80% of the move; 87% of queries returned data; 0 context corroborations.
+**Confidence: Medium (0.65)** - 3 of 4 hypotheses supported across 3 independent cause group(s); supported line items add up to ~80% of the change (bridge); 87% of queries returned data; 0 context corroborations; largest driver is a one-off item.
 
 ## Because
 
-- **Restructuring and impairment charges increased** - Accounts for up to -6.1 pts of the -7.4 pts move. It rose $7.03B while total cost of sales rose only $3.24B, so at most -6.1 pts can sit in cost of sales; the rest is in operating expenses (XBRL does not say where). [F15, F13, F14, F4, F2, F16]
+- **Restructuring and impairment charges increased** - Accounts for up to -6.1 pts of the -7.4 pts move. It rose $7.03B while total cost of sales rose only $3.24B, so at most -6.1 pts can sit in cost of sales; the rest is in operating expenses (XBRL does not say where). One-off: Restructuring and impairment charges of $6.97B in FY2024 were over 2.5x the prior-years average ($855.3M): a large single-year charge, likely one-off. [F15, F13, F14, F4, F2, F16]
 - **Depreciation from heavy capital spending rose as a share of revenue** - Accounts for up to -4.3 pts of the -7.4 pts move. [F10, F8, F9, F4, F2, F11, F12]
 - **Revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption)** - Revenue moved -2.1%, in the same direction as the target. [F7, F4, F2]
 
 ## Counter-evidence and limits
 
+- One-off item: Restructuring and impairment charges increased. Restructuring and impairment charges of $6.97B in FY2024 were over 2.5x the prior-years average ($855.3M): a large single-year charge, likely one-off. [F15, F13, F14]
 - Driver sizes overlap: treat each one's contribution as an upper bound. [F18]
 
 ## Caveats
@@ -189,7 +190,7 @@ flowchart LR
 
 ## Reasoning trace
 
-1. **scout** - Intent explain.company_metric (band high, risk low); signed contract 001A1633979020000D776A9A55D
+1. **scout** - Intent explain.company_metric (band high, risk low); signed contract 001A16828416000005360D49AC4
 1. **recall** - H-MEM recalled 0 prior beliefs (minimal)
 1. **plan** - Resolve INTEL CORP (CIK 0000050863) and pull gross margin for FY2021-FY2024 from SEC EDGAR
 1. **queries** - Ran 15 harness queries over 13 XBRL concepts
@@ -197,10 +198,10 @@ flowchart LR
 1. **hypotheses** - Margin bridge: test each observable cost line as a change in % of revenue
 1. **context** - Background search found 4 context snippets (context corroborates, never supplies numbers)
 1. **remember** - Wrote 12 memories with provenance; 0 conflicts with prior beliefs
-1. **done** - Finished in 3.1s
+1. **done** - Finished in 3.6s
 
 ## Scout execution contract
 
-Intent `explain.company_metric` (band high, risk low). Contract `001A1633979020000D776A9A55D`, capabilities ['background.search', 'harness.query', 'llm.narrate', 'memory.recall', 'memory.write'], expires 2026-10-22T10:52:53Z, HMAC `49b59a20a11e26d7…`.
+Intent `explain.company_metric` (band high, risk low). Contract `001A16828416000005360D49AC4`, capabilities ['background.search', 'harness.query', 'llm.narrate', 'memory.recall', 'memory.write'], expires 2026-10-23T09:52:11Z, HMAC `ed8eb9df6eaf142e…`.
 
 _Wrote 12 memories with provenance; 0 conflicts with prior beliefs._

@@ -1,8 +1,8 @@
 {
   "question": "Why did Intel's gross margin fall in 2024?",
   "backend": "duckdb",
-  "started_at": "2026-10-22T10:47:53Z",
-  "finished_at": "2026-10-22T10:47:56Z",
+  "started_at": "2026-10-23T09:47:11Z",
+  "finished_at": "2026-10-23T09:47:14Z",
   "fallback_reason": null,
   "scout": {
     "intent": "explain.company_metric",
@@ -89,9 +89,9 @@
     },
     "plan": [],
     "contract": {
-      "contractId": "001A1633979020000D776A9A55D",
+      "contractId": "001A16828416000005360D49AC4",
       "parentId": null,
-      "traceId": "d76954bf265c4554a1ce61894d70c3e4",
+      "traceId": "4f3dc39749de4dceb7ccc8f1f19e7dfb",
       "intent": {
         "primary": {
           "id": "explain.company_metric",
@@ -189,29 +189,29 @@
           "memory.write"
         ]
       },
-      "issuedAt": "2026-10-22T10:47:53Z",
-      "expiresAt": "2026-10-22T10:52:53Z",
+      "issuedAt": "2026-10-23T09:47:11Z",
+      "expiresAt": "2026-10-23T09:52:11Z",
       "registryVersion": 1,
       "policyPackVersion": "because-default@1",
       "signedBy": "scout",
-      "signature": "49b59a20a11e26d75dad570000eb86a797923e579b4ce70ca74b75c57820d6a0"
+      "signature": "ed8eb9df6eaf142ea035841e91aa2d59243e4294e2b6ec2c58e2173e72881a9e"
     },
     "telemetry": [
       {
         "event": "contract.issued",
-        "ts": 1792666073.3465962,
-        "contractId": "001A1633979020000D776A9A55D",
+        "ts": 1792748831.072371,
+        "contractId": "001A16828416000005360D49AC4",
         "intent": "explain.company_metric",
         "risk": "low",
         "profile": "deterministic"
       },
       {
         "event": "scout.decision",
-        "ts": 1792666073.3466012,
-        "traceId": "d76954bf265c4554a1ce61894d70c3e4",
+        "ts": 1792748831.0723755,
+        "traceId": "4f3dc39749de4dceb7ccc8f1f19e7dfb",
         "intent": "explain.company_metric",
         "band": "high",
-        "latencyMs": 2.03,
+        "latencyMs": 1.96,
         "stage2": "used"
       }
     ]
@@ -723,7 +723,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json"
         }
       ],
-      "elapsed_ms": 109.6,
+      "elapsed_ms": 123.0,
       "error": null,
       "purpose": "capital expenditure (PaymentsToAcquirePropertyPlantAndEquipment) annual 10-K facts"
     },
@@ -1182,7 +1182,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/RestructuringSettlementAndImpairmentProvisions.json"
         }
       ],
-      "elapsed_ms": 131.5,
+      "elapsed_ms": 178.8,
       "error": null,
       "purpose": "restructuring and impairment charges (RestructuringSettlementAndImpairmentProvisions) annual 10-K facts"
     },
@@ -1208,7 +1208,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/CostOfRevenue.json"
         }
       ],
-      "elapsed_ms": 239.7,
+      "elapsed_ms": 270.9,
       "error": null,
       "purpose": "cost of sales (CostOfRevenue) annual 10-K facts"
     },
@@ -1694,7 +1694,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/CostOfGoodsAndServicesSold.json"
         }
       ],
-      "elapsed_ms": 143.8,
+      "elapsed_ms": 177.4,
       "error": null,
       "purpose": "cost of sales (CostOfGoodsAndServicesSold) annual 10-K facts"
     },
@@ -2180,7 +2180,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/Depreciation.json"
         }
       ],
-      "elapsed_ms": 100.5,
+      "elapsed_ms": 115.5,
       "error": null,
       "purpose": "depreciation (Depreciation) annual 10-K facts"
     },
@@ -2297,7 +2297,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/GoodwillImpairmentLoss.json"
         }
       ],
-      "elapsed_ms": 22.4,
+      "elapsed_ms": 25.5,
       "error": null,
       "purpose": "goodwill impairment (GoodwillImpairmentLoss) annual 10-K facts"
     },
@@ -2783,7 +2783,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/GrossProfit.json"
         }
       ],
-      "elapsed_ms": 144.6,
+      "elapsed_ms": 165.6,
       "error": null,
       "purpose": "gross profit (GrossProfit) annual 10-K facts"
     },
@@ -3116,7 +3116,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/InventoryNet.json"
         }
       ],
-      "elapsed_ms": 90.6,
+      "elapsed_ms": 104.9,
       "error": null,
       "purpose": "inventory (InventoryNet) annual 10-K facts"
     },
@@ -3170,7 +3170,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/InventoryWriteDown.json"
         }
       ],
-      "elapsed_ms": 4.7,
+      "elapsed_ms": 5.2,
       "error": null,
       "purpose": "inventory write-downs (InventoryWriteDown) annual 10-K facts"
     },
@@ -3656,7 +3656,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/NetIncomeLoss.json"
         }
       ],
-      "elapsed_ms": 144.6,
+      "elapsed_ms": 172.1,
       "error": null,
       "purpose": "net income (NetIncomeLoss) annual 10-K facts"
     },
@@ -4142,7 +4142,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/OperatingIncomeLoss.json"
         }
       ],
-      "elapsed_ms": 145.2,
+      "elapsed_ms": 171.0,
       "error": null,
       "purpose": "operating income (OperatingIncomeLoss) annual 10-K facts"
     },
@@ -4628,7 +4628,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/ResearchAndDevelopmentExpense.json"
         }
       ],
-      "elapsed_ms": 146.8,
+      "elapsed_ms": 166.4,
       "error": null,
       "purpose": "R&D expense (ResearchAndDevelopmentExpense) annual 10-K facts"
     },
@@ -4654,7 +4654,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/Revenues.json"
         }
       ],
-      "elapsed_ms": 180.6,
+      "elapsed_ms": 206.7,
       "error": null,
       "purpose": "revenue (Revenues) annual 10-K facts"
     },
@@ -4897,7 +4897,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json"
         }
       ],
-      "elapsed_ms": 69.6,
+      "elapsed_ms": 80.9,
       "error": null,
       "purpose": "revenue (RevenueFromContractWithCustomerExcludingAssessedTax) annual 10-K facts"
     },
@@ -5383,7 +5383,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/SellingGeneralAndAdministrativeExpense.json"
         }
       ],
-      "elapsed_ms": 147.1,
+      "elapsed_ms": 168.3,
       "error": null,
       "purpose": "SG&A expense (SellingGeneralAndAdministrativeExpense) annual 10-K facts"
     }
@@ -5665,7 +5665,10 @@
         "F2"
       ],
       "counter": [],
-      "detail": "Revenue moved -2.1%, in the same direction as the target."
+      "detail": "Revenue moved -2.1%, in the same direction as the target.",
+      "group": "sales",
+      "context": "",
+      "one_off": ""
     },
     {
       "id": "H2",
@@ -5683,7 +5686,10 @@
         "F12"
       ],
       "counter": [],
-      "detail": "Accounts for up to -4.3 pts of the -7.4 pts move."
+      "detail": "Accounts for up to -4.3 pts of the -7.4 pts move.",
+      "group": "capex",
+      "context": "",
+      "one_off": ""
     },
     {
       "id": "H3",
@@ -5700,7 +5706,10 @@
         "F16"
       ],
       "counter": [],
-      "detail": "Accounts for up to -6.1 pts of the -7.4 pts move. It rose $7.03B while total cost of sales rose only $3.24B, so at most -6.1 pts can sit in cost of sales; the rest is in operating expenses (XBRL does not say where)."
+      "detail": "Accounts for up to -6.1 pts of the -7.4 pts move. It rose $7.03B while total cost of sales rose only $3.24B, so at most -6.1 pts can sit in cost of sales; the rest is in operating expenses (XBRL does not say where).",
+      "group": "charges",
+      "context": "",
+      "one_off": "Restructuring and impairment charges of $6.97B in FY2024 were over 2.5x the prior-years average ($855.3M): a large single-year charge, likely one-off."
     },
     {
       "id": "H4",
@@ -5710,15 +5719,18 @@
       "weight": 0.0,
       "evidence": [],
       "counter": [],
-      "detail": "EDGAR has no inventory write-downs for FY2023/FY2024 under the concepts tried (InventoryWriteDown)."
+      "detail": "EDGAR has no inventory write-downs for FY2023/FY2024 under the concepts tried (InventoryWriteDown).",
+      "group": "inventory",
+      "context": "",
+      "one_off": ""
     }
   ],
   "answer": {
-    "summary": "Intel's gross margin fell in FY2024: 40.0% -> 32.7% (-7.4 pts). The evidence points mainly to (1) restructuring and impairment charges increased; (2) depreciation from heavy capital spending rose as a share of revenue; (3) revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption).",
+    "summary": "Intel's gross margin fell in FY2024: 40.0% -> 32.7% (-7.4 pts). The evidence is consistent with these drivers: (1) restructuring and impairment charges increased; (2) depreciation from heavy capital spending rose as a share of revenue; (3) revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption).",
     "because": [
       {
         "claim": "Restructuring and impairment charges increased",
-        "detail": "Accounts for up to -6.1 pts of the -7.4 pts move. It rose $7.03B while total cost of sales rose only $3.24B, so at most -6.1 pts can sit in cost of sales; the rest is in operating expenses (XBRL does not say where).",
+        "detail": "Accounts for up to -6.1 pts of the -7.4 pts move. It rose $7.03B while total cost of sales rose only $3.24B, so at most -6.1 pts can sit in cost of sales; the rest is in operating expenses (XBRL does not say where). One-off: Restructuring and impairment charges of $6.97B in FY2024 were over 2.5x the prior-years average ($855.3M): a large single-year charge, likely one-off.",
         "evidence": [
           "F15",
           "F13",
@@ -5728,7 +5740,9 @@
           "F16"
         ],
         "hypothesis": "H3",
-        "weight": 6.099696804203311
+        "weight": 6.099696804203311,
+        "group": "charges",
+        "one_off": "Restructuring and impairment charges of $6.97B in FY2024 were over 2.5x the prior-years average ($855.3M): a large single-year charge, likely one-off."
       },
       {
         "claim": "Depreciation from heavy capital spending rose as a share of revenue",
@@ -5743,7 +5757,8 @@
           "F12"
         ],
         "hypothesis": "H2",
-        "weight": 4.269375776535895
+        "weight": 4.269375776535895,
+        "group": "capex"
       },
       {
         "claim": "Revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption)",
@@ -5754,10 +5769,20 @@
           "F2"
         ],
         "hypothesis": "H1",
-        "weight": 0.7660831983092355
+        "weight": 0.7660831983092355,
+        "group": "sales"
       }
     ],
     "counter_evidence": [
+      {
+        "claim": "One-off item: Restructuring and impairment charges increased. Restructuring and impairment charges of $6.97B in FY2024 were over 2.5x the prior-years average ($855.3M): a large single-year charge, likely one-off.",
+        "evidence": [
+          "F15",
+          "F13",
+          "F14"
+        ],
+        "hypothesis": "H3"
+      },
       {
         "claim": "Driver sizes overlap: treat each one's contribution as an upper bound.",
         "evidence": [
@@ -5773,76 +5798,81 @@
       }
     ],
     "confidence": {
-      "score": 0.74,
-      "label": "High",
-      "rationale": "3 of 4 hypotheses supported; supported drivers cover ~80% of the move; 87% of queries returned data; 0 context corroborations."
+      "score": 0.65,
+      "label": "Medium",
+      "rationale": "3 of 4 hypotheses supported across 3 independent cause group(s); supported line items add up to ~80% of the change (bridge); 87% of queries returned data; 0 context corroborations; largest driver is a one-off item.",
+      "coverage": 0.8,
+      "coverage_kind": "move",
+      "independent_drivers": 3
     },
     "caveats": [
       "Values are the latest filed (as-restated) figures per period; XBRL tags vary by company and year.",
       "Context snippets from Wikipedia corroborate hypotheses but never supply numbers."
     ],
-    "target_finding": "F5"
+    "target_finding": "F5",
+    "premise_ok": true,
+    "actual_direction": "down"
   },
   "memory_written": [
-    "mem-06da87e21d65",
-    "mem-020135226875",
-    "mem-4fda040e79a0",
-    "mem-714cb05b0d7c",
-    "mem-a24da3b3d164",
-    "mem-74766103d4cd",
-    "mem-719275c55e74",
-    "mem-b3f6e5b5bd87",
-    "mem-2cf760cdcd6f",
-    "mem-4d22f3fc5524",
-    "mem-8f136f2e9607",
-    "mem-bc09fbafc35a"
+    "mem-201c2946bef9",
+    "mem-39559ec8a330",
+    "mem-e96fe9b55779",
+    "mem-6cc54226d806",
+    "mem-20a98178bf84",
+    "mem-669936990128",
+    "mem-a5c0df082541",
+    "mem-62079227b042",
+    "mem-dc285bf0c11d",
+    "mem-49d3210c5269",
+    "mem-e37e7a9235f7",
+    "mem-9036fe309320"
   ],
   "conflicts": [],
   "steps": [
     {
-      "t": 1792666073.347,
+      "t": 1792748831.072,
       "stage": "scout",
-      "message": "Intent explain.company_metric (band high, risk low); signed contract 001A1633979020000D776A9A55D"
+      "message": "Intent explain.company_metric (band high, risk low); signed contract 001A16828416000005360D49AC4"
     },
     {
-      "t": 1792666073.352,
+      "t": 1792748831.079,
       "stage": "recall",
       "message": "H-MEM recalled 0 prior beliefs (minimal)"
     },
     {
-      "t": 1792666073.352,
+      "t": 1792748831.079,
       "stage": "plan",
       "message": "Resolve INTEL CORP (CIK 0000050863) and pull gross margin for FY2021-FY2024 from SEC EDGAR"
     },
     {
-      "t": 1792666075.18,
+      "t": 1792748833.217,
       "stage": "queries",
       "message": "Ran 15 harness queries over 13 XBRL concepts"
     },
     {
-      "t": 1792666075.18,
+      "t": 1792748833.217,
       "stage": "findings",
       "message": "Target moved 40.0% -> 32.7% (-7.4 pts)"
     },
     {
-      "t": 1792666075.18,
+      "t": 1792748833.217,
       "stage": "hypotheses",
       "message": "Margin bridge: test each observable cost line as a change in % of revenue"
     },
     {
-      "t": 1792666076.44,
+      "t": 1792748834.659,
       "stage": "context",
       "message": "Background search found 4 context snippets (context corroborates, never supplies numbers)"
     },
     {
-      "t": 1792666076.45,
+      "t": 1792748834.671,
       "stage": "remember",
       "message": "Wrote 12 memories with provenance; 0 conflicts with prior beliefs"
     },
     {
-      "t": 1792666076.45,
+      "t": 1792748834.671,
       "stage": "done",
-      "message": "Finished in 3.1s"
+      "message": "Finished in 3.6s"
     }
   ],
   "llm": {

@@ -1,0 +1,1128 @@
+{
+  "summary": {
+    "questions": 19,
+    "answered": 19,
+    "errors": [],
+    "premise_correct": 19,
+    "driver_hits": 16,
+    "traps_flagged": 2,
+    "traps": 2,
+    "mean_confidence_hits": 0.713,
+    "mean_confidence_misses": 0.517,
+    "brier_driver": 0.124,
+    "showcase_driver_hits": 4,
+    "failures": [
+      {
+        "id": "tsla-gm-2023",
+        "why": "reference driver not among supported hypotheses"
+      },
+      {
+        "id": "aapl-rev-fy23",
+        "why": "reference driver not among supported hypotheses"
+      },
+      {
+        "id": "intc-rev-2023",
+        "why": "reference driver not among supported hypotheses"
+      }
+    ]
+  },
+  "results": [
+    {
+      "id": "intc-gm-2024",
+      "question": "Why did Intel's gross margin fall in 2024?",
+      "trap": false,
+      "showcase": true,
+      "reference_direction": "down",
+      "measured_direction": "down",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "restructuring|impairment",
+        "depreciation"
+      ],
+      "driver_patterns": [
+        "restructuring|impairment",
+        "depreciation",
+        "inventory"
+      ],
+      "confidence": 0.65,
+      "confidence_label": "Medium",
+      "summary": "Intel's gross margin fell in FY2024: 40.0% -> 32.7% (-7.4 pts). The evidence is consistent with these drivers: (1) restructuring and impairment charges increased; (2) depreciation from heavy capital spending rose as a share of revenue; (3) revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption).",
+      "supported": [
+        "Revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption)",
+        "Depreciation from heavy capital spending rose as a share of revenue",
+        "Restructuring and impairment charges increased"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption)"
+        ],
+        "H2": [
+          "supported",
+          "Depreciation from heavy capital spending rose as a share of revenue"
+        ],
+        "H3": [
+          "supported",
+          "Restructuring and impairment charges increased"
+        ],
+        "H4": [
+          "inconclusive",
+          "Inventory write-downs increased"
+        ]
+      },
+      "reference": "Gross margin fell to 32.7% on large restructuring/impairment and accelerated-depreciation charges (Intel 7 assets), higher inventory reserves and higher unit costs from new process nodes (Intel 2024 10-K, MD&A).",
+      "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=INTC&type=10-K&dateb=&owner=include&count=40",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 1.8
+    },
+    {
+      "id": "uk-cpi-2022",
+      "question": "Why did UK inflation spike in 2022?",
+      "trap": false,
+      "showcase": true,
+      "reference_direction": "up",
+      "measured_direction": "up",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "household energy|gas prices",
+        "food"
+      ],
+      "driver_patterns": [
+        "household energy|gas prices",
+        "food"
+      ],
+      "confidence": 0.81,
+      "confidence_label": "High",
+      "summary": "UK inflation rose in 2022: 5.4% (2021-12) -> 11.1% (2022-10 peak), +5.7 pts; 2020 average 0.8%. The evidence is consistent with these drivers: (1) household energy inflation (CPI housing, water & fuels) rose during the run-up to the 2022 peak; (2) food inflation (CPI food & non-alcoholic drinks) rose during the run-up to the 2022 peak; (3) the 12-month change in the pound's value against the dollar fell during the run-up to the 2022 peak.",
+      "supported": [
+        "Household energy inflation (CPI housing, water & fuels) rose during the run-up to the 2022 peak",
+        "Food inflation (CPI food & non-alcoholic drinks) rose during the run-up to the 2022 peak",
+        "Transport inflation (CPI transport, incl. motor fuel) rose during the run-up to the 2022 peak",
+        "Services inflation (CPI services) rose during the run-up to the 2022 peak",
+        "The 12-month change in wholesale European gas prices rose during the run-up to the 2022 peak",
+        "The 12-month change in the pound's value against the dollar fell during the run-up to the 2022 peak",
+        "UK short-term interest rates were low (average below 1%) in the 6-18 months before the 2022 peak",
+        "UK unemployment was at least 0.3 pts below its 2020 average in the 6-18 months before the 2022 peak"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Household energy inflation (CPI housing, water & fuels) rose during the run-up to the 2022 peak"
+        ],
+        "H2": [
+          "supported",
+          "Food inflation (CPI food & non-alcoholic drinks) rose during the run-up to the 2022 peak"
+        ],
+        "H3": [
+          "supported",
+          "Transport inflation (CPI transport, incl. motor fuel) rose during the run-up to the 2022 peak"
+        ],
+        "H4": [
+          "supported",
+          "Services inflation (CPI services) rose during the run-up to the 2022 peak"
+        ],
+        "H5": [
+          "supported",
+          "The 12-month change in wholesale European gas prices rose during the run-up to the 2022 peak"
+        ],
+        "H6": [
+          "contradicted",
+          "The 12-month change in Brent crude oil prices rose during the run-up to the 2022 peak"
+        ],
+        "H7": [
+          "inconclusive",
+          "The 12-month change in global food commodity prices rose during the run-up to the 2022 peak"
+        ],
+        "H8": [
+          "supported",
+          "The 12-month change in the pound's value against the dollar fell during the run-up to the 2022 peak"
+        ],
+        "H9": [
+          "supported",
+          "UK short-term interest rates were low (average below 1%) in the 6-18 months before the 2022 peak"
+        ],
+        "H10": [
+          "supported",
+          "UK unemployment was at least 0.3 pts below its 2020 average in the 6-18 months before the 2022 peak"
+        ]
+      },
+      "reference": "CPI rose to 11.1% in October 2022, the largest upward contributions from housing and household services (electricity and gas) and food (ONS, Consumer price inflation, October 2022).",
+      "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/october2022",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 3.2
+    },
+    {
+      "id": "nvda-rev-fy24",
+      "question": "Why did Nvidia's revenue jump in fiscal 2024?",
+      "trap": false,
+      "showcase": true,
+      "reference_direction": "up",
+      "measured_direction": "up",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "demand"
+      ],
+      "driver_patterns": [
+        "demand"
+      ],
+      "confidence": 0.7,
+      "confidence_label": "High",
+      "summary": "Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence is consistent with these drivers: (1) demand outstripped supply and pricing power rose (gross margin expanded with revenue); (2) sales ran ahead of inventory (demand-led growth).",
+      "supported": [
+        "Demand outstripped supply and pricing power rose (gross margin expanded with revenue)",
+        "Sales ran ahead of inventory (demand-led growth)",
+        "Operating leverage amplified the move (operating income moved more than revenue)"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Demand outstripped supply and pricing power rose (gross margin expanded with revenue)"
+        ],
+        "H2": [
+          "supported",
+          "Sales ran ahead of inventory (demand-led growth)"
+        ],
+        "H3": [
+          "supported",
+          "Operating leverage amplified the move (operating income moved more than revenue)"
+        ]
+      },
+      "reference": "Revenue rose 126% to $60.9B, led by Data Center (+217%) on demand for Hopper GPUs for large language models (NVIDIA FY2024 10-K). Because has no segment data, so only 'demand-led' is checkable.",
+      "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=NVDA&type=10-K&dateb=&owner=include&count=40",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 1.9
+    },
+    {
+      "id": "us-unemp-2020",
+      "question": "Why did US unemployment spike in 2020?",
+      "trap": false,
+      "showcase": true,
+      "reference_direction": "up",
+      "measured_direction": "up",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "leisure",
+        "jobless claims",
+        "payroll"
+      ],
+      "driver_patterns": [
+        "leisure",
+        "jobless claims",
+        "payroll"
+      ],
+      "confidence": 0.85,
+      "confidence_label": "High",
+      "summary": "US unemployment rose in 2020: 3.6% (2019-12) -> 14.8% (2020-04 peak), +11.2 pts; 2018 average 3.9%. The evidence is consistent with these drivers: (1) leisure & hospitality employment fell during the run-up to the 2020 peak; (2) initial jobless claims rose during the run-up to the 2020 peak; (3) industrial production fell during the run-up to the 2020 peak.",
+      "supported": [
+        "Initial jobless claims rose during the run-up to the 2020 peak",
+        "Total payroll employment fell during the run-up to the 2020 peak",
+        "Leisure & hospitality employment fell during the run-up to the 2020 peak",
+        "Construction employment fell during the run-up to the 2020 peak",
+        "Manufacturing employment fell during the run-up to the 2020 peak",
+        "Industrial production fell during the run-up to the 2020 peak"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Initial jobless claims rose during the run-up to the 2020 peak"
+        ],
+        "H2": [
+          "supported",
+          "Total payroll employment fell during the run-up to the 2020 peak"
+        ],
+        "H3": [
+          "supported",
+          "Leisure & hospitality employment fell during the run-up to the 2020 peak"
+        ],
+        "H4": [
+          "supported",
+          "Construction employment fell during the run-up to the 2020 peak"
+        ],
+        "H5": [
+          "supported",
+          "Manufacturing employment fell during the run-up to the 2020 peak"
+        ],
+        "H6": [
+          "supported",
+          "Industrial production fell during the run-up to the 2020 peak"
+        ],
+        "H7": [
+          "inconclusive",
+          "The federal funds rate rose during the run-up to the 2020 peak"
+        ]
+      },
+      "reference": "Unemployment jumped to 14.7% in April 2020 as COVID-19 shutdowns cut 20.5M payroll jobs, with leisure and hospitality down 7.7M (BLS Employment Situation, April 2020).",
+      "source": "https://www.bls.gov/news.release/archives/empsit_05082020.htm",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 1.9
+    },
+    {
+      "id": "meta-ni-2022",
+      "question": "Why did Meta's net income drop in 2022?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "down",
+      "measured_direction": "down",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "r&d",
+        "gross profit fell|revenue fell"
+      ],
+      "driver_patterns": [
+        "r&d",
+        "restructuring",
+        "sg&a",
+        "gross profit fell|revenue fell"
+      ],
+      "confidence": 0.7,
+      "confidence_label": "High",
+      "summary": "Meta Platforms's net income fell in FY2022: $39.37B -> $23.20B (-41.1%). The evidence is consistent with these drivers: (1) R&D expense rose; (2) gross profit fell.",
+      "supported": [
+        "Gross profit fell",
+        "R&D expense rose"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Gross profit fell"
+        ],
+        "H2": [
+          "supported",
+          "R&D expense rose"
+        ],
+        "H3": [
+          "inconclusive",
+          "SG&A expense rose"
+        ],
+        "H4": [
+          "inconclusive",
+          "Restructuring and impairment charges rose"
+        ],
+        "H5": [
+          "contradicted",
+          "Income tax expense rose"
+        ],
+        "H6": [
+          "inconclusive",
+          "Revenue fell in the same direction as profit"
+        ]
+      },
+      "reference": "Net income fell 41%: revenue declined 1% while costs and expenses rose 22% (Reality Labs R&D, headcount, $4.6B restructuring charges) (Meta Q4/FY2022 results; 2022 10-K).",
+      "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=META&type=10-K&dateb=&owner=include&count=40",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 2.0
+    },
+    {
+      "id": "tsla-gm-2023",
+      "question": "Why did Tesla's gross margin fall in 2023?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "down",
+      "measured_direction": "down",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": false,
+      "drivers_matched": [],
+      "driver_patterns": [
+        "pric"
+      ],
+      "confidence": 0.34,
+      "confidence_label": "Low",
+      "summary": "Tesla's gross margin fell in FY2023: 25.6% -> 18.2% (-7.3 pts). None of the tested drivers is consistent with the move.",
+      "supported": [],
+      "verdicts": {
+        "H1": [
+          "contradicted",
+          "Revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption)"
+        ],
+        "H2": [
+          "inconclusive",
+          "Depreciation from heavy capital spending rose as a share of revenue"
+        ],
+        "H3": [
+          "inconclusive",
+          "Restructuring and impairment charges increased"
+        ],
+        "H4": [
+          "inconclusive",
+          "Inventory write-downs increased"
+        ]
+      },
+      "reference": "Automotive gross margin fell mainly on lower average selling prices after price reductions across models (Tesla 2023 10-K, MD&A).",
+      "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=TSLA&type=10-K&dateb=&owner=include&count=40",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 1.8
+    },
+    {
+      "id": "aapl-rev-fy23",
+      "question": "Why did Apple's revenue decline in fiscal 2023?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "down",
+      "measured_direction": "down",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": false,
+      "drivers_matched": [],
+      "driver_patterns": [
+        "\\bmac\\b|ipad|currenc|exchange"
+      ],
+      "confidence": 0.66,
+      "confidence_label": "Medium",
+      "summary": "Apple Inc.'s revenue fell in FY2023: $394.33B -> $383.29B (-2.8%). The evidence is consistent with these drivers: (1) inventory piled up as demand fell (demand-led decline); (2) operating leverage amplified the move (operating income moved more than revenue).",
+      "supported": [
+        "Inventory piled up as demand fell (demand-led decline)",
+        "Operating leverage amplified the move (operating income moved more than revenue)"
+      ],
+      "verdicts": {
+        "H1": [
+          "inconclusive",
+          "Pricing pressure accompanied lower volumes (gross margin contracted)"
+        ],
+        "H2": [
+          "supported",
+          "Inventory piled up as demand fell (demand-led decline)"
+        ],
+        "H3": [
+          "supported",
+          "Operating leverage amplified the move (operating income moved more than revenue)"
+        ]
+      },
+      "reference": "Net sales fell 3% on lower Mac and iPad sales and a stronger US dollar, partly offset by Services (Apple FY2023 10-K, MD&A).",
+      "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AAPL&type=10-K&dateb=&owner=include&count=40",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 2.6
+    },
+    {
+      "id": "msft-ni-fy23",
+      "question": "Why did Microsoft's net income fall in fiscal 2023?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "down",
+      "measured_direction": "down",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "r&d|sg&a|restructuring|impairment"
+      ],
+      "driver_patterns": [
+        "r&d|sg&a|restructuring|impairment"
+      ],
+      "confidence": 0.74,
+      "confidence_label": "High",
+      "summary": "Microsoft's net income fell in FY2023: $72.74B -> $72.36B (-0.5%). The evidence is consistent with these drivers: (1) income tax expense rose; (2) R&D expense rose.",
+      "supported": [
+        "R&D expense rose",
+        "Income tax expense rose"
+      ],
+      "verdicts": {
+        "H1": [
+          "contradicted",
+          "Gross profit fell"
+        ],
+        "H2": [
+          "supported",
+          "R&D expense rose"
+        ],
+        "H3": [
+          "inconclusive",
+          "SG&A expense rose"
+        ],
+        "H4": [
+          "inconclusive",
+          "Restructuring and impairment charges rose"
+        ],
+        "H5": [
+          "supported",
+          "Income tax expense rose"
+        ],
+        "H6": [
+          "contradicted",
+          "Revenue fell in the same direction as profit"
+        ]
+      },
+      "reference": "Net income slipped 1% as operating expenses grew (R&D, plus a Q2 charge for severance, hardware portfolio changes and lease consolidation) faster than gross margin (Microsoft FY2023 10-K).",
+      "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=MSFT&type=10-K&dateb=&owner=include&count=40",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 6.0
+    },
+    {
+      "id": "nvda-ni-fy24",
+      "question": "Why did Nvidia's net income jump in fiscal 2024?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "up",
+      "measured_direction": "up",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "gross profit|revenue"
+      ],
+      "driver_patterns": [
+        "gross profit|revenue"
+      ],
+      "confidence": 0.55,
+      "confidence_label": "Medium",
+      "summary": "Nvidia's net income rose in FY2024: $4.37B -> $29.76B (+581.3%). The evidence is consistent with one driver: revenue grew in the same direction as profit. Only one independent driver was supported, so treat this as a partial explanation.",
+      "supported": [
+        "Gross profit rose",
+        "Revenue grew in the same direction as profit"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Gross profit rose"
+        ],
+        "H2": [
+          "inconclusive",
+          "R&D expense fell"
+        ],
+        "H3": [
+          "inconclusive",
+          "SG&A expense fell"
+        ],
+        "H4": [
+          "inconclusive",
+          "Restructuring and impairment charges fell"
+        ],
+        "H5": [
+          "contradicted",
+          "Income tax expense fell"
+        ],
+        "H6": [
+          "supported",
+          "Revenue grew in the same direction as profit"
+        ]
+      },
+      "reference": "Net income rose to $29.8B from $4.4B on revenue growth and gross margin expansion to 72.7% (NVIDIA FY2024 10-K).",
+      "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=NVDA&type=10-K&dateb=&owner=include&count=40",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 0.5
+    },
+    {
+      "id": "tsla-ni-2024",
+      "question": "Why did Tesla's net income fall in 2024?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "down",
+      "measured_direction": "down",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "income tax"
+      ],
+      "driver_patterns": [
+        "income tax"
+      ],
+      "confidence": 0.55,
+      "confidence_label": "Medium",
+      "summary": "Tesla's net income fell in FY2024: $15.00B -> $7.09B (-52.7%). The evidence is consistent with one driver: income tax expense rose. Only one independent driver was supported, so treat this as a partial explanation.",
+      "supported": [
+        "Income tax expense rose"
+      ],
+      "verdicts": {
+        "H1": [
+          "inconclusive",
+          "Gross profit fell"
+        ],
+        "H2": [
+          "inconclusive",
+          "R&D expense rose"
+        ],
+        "H3": [
+          "inconclusive",
+          "SG&A expense rose"
+        ],
+        "H4": [
+          "inconclusive",
+          "Restructuring and impairment charges rose"
+        ],
+        "H5": [
+          "supported",
+          "Income tax expense rose"
+        ],
+        "H6": [
+          "inconclusive",
+          "Revenue fell in the same direction as profit"
+        ]
+      },
+      "reference": "Net income fell 53% mainly because 2023 included a one-time $5.9B non-cash tax benefit from releasing a valuation allowance; operating income also fell on lower vehicle prices (Tesla 2024 10-K).",
+      "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=TSLA&type=10-K&dateb=&owner=include&count=40",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 0.2
+    },
+    {
+      "id": "intc-ni-2024",
+      "question": "Why did Intel's net income fall in 2024?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "down",
+      "measured_direction": "down",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "income tax",
+        "restructuring|impairment",
+        "gross profit"
+      ],
+      "driver_patterns": [
+        "income tax",
+        "restructuring|impairment",
+        "gross profit"
+      ],
+      "confidence": 0.83,
+      "confidence_label": "High",
+      "summary": "Intel's net income fell in FY2024: $1.69B -> -$18.76B (-1210.5%). The evidence is consistent with these drivers: (1) revenue fell in the same direction as profit; (2) income tax expense rose; (3) restructuring and impairment charges rose.",
+      "supported": [
+        "Gross profit fell",
+        "Restructuring and impairment charges rose",
+        "Income tax expense rose",
+        "Revenue fell in the same direction as profit"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Gross profit fell"
+        ],
+        "H2": [
+          "inconclusive",
+          "R&D expense rose"
+        ],
+        "H3": [
+          "inconclusive",
+          "SG&A expense rose"
+        ],
+        "H4": [
+          "supported",
+          "Restructuring and impairment charges rose"
+        ],
+        "H5": [
+          "supported",
+          "Income tax expense rose"
+        ],
+        "H6": [
+          "supported",
+          "Revenue fell in the same direction as profit"
+        ]
+      },
+      "reference": "Net loss of $18.8B: a non-cash charge to establish a valuation allowance on US deferred tax assets, restructuring and impairment charges, and lower gross margin (Intel 2024 10-K).",
+      "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=INTC&type=10-K&dateb=&owner=include&count=40",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 0.5
+    },
+    {
+      "id": "intc-rev-2023",
+      "question": "Why did Intel's revenue fall in 2023?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "down",
+      "measured_direction": "down",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": false,
+      "drivers_matched": [],
+      "driver_patterns": [
+        "demand"
+      ],
+      "confidence": 0.55,
+      "confidence_label": "Medium",
+      "summary": "Intel's revenue fell in FY2023: $63.05B -> $54.23B (-14.0%). The evidence is consistent with one driver: pricing pressure accompanied lower volumes (gross margin contracted). Only one independent driver was supported, so treat this as a partial explanation.",
+      "supported": [
+        "Pricing pressure accompanied lower volumes (gross margin contracted)",
+        "Operating leverage amplified the move (operating income moved more than revenue)"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Pricing pressure accompanied lower volumes (gross margin contracted)"
+        ],
+        "H2": [
+          "inconclusive",
+          "Inventory piled up as demand fell (demand-led decline)"
+        ],
+        "H3": [
+          "supported",
+          "Operating leverage amplified the move (operating income moved more than revenue)"
+        ]
+      },
+      "reference": "Revenue fell 14% on weaker PC and server demand (customer inventory digestion) across CCG and DCAI (Intel 2023 10-K).",
+      "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=INTC&type=10-K&dateb=&owner=include&count=40",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 0.0
+    },
+    {
+      "id": "uk-cpi-2023",
+      "question": "Why did UK inflation fall in 2023?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "down",
+      "measured_direction": "down",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "household energy|gas prices",
+        "transport|oil",
+        "food"
+      ],
+      "driver_patterns": [
+        "household energy|gas prices",
+        "transport|oil",
+        "food"
+      ],
+      "confidence": 0.83,
+      "confidence_label": "High",
+      "summary": "UK inflation fell in 2023: 10.5% (2022-12) -> 3.9% (2023-11 low), -6.6 pts; 2021 average 2.6%. The evidence is consistent with these drivers: (1) transport inflation (CPI transport, incl. motor fuel) fell during the 2023 decline; (2) food inflation (CPI food & non-alcoholic drinks) fell during the 2023 decline; (3) the 12-month change in the pound's value against the dollar rose during the 2023 decline.",
+      "supported": [
+        "Household energy inflation (CPI housing, water & fuels) fell during the 2023 decline",
+        "Food inflation (CPI food & non-alcoholic drinks) fell during the 2023 decline",
+        "Transport inflation (CPI transport, incl. motor fuel) fell during the 2023 decline",
+        "The 12-month change in wholesale European gas prices fell during the 2023 decline",
+        "The 12-month change in Brent crude oil prices fell during the 2023 decline",
+        "The 12-month change in global food commodity prices fell during the 2023 decline",
+        "The 12-month change in the pound's value against the dollar rose during the 2023 decline"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Household energy inflation (CPI housing, water & fuels) fell during the 2023 decline"
+        ],
+        "H2": [
+          "supported",
+          "Food inflation (CPI food & non-alcoholic drinks) fell during the 2023 decline"
+        ],
+        "H3": [
+          "supported",
+          "Transport inflation (CPI transport, incl. motor fuel) fell during the 2023 decline"
+        ],
+        "H4": [
+          "inconclusive",
+          "Services inflation (CPI services) fell during the 2023 decline"
+        ],
+        "H5": [
+          "supported",
+          "The 12-month change in wholesale European gas prices fell during the 2023 decline"
+        ],
+        "H6": [
+          "supported",
+          "The 12-month change in Brent crude oil prices fell during the 2023 decline"
+        ],
+        "H7": [
+          "supported",
+          "The 12-month change in global food commodity prices fell during the 2023 decline"
+        ],
+        "H8": [
+          "supported",
+          "The 12-month change in the pound's value against the dollar rose during the 2023 decline"
+        ],
+        "H9": [
+          "inconclusive",
+          "UK short-term interest rates rose during the 2023 decline"
+        ],
+        "H10": [
+          "inconclusive",
+          "UK unemployment rose during the 2023 decline"
+        ]
+      },
+      "reference": "CPI fell from 10.5% (Dec 2022) to 3.9% (Nov 2023); housing and household services (energy) inflation turned negative, motor fuel prices fell and food inflation eased from 19.2% in March (ONS, Consumer price inflation, November 2023).",
+      "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/november2023",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 0.1
+    },
+    {
+      "id": "us-cpi-2021",
+      "question": "Why did US inflation rise in 2021?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "up",
+      "measured_direction": "up",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "energy",
+        "used-car",
+        "oil"
+      ],
+      "driver_patterns": [
+        "energy",
+        "used-car",
+        "oil"
+      ],
+      "confidence": 0.75,
+      "confidence_label": "High",
+      "summary": "US inflation rose in 2021: 1.3% (2020-12) -> 7.2% (2021-12 peak), +5.9 pts; 2019 average 1.8%. The evidence is consistent with these drivers: (1) energy inflation (US CPI energy) rose during the run-up to the 2021 peak; (2) used-car price inflation (US CPI used cars) rose during the run-up to the 2021 peak; (3) M2 money supply growth (12-month %) rose during the run-up to the 2021 peak.",
+      "supported": [
+        "Energy inflation (US CPI energy) rose during the run-up to the 2021 peak",
+        "Food inflation (US CPI food) rose during the run-up to the 2021 peak",
+        "Used-car price inflation (US CPI used cars) rose during the run-up to the 2021 peak",
+        "The 12-month change in Brent crude oil prices rose during the run-up to the 2021 peak",
+        "M2 money supply growth (12-month %) rose during the run-up to the 2021 peak",
+        "The federal funds rate was low (average below 1%) in the 6-18 months before the 2021 peak"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Energy inflation (US CPI energy) rose during the run-up to the 2021 peak"
+        ],
+        "H2": [
+          "supported",
+          "Food inflation (US CPI food) rose during the run-up to the 2021 peak"
+        ],
+        "H3": [
+          "supported",
+          "Used-car price inflation (US CPI used cars) rose during the run-up to the 2021 peak"
+        ],
+        "H4": [
+          "inconclusive",
+          "Shelter inflation (US CPI shelter) rose during the run-up to the 2021 peak"
+        ],
+        "H5": [
+          "supported",
+          "The 12-month change in Brent crude oil prices rose during the run-up to the 2021 peak"
+        ],
+        "H6": [
+          "supported",
+          "M2 money supply growth (12-month %) rose during the run-up to the 2021 peak"
+        ],
+        "H7": [
+          "supported",
+          "The federal funds rate was low (average below 1%) in the 6-18 months before the 2021 peak"
+        ],
+        "H8": [
+          "contradicted",
+          "US unemployment was at least 0.3 pts below its 2019 average in the 6-18 months before the 2021 peak"
+        ]
+      },
+      "reference": "CPI-U rose 7.0% over 2021; energy +29.3% and used cars and trucks +37.3% were among the largest increases (BLS CPI, December 2021).",
+      "source": "https://www.bls.gov/news.release/archives/cpi_01122022.htm",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 1.1
+    },
+    {
+      "id": "us-cpi-2023",
+      "question": "Why did US inflation fall in 2023?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "down",
+      "measured_direction": "down",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "energy|oil"
+      ],
+      "driver_patterns": [
+        "energy|oil"
+      ],
+      "confidence": 0.83,
+      "confidence_label": "High",
+      "summary": "US inflation fell in 2023: 6.4% (2022-12) -> 3.1% (2023-06 low), -3.3 pts; 2021 average 4.7%. The evidence is consistent with these drivers: (1) energy inflation (US CPI energy) fell during the 2023 decline; (2) used-car price inflation (US CPI used cars) fell during the 2023 decline; (3) food inflation (US CPI food) fell during the 2023 decline.",
+      "supported": [
+        "Energy inflation (US CPI energy) fell during the 2023 decline",
+        "Food inflation (US CPI food) fell during the 2023 decline",
+        "Used-car price inflation (US CPI used cars) fell during the 2023 decline",
+        "The 12-month change in Brent crude oil prices fell during the 2023 decline",
+        "The federal funds rate rose during the 2023 decline"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Energy inflation (US CPI energy) fell during the 2023 decline"
+        ],
+        "H2": [
+          "supported",
+          "Food inflation (US CPI food) fell during the 2023 decline"
+        ],
+        "H3": [
+          "supported",
+          "Used-car price inflation (US CPI used cars) fell during the 2023 decline"
+        ],
+        "H4": [
+          "inconclusive",
+          "Shelter inflation (US CPI shelter) fell during the 2023 decline"
+        ],
+        "H5": [
+          "supported",
+          "The 12-month change in Brent crude oil prices fell during the 2023 decline"
+        ],
+        "H6": [
+          "inconclusive",
+          "M2 money supply growth (12-month %) fell during the 2023 decline"
+        ],
+        "H7": [
+          "supported",
+          "The federal funds rate rose during the 2023 decline"
+        ],
+        "H8": [
+          "inconclusive",
+          "US unemployment rose during the 2023 decline"
+        ]
+      },
+      "reference": "CPI-U inflation fell from 6.5% (Dec 2022) to 3.4% (Dec 2023); the energy index declined over the year (BLS CPI, December 2023).",
+      "source": "https://www.bls.gov/news.release/archives/cpi_01112024.htm",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 0.1
+    },
+    {
+      "id": "uk-unemp-2009",
+      "question": "Why did UK unemployment rise in 2009?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "up",
+      "measured_direction": "up",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "industrial production"
+      ],
+      "driver_patterns": [
+        "industrial production"
+      ],
+      "confidence": 0.47,
+      "confidence_label": "Medium",
+      "summary": "UK unemployment rose in 2009: 6.5% (2008-12) -> 7.9% (2009-06 peak), +1.4 pts; 2007 average 5.3%. The evidence is consistent with one driver: UK industrial production fell during the run-up to the 2009 peak. Only one independent driver was supported, so treat this as a partial explanation.",
+      "supported": [
+        "UK industrial production fell during the run-up to the 2009 peak"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "UK industrial production fell during the run-up to the 2009 peak"
+        ],
+        "H2": [
+          "contradicted",
+          "UK short-term interest rates rose during the run-up to the 2009 peak"
+        ],
+        "H3": [
+          "contradicted",
+          "The 12-month change in Brent crude oil prices rose during the run-up to the 2009 peak"
+        ]
+      },
+      "reference": "Unemployment rose to about 8% during the 2008-09 recession that followed the global financial crisis, as output fell (ONS labour market statistics; GDP fell about 4% in 2009).",
+      "source": "https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment/timeseries/mgsx/lms",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 0.2
+    },
+    {
+      "id": "us-unemp-2009",
+      "question": "Why did US unemployment rise in 2009?",
+      "trap": false,
+      "showcase": false,
+      "reference_direction": "up",
+      "measured_direction": "up",
+      "premise_correct": true,
+      "premise_flagged": false,
+      "driver_hit": true,
+      "drivers_matched": [
+        "construction|manufacturing",
+        "payroll|jobless claims",
+        "industrial production"
+      ],
+      "driver_patterns": [
+        "construction|manufacturing",
+        "payroll|jobless claims",
+        "industrial production"
+      ],
+      "confidence": 0.71,
+      "confidence_label": "High",
+      "summary": "US unemployment rose in 2009: 7.3% (2008-12) -> 10.0% (2009-10 peak), +2.7 pts; 2007 average 4.6%. The evidence is consistent with these drivers: (1) construction employment fell during the run-up to the 2009 peak; (2) manufacturing employment fell during the run-up to the 2009 peak; (3) total payroll employment fell during the run-up to the 2009 peak.",
+      "supported": [
+        "Total payroll employment fell during the run-up to the 2009 peak",
+        "Construction employment fell during the run-up to the 2009 peak",
+        "Manufacturing employment fell during the run-up to the 2009 peak",
+        "Industrial production fell during the run-up to the 2009 peak"
+      ],
+      "verdicts": {
+        "H1": [
+          "inconclusive",
+          "Initial jobless claims rose during the run-up to the 2009 peak"
+        ],
+        "H2": [
+          "supported",
+          "Total payroll employment fell during the run-up to the 2009 peak"
+        ],
+        "H3": [
+          "inconclusive",
+          "Leisure & hospitality employment fell during the run-up to the 2009 peak"
+        ],
+        "H4": [
+          "supported",
+          "Construction employment fell during the run-up to the 2009 peak"
+        ],
+        "H5": [
+          "supported",
+          "Manufacturing employment fell during the run-up to the 2009 peak"
+        ],
+        "H6": [
+          "supported",
+          "Industrial production fell during the run-up to the 2009 peak"
+        ],
+        "H7": [
+          "contradicted",
+          "The federal funds rate rose during the run-up to the 2009 peak"
+        ]
+      },
+      "reference": "Unemployment rose to 10.2% in October 2009 as first published (10.0% after revisions), with payrolls still falling and the largest job losses in construction, manufacturing and retail (BLS Employment Situation, October 2009).",
+      "source": "https://www.bls.gov/news.release/archives/empsit_11062009.htm",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 0.1
+    },
+    {
+      "id": "trap-uk-cpi-2023-rise",
+      "question": "Why did UK inflation rise in 2023?",
+      "trap": true,
+      "showcase": false,
+      "reference_direction": "down",
+      "measured_direction": "down",
+      "premise_correct": true,
+      "premise_flagged": true,
+      "driver_hit": true,
+      "drivers_matched": [
+        "household energy|gas prices",
+        "transport|oil",
+        "food"
+      ],
+      "driver_patterns": [
+        "household energy|gas prices",
+        "transport|oil",
+        "food"
+      ],
+      "confidence": 0.73,
+      "confidence_label": "High",
+      "summary": "UK inflation fell in 2023: 10.5% (2022-12) -> 3.9% (2023-11 low), -6.6 pts; 2021 average 2.6%. The evidence is consistent with these drivers: (1) transport inflation (CPI transport, incl. motor fuel) fell during the 2023 decline; (2) food inflation (CPI food & non-alcoholic drinks) fell during the 2023 decline; (3) the 12-month change in the pound's value against the dollar rose during the 2023 decline.",
+      "supported": [
+        "Household energy inflation (CPI housing, water & fuels) fell during the 2023 decline",
+        "Food inflation (CPI food & non-alcoholic drinks) fell during the 2023 decline",
+        "Transport inflation (CPI transport, incl. motor fuel) fell during the 2023 decline",
+        "The 12-month change in wholesale European gas prices fell during the 2023 decline",
+        "The 12-month change in Brent crude oil prices fell during the 2023 decline",
+        "The 12-month change in global food commodity prices fell during the 2023 decline",
+        "The 12-month change in the pound's value against the dollar rose during the 2023 decline"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Household energy inflation (CPI housing, water & fuels) fell during the 2023 decline"
+        ],
+        "H2": [
+          "supported",
+          "Food inflation (CPI food & non-alcoholic drinks) fell during the 2023 decline"
+        ],
+        "H3": [
+          "supported",
+          "Transport inflation (CPI transport, incl. motor fuel) fell during the 2023 decline"
+        ],
+        "H4": [
+          "inconclusive",
+          "Services inflation (CPI services) fell during the 2023 decline"
+        ],
+        "H5": [
+          "supported",
+          "The 12-month change in wholesale European gas prices fell during the 2023 decline"
+        ],
+        "H6": [
+          "supported",
+          "The 12-month change in Brent crude oil prices fell during the 2023 decline"
+        ],
+        "H7": [
+          "supported",
+          "The 12-month change in global food commodity prices fell during the 2023 decline"
+        ],
+        "H8": [
+          "supported",
+          "The 12-month change in the pound's value against the dollar rose during the 2023 decline"
+        ],
+        "H9": [
+          "inconclusive",
+          "UK short-term interest rates rose during the 2023 decline"
+        ],
+        "H10": [
+          "inconclusive",
+          "UK unemployment rose during the 2023 decline"
+        ]
+      },
+      "reference": "False premise: UK CPI inflation fell during 2023 (ONS).",
+      "source": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/november2023",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 0.0
+    },
+    {
+      "id": "trap-nvda-rev-fy24-fall",
+      "question": "Why did Nvidia's revenue fall in fiscal 2024?",
+      "trap": true,
+      "showcase": false,
+      "reference_direction": "up",
+      "measured_direction": "up",
+      "premise_correct": true,
+      "premise_flagged": true,
+      "driver_hit": true,
+      "drivers_matched": [
+        "demand"
+      ],
+      "driver_patterns": [
+        "demand"
+      ],
+      "confidence": 0.7,
+      "confidence_label": "High",
+      "summary": "Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence is consistent with these drivers: (1) demand outstripped supply and pricing power rose (gross margin expanded with revenue); (2) sales ran ahead of inventory (demand-led growth).",
+      "supported": [
+        "Demand outstripped supply and pricing power rose (gross margin expanded with revenue)",
+        "Sales ran ahead of inventory (demand-led growth)",
+        "Operating leverage amplified the move (operating income moved more than revenue)"
+      ],
+      "verdicts": {
+        "H1": [
+          "supported",
+          "Demand outstripped supply and pricing power rose (gross margin expanded with revenue)"
+        ],
+        "H2": [
+          "supported",
+          "Sales ran ahead of inventory (demand-led growth)"
+        ],
+        "H3": [
+          "supported",
+          "Operating leverage amplified the move (operating income moved more than revenue)"
+        ]
+      },
+      "reference": "False premise: NVIDIA revenue rose 126% in FY2024 (10-K).",
+      "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=NVDA&type=10-K&dateb=&owner=include&count=40",
+      "backend": "duckdb",
+      "error": null,
+      "seconds": 0.0
+    }
+  ]
+}

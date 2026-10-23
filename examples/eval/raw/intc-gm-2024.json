@@ -1,0 +1,51 @@
+{
+  "id": "intc-gm-2024",
+  "question": "Why did Intel's gross margin fall in 2024?",
+  "trap": false,
+  "showcase": true,
+  "reference_direction": "down",
+  "measured_direction": "down",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "restructuring|impairment",
+    "depreciation"
+  ],
+  "driver_patterns": [
+    "restructuring|impairment",
+    "depreciation",
+    "inventory"
+  ],
+  "confidence": 0.65,
+  "confidence_label": "Medium",
+  "summary": "Intel's gross margin fell in FY2024: 40.0% -> 32.7% (-7.4 pts). The evidence is consistent with these drivers: (1) restructuring and impairment charges increased; (2) depreciation from heavy capital spending rose as a share of revenue; (3) revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption).",
+  "supported": [
+    "Revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption)",
+    "Depreciation from heavy capital spending rose as a share of revenue",
+    "Restructuring and impairment charges increased"
+  ],
+  "verdicts": {
+    "H1": [
+      "supported",
+      "Revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption)"
+    ],
+    "H2": [
+      "supported",
+      "Depreciation from heavy capital spending rose as a share of revenue"
+    ],
+    "H3": [
+      "supported",
+      "Restructuring and impairment charges increased"
+    ],
+    "H4": [
+      "inconclusive",
+      "Inventory write-downs increased"
+    ]
+  },
+  "reference": "Gross margin fell to 32.7% on large restructuring/impairment and accelerated-depreciation charges (Intel 7 assets), higher inventory reserves and higher unit costs from new process nodes (Intel 2024 10-K, MD&A).",
+  "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=INTC&type=10-K&dateb=&owner=include&count=40",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 1.8
+}

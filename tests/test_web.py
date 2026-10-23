@@ -33,3 +33,22 @@ def test_zetaris_runs_list_and_unknown_404():
     assert isinstance(r.json(), list)
     missing = client.get("/api/zetaris_runs/__no_such_zetaris_run__")
     assert missing.status_code == 404
+
+
+def test_index_ui_copy():
+    """Judge-facing copy: no internal mode label, visible Zetaris proof, explicit re-run control."""
+    html = client.get("/").text
+    assert "DuckDB fallback (SAMPLE_MODE)" not in html
+    assert "Demo data: same SQL as on Zetaris" in html
+    assert "Ran on Zetaris Lightning" in html
+    assert "actions/runs/39928173953" in html
+    assert "Re-run live" in html
+    assert "What do you already know about Intel's margins?" in html
+    assert "How it works" in html
+
+
+def test_memory_recall_example_loads():
+    """The memory chip opens the saved recall run instantly."""
+    r = client.get("/api/examples/memory-recall-intel")
+    assert r.status_code == 200
+    assert r.json()["trace"]["answer"].get("memory")

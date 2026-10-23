@@ -45,6 +45,9 @@ LABEL = {
     "gross_margin": "gross margin", "operating_margin": "operating margin",
 }
 INSTANT = {"inventory"}
+# cause groups: correlated hypotheses share one so confidence does not count them twice
+GROUP = {"gross_profit": "sales", "revenue": "sales", "charges": "charges", "goodwill_impairment": "charges",
+         "depreciation": "capex", "capex": "capex", "inventory_writedown": "inventory", "rd": "rd", "sga": "sga", "tax": "tax"}
 
 SQL_ANNUAL = (
     "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number "
@@ -174,7 +177,8 @@ class CompanyPlaybook:
         self.context(Y, actual_dir)
         return {"target_finding": tf.id, "target_fids": target_fids, "delta": delta, "is_ratio": is_ratio, "actual_dir": actual_dir,
                 "premise_ok": premise_ok, "move": move, "subject": f"{self.short}'s {LABEL.get(self.metric, self.metric)}",
-                "period": f"FY{Y}", "coverage": self.coverage}
+                "period": f"FY{Y}", "coverage": self.coverage,
+                "coverage_kind": "signals" if self.metric in ("revenue", "rd") else "move", "playbook": "company"}
 
     def target_values(self, years: range) -> dict[int, dict[str, Any]]:
         out: dict[int, dict[str, Any]] = {}
@@ -198,10 +202,31 @@ class CompanyPlaybook:
     # -- hypothesis families --------------------------------------------------------
     coverage: float = 0.0
 
+    def one_off(self, key: str, Y: int, P: int) -> str:
+        """Flag drivers that look like one-off items rather than a recurring cause."""
+        if key == "tax":
+            ty, tp, oi = self.v("tax", Y), self.v("tax", P), self.v("operating_income", Y)
+            if tp is not None and tp < 0 and abs(tp) > 0.05 * abs(self.v("revenue", P) or 1):
+                return (f"FY{P} included a large income tax benefit ({fmt_usd(tp)}, i.e. negative tax expense), typically a one-off "
+                        f"such as a deferred-tax valuation-allowance release; its absence in FY{Y} is a base effect, not an operating cause.")
+            if ty is not None and ty > 0 and oi is not None and oi < 0:
+                return (f"FY{Y} tax expense ({fmt_usd(ty)}) was charged despite an operating loss, typically a one-off "
+                        f"such as a deferred-tax valuation allowance.")
+            return ""
+        if key in ("charges", "goodwill_impairment", "inventory_writedown"):
+            cur = self.v(key, Y)
+            hist = [x for x in (self.v(key, fy) for fy in range(Y - 3, Y)) if x is not None]
+            rev = self.v("revenue", Y) or 0
+            if cur and hist and cur > 2.5 * (sum(hist) / len(hist)) and rev and cur > 0.01 * rev:
+                return (f"{LABEL[key].capitalize()} of {fmt_usd(cur)} in FY{Y} were over 2.5x the prior-years average "
+                        f"({fmt_usd(sum(hist) / len(hist))}): a large single-year charge, likely one-off.")
+        return ""
+
     def _pts_driver(self, key: str, Y: int, P: int, hyp: str, test: str, sign: int, delta: float, threshold: float = 0.5) -> float:
         """Driver measured as change in % of revenue. `sign` = +1 if the driver rising lowers the target."""
         a, b = self.ratio(key, Y), self.ratio(key, P)
         h = self.t.add_hypothesis(statement=hyp, test=test)
+        h.group = GROUP.get(key, key)
         if a is None or b is None:
             h.verdict, h.detail = "inconclusive", f"EDGAR has no {LABEL[key]} for FY{P}/FY{Y} under the concepts tried ({', '.join(CONCEPTS[key])})."
             return 0.0
@@ -232,6 +257,7 @@ class CompanyPlaybook:
         if (impact < 0) == (delta < 0):
             h.verdict, h.evidence = "supported", [f.id] + ev
             h.detail = f"Accounts for up to {fmt_pts(impact)} of the {fmt_pts(delta)} move.{cap_note}"
+            h.one_off = self.one_off(key, Y, P)
             return impact
         h.verdict, h.counter = "contradicted", [f.id] + ev
         h.detail = f"Moved the other way ({fmt_pts(impact)} effect on the target)."
@@ -240,6 +266,7 @@ class CompanyPlaybook:
     def _revenue_hyp(self, Y: int, P: int, delta: float, framing: str) -> None:
         r, rp = self.v("revenue", Y), self.v("revenue", P)
         h = self.t.add_hypothesis(statement=framing, test="Revenue change FY-1 -> FY (threshold +/-2%)")
+        h.group = "sales"
         if r is None or rp is None:
             h.verdict = "inconclusive"
             return
@@ -309,6 +336,7 @@ class CompanyPlaybook:
         for key, sign, text in parts:
             a, b = self.v(key, Y), self.v(key, P)
             h = self.t.add_hypothesis(statement=text, test=f"Dollar contribution of {LABEL[key]} to the change (>=10% of the move)")
+            h.group = GROUP.get(key, key)
             if a is None or b is None:
                 h.verdict, h.detail = "inconclusive", f"No {LABEL[key]} in EDGAR for both years."
                 continue
@@ -320,10 +348,11 @@ class CompanyPlaybook:
                 h.verdict, h.counter, h.detail = "inconclusive", [f.id] + ev, "Small relative to the move."
             elif (contrib < 0) == (delta < 0):
                 h.verdict, h.evidence, h.detail = "supported", [f.id] + ev, f"{fmt_usd(contrib)} of the {fmt_usd(delta)} change."
+                h.one_off = self.one_off(key, Y, P)
                 total += contrib
             else:
                 h.verdict, h.counter, h.detail = "contradicted", [f.id] + ev, f"Offset the move by {fmt_usd(contrib)}."
-        self._revenue_hyp(Y, P, delta, "Revenue " + ("fell" if d == "down" else "grew") + ", driving the profit change")
+        self._revenue_hyp(Y, P, delta, "Revenue " + ("fell" if d == "down" else "grew") + " in the same direction as profit")
         self.coverage = min(1.0, abs(total) / abs(delta)) if delta else 0.0
 
     def revenue_hypotheses(self, Y: int, P: int, delta: float, d: str) -> None:
@@ -332,6 +361,7 @@ class CompanyPlaybook:
         h = self.t.add_hypothesis(statement=("Demand outstripped supply and pricing power rose (gross margin expanded with revenue)" if d == "up"
                                              else "Pricing pressure accompanied lower volumes (gross margin contracted)"),
                                   test="Gross margin change alongside revenue (>= 2 pts)")
+        h.group = "margin"
         if g is not None and gp is not None:
             f = self.t.add_finding(statement=f"Gross margin {gp:.1f}% -> {g:.1f}% ({fmt_pts(g - gp)}) while revenue moved {fmt_pct(pct(self.v('revenue', Y), self.v('revenue', P)))}", kind="derived")
             ev = [f.id] + [x for x in (self.fact("gross_profit", Y), self.fact("gross_profit", P)) if x]
@@ -347,14 +377,17 @@ class CompanyPlaybook:
         inv, invp = self.v("inventory", Y), self.v("inventory", P)
         h2 = self.t.add_hypothesis(statement=("Sales ran ahead of inventory (demand-led growth)" if d == "up" else "Inventory piled up as demand fell (demand-led decline)"),
                                    test="Inventory growth vs revenue growth (10-pt gap)")
+        h2.group = "inventory"
         if inv is not None and invp is not None:
             ig, rg = pct(inv, invp), pct(self.v("revenue", Y), self.v("revenue", P))
             f = self.t.add_finding(statement=f"Year-end inventory {fmt_usd(invp)} -> {fmt_usd(inv)} ({fmt_pct(ig)}) vs revenue {fmt_pct(rg)}", kind="derived")
             ev = [f.id] + [x for x in (self.fact("inventory", Y), self.fact("inventory", P)) if x]
             gap = (rg or 0) - (ig or 0)
             h2.weight = min(abs(gap) / 20, 2)
+            h2.detail = f"Revenue grew {fmt_pct(rg)} vs inventory {fmt_pct(ig)} (gap {gap:+.0f} pts)."
             if abs(gap) < 10:
                 h2.verdict, h2.counter = "inconclusive", ev
+                h2.detail += " Gap under 10 pts."
             elif (gap > 0) == (d == "up"):
                 h2.verdict, h2.evidence = "supported", ev
             else:
@@ -364,11 +397,13 @@ class CompanyPlaybook:
         oi, oip = self.v("operating_income", Y), self.v("operating_income", P)
         h3 = self.t.add_hypothesis(statement="Operating leverage amplified the move (operating income moved more than revenue)",
                                    test="Operating income % change vs revenue % change")
+        h3.group = "margin"
         if oi is not None and oip is not None:
             og, rg = pct(oi, oip), pct(self.v("revenue", Y), self.v("revenue", P))
             f = self.t.add_finding(statement=f"Operating income {fmt_usd(oip)} -> {fmt_usd(oi)} ({fmt_pct(og)}) vs revenue {fmt_pct(rg)}", kind="derived")
             ev = [f.id] + [x for x in (self.fact("operating_income", Y), self.fact("operating_income", P)) if x]
             h3.weight = 0.5
+            h3.detail = f"Operating income moved {fmt_pct(og)} vs revenue {fmt_pct(rg)}."
             if og is not None and rg is not None and abs(og) > abs(rg) and (og > 0) == (rg > 0):
                 h3.verdict, h3.evidence = "supported", ev
             else:

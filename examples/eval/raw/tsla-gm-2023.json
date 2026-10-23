@@ -1,0 +1,42 @@
+{
+  "id": "tsla-gm-2023",
+  "question": "Why did Tesla's gross margin fall in 2023?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "down",
+  "measured_direction": "down",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": false,
+  "drivers_matched": [],
+  "driver_patterns": [
+    "pric"
+  ],
+  "confidence": 0.34,
+  "confidence_label": "Low",
+  "summary": "Tesla's gross margin fell in FY2023: 25.6% -> 18.2% (-7.3 pts). None of the tested drivers is consistent with the move.",
+  "supported": [],
+  "verdicts": {
+    "H1": [
+      "contradicted",
+      "Revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption)"
+    ],
+    "H2": [
+      "inconclusive",
+      "Depreciation from heavy capital spending rose as a share of revenue"
+    ],
+    "H3": [
+      "inconclusive",
+      "Restructuring and impairment charges increased"
+    ],
+    "H4": [
+      "inconclusive",
+      "Inventory write-downs increased"
+    ]
+  },
+  "reference": "Automotive gross margin fell mainly on lower average selling prices after price reductions across models (Tesla 2023 10-K, MD&A).",
+  "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=TSLA&type=10-K&dateb=&owner=include&count=40",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 1.8
+}

@@ -1,0 +1,54 @@
+{
+  "id": "tsla-ni-2024",
+  "question": "Why did Tesla's net income fall in 2024?",
+  "trap": false,
+  "showcase": false,
+  "reference_direction": "down",
+  "measured_direction": "down",
+  "premise_correct": true,
+  "premise_flagged": false,
+  "driver_hit": true,
+  "drivers_matched": [
+    "income tax"
+  ],
+  "driver_patterns": [
+    "income tax"
+  ],
+  "confidence": 0.55,
+  "confidence_label": "Medium",
+  "summary": "Tesla's net income fell in FY2024: $15.00B -> $7.09B (-52.7%). The evidence is consistent with one driver: income tax expense rose. Only one independent driver was supported, so treat this as a partial explanation.",
+  "supported": [
+    "Income tax expense rose"
+  ],
+  "verdicts": {
+    "H1": [
+      "inconclusive",
+      "Gross profit fell"
+    ],
+    "H2": [
+      "inconclusive",
+      "R&D expense rose"
+    ],
+    "H3": [
+      "inconclusive",
+      "SG&A expense rose"
+    ],
+    "H4": [
+      "inconclusive",
+      "Restructuring and impairment charges rose"
+    ],
+    "H5": [
+      "supported",
+      "Income tax expense rose"
+    ],
+    "H6": [
+      "inconclusive",
+      "Revenue fell in the same direction as profit"
+    ]
+  },
+  "reference": "Net income fell 53% mainly because 2023 included a one-time $5.9B non-cash tax benefit from releasing a valuation allowance; operating income also fell on lower vehicle prices (Tesla 2024 10-K).",
+  "source": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=TSLA&type=10-K&dateb=&owner=include&count=40",
+  "backend": "duckdb",
+  "error": null,
+  "seconds": 0.2
+}
