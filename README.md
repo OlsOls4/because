@@ -15,7 +15,7 @@ Built for the GenAI Works Open Agent Hackathon 2026, track **The Agent That Can 
 | | |
 |---|---|
 | **Live demo** | [because-agent.vercel.app](https://because-agent.vercel.app) (DuckDB fallback running the same agent SQL; saved runs load instantly, live questions take about 10 s) |
-| **Demo video** | [youtu.be/7SHfgPPmVMQ](https://youtu.be/7SHfgPPmVMQ) |
+| **Demo video** | [youtu.be/kwpGNsq9gno](https://youtu.be/kwpGNsq9gno) |
 | **Runs on real Zetaris** | [CI run 39949595787](https://github.com/OlsOls4/because/actions/runs/39949595787): Zetaris Lightning 2.4.3.1 over JDBC, 5/5 questions, 0 query errors, federated cross-source JOINs, USL model 9/9. Traces: [`examples/zetaris_runs/`](examples/zetaris_runs/) |
 | **Evaluation** | [`docs/EVAL.md`](docs/EVAL.md): 19 questions, direction 19/19, reference driver found 16/19, failures committed |
 | **Slides** | [`docs/deck/Because-deck.pdf`](docs/deck/Because-deck.pdf) |

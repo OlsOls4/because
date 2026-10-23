@@ -41,7 +41,7 @@ def test_index_ui_copy():
     assert "DuckDB fallback (SAMPLE_MODE)" not in html
     assert "Demo data: same SQL as on Zetaris" in html
     assert "Ran on Zetaris Lightning" in html
-    assert "actions/runs/39928173953" in html
+    assert "actions/runs/39949595787" in html
     assert "Re-run live" in html
     assert "What do you already know about Intel's margins?" in html
     assert "How it works" in html
