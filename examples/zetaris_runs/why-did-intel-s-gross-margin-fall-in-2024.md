@@ -1,21 +1,22 @@
 # Why did Intel's gross margin fall in 2024?
 
-_Backend: **zetaris-jdbc** · LLM: none · started 2026-10-23T09:03:34Z_
+_Backend: **zetaris-jdbc** · LLM: none · started 2026-10-23T12:02:22Z_
 
 ## Answer
 
-Intel's gross margin fell in FY2024: 40.0% -> 32.7% (-7.4 pts). The evidence points mainly to (1) restructuring and impairment charges increased; (2) depreciation from heavy capital spending rose as a share of revenue; (3) revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption).
+Intel's gross margin fell in FY2024: 40.0% -> 32.7% (-7.4 pts). The evidence is consistent with these drivers: (1) restructuring and impairment charges increased; (2) depreciation from heavy capital spending rose as a share of revenue; (3) revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption).
 
-**Confidence: High (0.74)** - 3 of 4 hypotheses supported; supported drivers cover ~80% of the move; 87% of queries returned data; 0 context corroborations.
+**Confidence: Medium (0.65)** - 3 of 4 hypotheses supported across 3 independent cause group(s); supported line items add up to ~80% of the change (bridge); 87% of queries returned data; 0 context corroborations; largest driver is a one-off item.
 
 ## Because
 
-- **Restructuring and impairment charges increased** - Accounts for up to -6.1 pts of the -7.4 pts move. It rose $7.03B while total cost of sales rose only $3.24B, so at most -6.1 pts can sit in cost of sales; the rest is in operating expenses (XBRL does not say where). [F15, F13, F14, F4, F2, F16]
+- **Restructuring and impairment charges increased** - Accounts for up to -6.1 pts of the -7.4 pts move. It rose $7.03B while total cost of sales rose only $3.24B, so at most -6.1 pts can sit in cost of sales; the rest is in operating expenses (XBRL does not say where). One-off: Restructuring and impairment charges of $6.97B in FY2024 were over 2.5x the prior-years average ($855.3M): a large single-year charge, likely one-off. [F15, F13, F14, F4, F2, F16]
 - **Depreciation from heavy capital spending rose as a share of revenue** - Accounts for up to -4.3 pts of the -7.4 pts move. [F10, F8, F9, F4, F2, F11, F12]
 - **Revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption)** - Revenue moved -2.1%, in the same direction as the target. [F7, F4, F2]
 
 ## Counter-evidence and limits
 
+- One-off item: Restructuring and impairment charges increased. Restructuring and impairment charges of $6.97B in FY2024 were over 2.5x the prior-years average ($855.3M): a large single-year charge, likely one-off. [F15, F13, F14]
 - Driver sizes overlap: treat each one's contribution as an upper bound. [F18]
 
 ## Caveats
@@ -58,6 +59,7 @@ Intel's gross margin fell in FY2024: 40.0% -> 32.7% (-7.4 pts). The evidence poi
 | F20 | Context (Wikipedia, 'Intel'): The start of the construction was initially planned for 2023, but this was postponed to late 2024, while the production start was scheduled for 2027. | context |  | [link](https://en.wikipedia.org/wiki/Intel) |
 | F21 | Context (Wikipedia, 'Intel'): In December 2023, Intel unveiled Gaudi3, an artificial intelligence (AI) chip for generative AI software which launched in 2024 and competes with rival chips from Nvidia and AMD. | context |  | [link](https://en.wikipedia.org/wiki/Intel) |
 | F22 | Context (Wikipedia, 'Intel'): On June 4, 2024, Intel announced AI chips for data centers, the Xeon 6 processor, aiming for better performance and power efficiency compared to its predecessor. | context |  | [link](https://en.wikipedia.org/wiki/Intel) |
+| F23 | Cross-source (SEC EDGAR x FRED, one federated SQL JOIN): Intel revenue FY2023 -> FY2024 $54.23B -> $53.10B (-2.1%); the US producer price index for semiconductors averaged 57.2 over FY2023 and 58.1 over FY2024 (+1.5%), so price-adjusted revenue changed -3.6%: revenue moved against industry prices, so the move was volume, mix or share, not industry pricing | cross-source | `Q-ce61f967dc` · [3, 4] | [link](https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json) |
 
 ## Queries run through the data harness
 
@@ -136,6 +138,12 @@ Intel's gross margin fell in FY2024: 40.0% -> 32.7% (-7.4 pts). The evidence poi
   SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_sellinggeneralandadministrativeexpense WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date
   ```
   source: `because.edgar_concept_0000050863_sellinggeneralandadministrativeexpense` <- https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/SellingGeneralAndAdministrativeExpense.json
+- `Q-ce61f967dc` (zetaris-jdbc, 6 rows) - cross-source: EDGAR RevenueFromContractWithCustomerExcludingAssessedTax JOIN FRED PCU33443344 on each fiscal-year window
+  ```sql
+  SELECT e.period_start, e.period_end, e.value_usd, ROUND(AVG(m.value), 3) AS index_avg, COUNT(m.value) AS index_months FROM (SELECT period_start, period_end, value_usd, ROW_NUMBER() OVER (PARTITION BY period_end ORDER BY filed_date DESC) AS rn FROM because.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax WHERE form_type = '10-K' AND fiscal_period = 'FY' AND period_start IS NOT NULL AND (CAST(SUBSTR(period_end, 1, 4) AS INT) * 12 + CAST(SUBSTR(period_end, 6, 2) AS INT)) - (CAST(SUBSTR(period_start, 1, 4) AS INT) * 12 + CAST(SUBSTR(period_start, 6, 2) AS INT)) BETWEEN 11 AND 13) e JOIN because.fred_series_pcu33443344 m ON m.period >= e.period_start AND m.period <= e.period_end WHERE e.rn = 1 AND e.period_end >= '2020-01-01' GROUP BY e.period_start, e.period_end, e.value_usd ORDER BY e.period_end
+  ```
+  source: `because.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax` <- https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json
+  source: `because.fred_series_pcu33443344` <- https://fred.stlouisfed.org/graph/fredgraph.csv?id=PCU33443344
 
 ## Evidence graph
 
@@ -189,18 +197,19 @@ flowchart LR
 
 ## Reasoning trace
 
-1. **scout** - Intent explain.company_metric (band high, risk low); signed contract 001A1680054540000DCDB31CC4A
+1. **scout** - Intent explain.company_metric (band high, risk low); signed contract 001A168A4077B0000488FCFC529
 1. **recall** - H-MEM recalled 0 prior beliefs (minimal)
 1. **plan** - Resolve INTEL CORP (CIK 0000050863) and pull gross margin for FY2021-FY2024 from SEC EDGAR
 1. **queries** - Ran 15 harness queries over 13 XBRL concepts
 1. **findings** - Target moved 40.0% -> 32.7% (-7.4 pts)
 1. **hypotheses** - Margin bridge: test each observable cost line as a change in % of revenue
 1. **context** - Background search found 4 context snippets (context corroborates, never supplies numbers)
-1. **remember** - Wrote 12 memories with provenance; 0 conflicts with prior beliefs
-1. **done** - Finished in 6.8s
+1. **cross-source** - Federated JOIN EDGAR x FRED (PCU33443344) on fiscal-year windows: 6 fiscal years
+1. **remember** - Wrote 13 memories with provenance; 0 conflicts with prior beliefs
+1. **done** - Finished in 6.3s
 
 ## Scout execution contract
 
-Intent `explain.company_metric` (band high, risk low). Contract `001A1680054540000DCDB31CC4A`, capabilities ['background.search', 'harness.query', 'llm.narrate', 'memory.recall', 'memory.write'], expires 2026-10-23T09:08:34Z, HMAC `351438926078876d…`.
+Intent `explain.company_metric` (band high, risk low). Contract `001A168A4077B0000488FCFC529`, capabilities ['background.search', 'harness.query', 'llm.narrate', 'memory.recall', 'memory.write'], expires 2026-10-23T12:07:22Z, HMAC `77015eba3456b5de…`.
 
-_Wrote 12 memories with provenance; 0 conflicts with prior beliefs._
+_Wrote 13 memories with provenance; 0 conflicts with prior beliefs._

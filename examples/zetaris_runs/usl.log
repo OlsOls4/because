@@ -1,0 +1,22 @@
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+OK   CREATE NAMESPACE IF NOT EXISTS lightning.metastore
+     -> {"columns": ["result"], "rows": []}
+OK   CREATE NAMESPACE IF NOT EXISTS lightning.metastore.because
+     -> {"columns": ["result"], "rows": []}
+OK   COMPILE USL IF NOT EXISTS because_usl DEPLOY NAMESPACE lightning.metastore.because DDL CREATE TABLE annual_fac
+     -> {"columns": ["json"], "rows": [["{\"namespace\":[\"metastore\",\"because\"],\"name\":\"because_usl\",\"tables\":[{\"name\":\"annual_fact\",\"columnSpecs\":[{\"name\":\"accession_number\",\"dataType\":\"\\\"varchar(25)\\\"\",\"notNull\":{\"columns\":[]},\"dqAnnotations\":[],\"acAnnotations\":[]},{\"name\":\"concept\",\"dataType\":\"\\\"varchar(200)\\\"\",\"dqAnnotations\":[],\"acAnnotations\":[]},{\"name\":\"period_start\",\"dataType\":\"\\\"varchar(10)\\\"\",\"dqAnnotations\":[],\"acAnnotations\":[]},{\"name\":\"period_end\",\"dataType\":\"\\\"varchar(10)\\\"\",\"notNull\":{\"columns\":[]},\"dqAnnotations\":[],\"acAnnotations\":[]},{\"name\":\"value_usd\",\"dataType\":\"\\\"double\\\"\",\"dqAnnotations\":[],\"acAnnotations\":[]},{\"name\":\"fiscal_period\",\"dataType\":\"\\\"varchar(4)\\\"\",\"dqAnnotations\":[],\"acAnnotations\":[]},{\"name\":\"form_type\",\"dataType\":\"\\\"varchar(10)
+OK   UPDATE USL lightning.metastore.because.because_usl SET DESCRIPTION 'Because agent: SEC EDGAR annual 10-K facts
+     -> {"columns": ["updated"], "rows": [[1]]}
+OK   ACTIVATE USL TABLE lightning.metastore.because.because_usl.annual_fact AS SELECT COALESCE(fact.accn, '') AS ac
+     -> {"columns": ["registered"], "rows": [["{\"name\":\"annual_fact\",\"query\":\"SELECT\\n    COALESCE(fact.accn, '') AS accession_number,\\n    tag AS concept,\\n    fact.`start` AS period_start,\\n    COALESCE(fact.`end`, '') AS period_end,\\n    CAST(fact.val AS DOUBLE) AS value_usd,\\n    fact.fp AS fiscal_period,\\n    fact.form AS form_type,\\n    fact.filed AS filed_date\\nFROM because_rest.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax_raw\\nLATERAL VIEW explode(units.USD) AS fact\\nWHERE fact.form = '10-K' AND fact.fp = 'FY'\"}"]]}
+OK   ACTIVATE USL TABLE lightning.metastore.because.because_usl.price_index AS SELECT COALESCE(CAST(`observation_da
+     -> {"columns": ["registered"], "rows": [["{\"name\":\"price_index\",\"query\":\"SELECT\\n    COALESCE(CAST(`observation_date` AS STRING), '') AS period,\\n    CAST(`value` AS DOUBLE) AS value\\nFROM because_files.fred_series_pcu33443344_raw\\nWHERE `value` <> '.'\"}"]]}
+OK   SELECT COUNT(*) AS n FROM lightning.metastore.because.because_usl.annual_fact
+     -> {"columns": ["n"], "rows": [[24]]}
+OK   SELECT COUNT(*) AS n FROM lightning.metastore.because.because_usl.price_index
+     -> {"columns": ["n"], "rows": [[502]]}
+OK   SELECT e.period_start, e.period_end, e.value_usd, ROUND(AVG(m.value), 3) AS index_avg, COUNT(m.value) AS index
+     -> {"columns": ["period_start", "period_end", "value_usd", "index_avg", "index_months"], "rows": [["2019-12-29", "2020-12-26", 77867000000.0, 54.75, 12], ["2020-12-27", "2021-12-25", 79024000000.0, 54.642, 12], ["2021-12-26", "2022-12-31", 63054000000.0, 56.852, 12], ["2023-01-01", "2023-12-30", 54228000000.0, 57.176, 12], ["2023-12-31", "2024-12-28", 53101000000.0, 58.059, 12], ["2024-12-29", "2025-12-27", 52853000000.0, 58.994, 12]]}
+USL: 9/9 statements succeeded

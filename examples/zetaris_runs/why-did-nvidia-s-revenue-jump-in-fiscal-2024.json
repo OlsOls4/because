@@ -1,8 +1,8 @@
 {
   "question": "Why did Nvidia's revenue jump in fiscal 2024?",
   "backend": "zetaris-jdbc",
-  "started_at": "2026-10-23T09:03:48Z",
-  "finished_at": "2026-10-23T09:03:53Z",
+  "started_at": "2026-10-23T12:02:34Z",
+  "finished_at": "2026-10-23T12:02:38Z",
   "fallback_reason": null,
   "scout": {
     "intent": "explain.company_metric",
@@ -89,9 +89,9 @@
     },
     "plan": [],
     "contract": {
-      "contractId": "001A16800894E000056AC2BCE24",
+      "contractId": "001A168A434030000AC120DFF3D",
       "parentId": null,
-      "traceId": "2e5997142a394e6dbe77af32673b6609",
+      "traceId": "ff3cf907a758448e88da4733087ee28e",
       "intent": {
         "primary": {
           "id": "explain.company_metric",
@@ -189,29 +189,29 @@
           "memory.write"
         ]
       },
-      "issuedAt": "2026-10-23T09:03:48Z",
-      "expiresAt": "2026-10-23T09:08:48Z",
+      "issuedAt": "2026-10-23T12:02:34Z",
+      "expiresAt": "2026-10-23T12:07:34Z",
       "registryVersion": 1,
       "policyPackVersion": "because-default@1",
       "signedBy": "scout",
-      "signature": "b8610f0b43ea5e1c63b2939bee2a338708659ce2691950ef33d34cf4fdcb9464"
+      "signature": "2a76a1d82aff4acd7362bbdb4f449734db4064350f65c74cc61fccf9289addec"
     },
     "telemetry": [
       {
         "event": "contract.issued",
-        "ts": 1792746228.0464666,
-        "contractId": "001A16800894E000056AC2BCE24",
+        "ts": 1792756954.1159322,
+        "contractId": "001A168A434030000AC120DFF3D",
         "intent": "explain.company_metric",
         "risk": "low",
         "profile": "deterministic"
       },
       {
         "event": "scout.decision",
-        "ts": 1792746228.0464716,
-        "traceId": "2e5997142a394e6dbe77af32673b6609",
+        "ts": 1792756954.1159353,
+        "traceId": "ff3cf907a758448e88da4733087ee28e",
         "intent": "explain.company_metric",
         "band": "high",
-        "latencyMs": 2.47,
+        "latencyMs": 1.32,
         "stage2": "used"
       }
     ]
@@ -241,7 +241,7 @@
   },
   "memory_recall": [
     {
-      "id": "mem-86cda9f3d497",
+      "id": "mem-30da18943d91",
       "content": "Intel revenue FY2024: $53.10B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2024-12-28)",
       "score": 0.3777,
       "confidence": 0.9,
@@ -257,9 +257,9 @@
           "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
           "backend": "zetaris-jdbc"
         },
-        "learnedAt": 1792746221154
+        "learnedAt": 1792756948738
       },
-      "learnedAt": 1792746221154,
+      "learnedAt": 1792756948738,
       "layer": "working"
     }
   ],
@@ -314,7 +314,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json"
         }
       ],
-      "elapsed_ms": 409.9,
+      "elapsed_ms": 295.9,
       "error": null,
       "purpose": "capital expenditure (PaymentsToAcquirePropertyPlantAndEquipment) annual 10-K facts"
     },
@@ -422,7 +422,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/PaymentsToAcquireProductiveAssets.json"
         }
       ],
-      "elapsed_ms": 396.9,
+      "elapsed_ms": 224.5,
       "error": null,
       "purpose": "capital expenditure (PaymentsToAcquireProductiveAssets) annual 10-K facts"
     },
@@ -452,7 +452,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/RestructuringSettlementAndImpairmentProvisions.json"
         }
       ],
-      "elapsed_ms": 204.9,
+      "elapsed_ms": 228.7,
       "error": null,
       "purpose": "restructuring and impairment charges (RestructuringSettlementAndImpairmentProvisions) annual 10-K facts"
     },
@@ -587,7 +587,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/RestructuringCharges.json"
         }
       ],
-      "elapsed_ms": 335.9,
+      "elapsed_ms": 220.6,
       "error": null,
       "purpose": "restructuring and impairment charges (RestructuringCharges) annual 10-K facts"
     },
@@ -617,7 +617,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/AssetImpairmentCharges.json"
         }
       ],
-      "elapsed_ms": 137.9,
+      "elapsed_ms": 260.8,
       "error": null,
       "purpose": "restructuring and impairment charges (AssetImpairmentCharges) annual 10-K facts"
     },
@@ -1598,7 +1598,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/CostOfRevenue.json"
         }
       ],
-      "elapsed_ms": 361.9,
+      "elapsed_ms": 209.2,
       "error": null,
       "purpose": "cost of sales (CostOfRevenue) annual 10-K facts"
     },
@@ -2057,7 +2057,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/Depreciation.json"
         }
       ],
-      "elapsed_ms": 353.0,
+      "elapsed_ms": 185.2,
       "error": null,
       "purpose": "depreciation (Depreciation) annual 10-K facts"
     },
@@ -2291,7 +2291,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/GoodwillImpairmentLoss.json"
         }
       ],
-      "elapsed_ms": 340.5,
+      "elapsed_ms": 232.7,
       "error": null,
       "purpose": "goodwill impairment (GoodwillImpairmentLoss) annual 10-K facts"
     },
@@ -3497,7 +3497,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/GrossProfit.json"
         }
       ],
-      "elapsed_ms": 334.6,
+      "elapsed_ms": 208.5,
       "error": null,
       "purpose": "gross profit (GrossProfit) annual 10-K facts"
     },
@@ -3830,7 +3830,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/InventoryNet.json"
         }
       ],
-      "elapsed_ms": 352.9,
+      "elapsed_ms": 229.2,
       "error": null,
       "purpose": "inventory (InventoryNet) annual 10-K facts"
     },
@@ -3929,7 +3929,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/InventoryWriteDown.json"
         }
       ],
-      "elapsed_ms": 320.2,
+      "elapsed_ms": 185.3,
       "error": null,
       "purpose": "inventory write-downs (InventoryWriteDown) annual 10-K facts"
     },
@@ -5144,7 +5144,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/NetIncomeLoss.json"
         }
       ],
-      "elapsed_ms": 332.1,
+      "elapsed_ms": 216.8,
       "error": null,
       "purpose": "net income (NetIncomeLoss) annual 10-K facts"
     },
@@ -5630,7 +5630,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/OperatingIncomeLoss.json"
         }
       ],
-      "elapsed_ms": 323.4,
+      "elapsed_ms": 216.2,
       "error": null,
       "purpose": "operating income (OperatingIncomeLoss) annual 10-K facts"
     },
@@ -6116,7 +6116,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/ResearchAndDevelopmentExpense.json"
         }
       ],
-      "elapsed_ms": 338.7,
+      "elapsed_ms": 201.7,
       "error": null,
       "purpose": "R&D expense (ResearchAndDevelopmentExpense) annual 10-K facts"
     },
@@ -7097,7 +7097,7 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/Revenues.json"
         }
       ],
-      "elapsed_ms": 336.9,
+      "elapsed_ms": 206.1,
       "error": null,
       "purpose": "revenue (Revenues) annual 10-K facts"
     },
@@ -7583,9 +7583,93 @@
           "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/SellingGeneralAndAdministrativeExpense.json"
         }
       ],
-      "elapsed_ms": 339.8,
+      "elapsed_ms": 230.3,
       "error": null,
       "purpose": "SG&A expense (SellingGeneralAndAdministrativeExpense) annual 10-K facts"
+    },
+    {
+      "query_id": "Q-ac2267af99",
+      "sql": "SELECT e.period_start, e.period_end, e.value_usd, ROUND(AVG(m.value), 3) AS index_avg, COUNT(m.value) AS index_months FROM (SELECT period_start, period_end, value_usd, ROW_NUMBER() OVER (PARTITION BY period_end ORDER BY filed_date DESC) AS rn FROM because.edgar_concept_0001045810_revenues WHERE form_type = '10-K' AND fiscal_period = 'FY' AND period_start IS NOT NULL AND (CAST(SUBSTR(period_end, 1, 4) AS INT) * 12 + CAST(SUBSTR(period_end, 6, 2) AS INT)) - (CAST(SUBSTR(period_start, 1, 4) AS INT) * 12 + CAST(SUBSTR(period_start, 6, 2) AS INT)) BETWEEN 11 AND 13) e JOIN because.fred_series_pcu33443344 m ON m.period >= e.period_start AND m.period <= e.period_end WHERE e.rn = 1 AND e.period_end >= '2020-01-01' GROUP BY e.period_start, e.period_end, e.value_usd ORDER BY e.period_end",
+      "backend": "zetaris-jdbc",
+      "columns": [
+        "period_start",
+        "period_end",
+        "value_usd",
+        "index_avg",
+        "index_months"
+      ],
+      "rows": [
+        [
+          "2019-01-28",
+          "2020-01-26",
+          10918000000.0,
+          55.367,
+          12
+        ],
+        [
+          "2020-01-27",
+          "2021-01-31",
+          16675000000.0,
+          54.633,
+          12
+        ],
+        [
+          "2021-02-01",
+          "2022-01-30",
+          26914000000.0,
+          54.829,
+          12
+        ],
+        [
+          "2022-01-31",
+          "2023-01-29",
+          26974000000.0,
+          56.927,
+          12
+        ],
+        [
+          "2023-01-30",
+          "2024-01-28",
+          60922000000.0,
+          57.229,
+          12
+        ],
+        [
+          "2024-01-29",
+          "2025-01-26",
+          130497000000.0,
+          58.091,
+          12
+        ],
+        [
+          "2025-01-27",
+          "2026-01-25",
+          215938000000.0,
+          59.27,
+          12
+        ]
+      ],
+      "sources": [
+        {
+          "table": "because.edgar_concept_0001045810_revenues",
+          "kind": "edgar_concept",
+          "key": "0001045810:Revenues",
+          "url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/Revenues.json"
+        },
+        {
+          "table": "because.fred_series_pcu33443344",
+          "kind": "fred_series",
+          "key": "PCU33443344",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PCU33443344"
+        }
+      ],
+      "elapsed_ms": 475.0,
+      "error": null,
+      "purpose": "cross-source: EDGAR Revenues JOIN FRED PCU33443344 on each fiscal-year window",
+      "federated": [
+        "edgar_concept",
+        "fred_series"
+      ]
     }
   ],
   "findings": [
@@ -7804,6 +7888,20 @@
       "value": null,
       "unit": "",
       "fact_key": null
+    },
+    {
+      "id": "F19",
+      "statement": "Cross-source (SEC EDGAR x FRED, one federated SQL JOIN): Nvidia revenue FY2023 -> FY2024 $26.97B -> $60.92B (+125.9%); the US producer price index for semiconductors averaged 56.9 over FY2023 and 57.2 over FY2024 (+0.5%), so price-adjusted revenue changed +124.7%: sector prices were roughly flat, so the move was volume or mix, not industry pricing",
+      "kind": "cross-source",
+      "query_id": "Q-ac2267af99",
+      "rows": [
+        3,
+        4
+      ],
+      "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/Revenues.json",
+      "value": 124.66,
+      "unit": "%",
+      "fact_key": "NVDA:real_revenue_growth:2024:PCU33443344"
     }
   ],
   "hypotheses": [
@@ -7819,7 +7917,10 @@
         "F7"
       ],
       "counter": [],
-      "detail": "Margin moved with revenue - consistent with pricing power / mix."
+      "detail": "Margin moved with revenue - consistent with pricing power / mix.",
+      "group": "margin",
+      "context": "",
+      "one_off": ""
     },
     {
       "id": "H2",
@@ -7834,7 +7935,10 @@
         "F16"
       ],
       "counter": [],
-      "detail": ""
+      "detail": "Revenue grew +125.9% vs inventory +2.4% (gap +123 pts).",
+      "group": "inventory",
+      "context": "",
+      "one_off": ""
     },
     {
       "id": "H3",
@@ -7848,11 +7952,14 @@
         "F13"
       ],
       "counter": [],
-      "detail": ""
+      "detail": "Operating income moved +680.6% vs revenue +125.9%.",
+      "group": "margin",
+      "context": "",
+      "one_off": ""
     }
   ],
   "answer": {
-    "summary": "Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence points mainly to (1) demand outstripped supply and pricing power rose (gross margin expanded with revenue); (2) sales ran ahead of inventory (demand-led growth); (3) operating leverage amplified the move (operating income moved more than revenue).",
+    "summary": "Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence is consistent with these drivers: (1) demand outstripped supply and pricing power rose (gross margin expanded with revenue); (2) sales ran ahead of inventory (demand-led growth).",
     "because": [
       {
         "claim": "Demand outstripped supply and pricing power rose (gross margin expanded with revenue)",
@@ -7863,11 +7970,12 @@
           "F7"
         ],
         "hypothesis": "H1",
-        "weight": 15.788678799445634
+        "weight": 15.788678799445634,
+        "group": "margin"
       },
       {
         "claim": "Sales ran ahead of inventory (demand-led growth)",
-        "detail": "",
+        "detail": "Revenue grew +125.9% vs inventory +2.4% (gap +123 pts).",
         "evidence": [
           "F8",
           "F9",
@@ -7875,18 +7983,20 @@
           "F16"
         ],
         "hypothesis": "H2",
-        "weight": 2
+        "weight": 2,
+        "group": "inventory"
       },
       {
         "claim": "Operating leverage amplified the move (operating income moved more than revenue)",
-        "detail": "",
+        "detail": "Operating income moved +680.6% vs revenue +125.9%.",
         "evidence": [
           "F11",
           "F12",
           "F13"
         ],
         "hypothesis": "H3",
-        "weight": 0.5
+        "weight": 0.5,
+        "group": "margin"
       }
     ],
     "counter_evidence": [],
@@ -7894,73 +8004,91 @@
     "confidence": {
       "score": 0.7,
       "label": "High",
-      "rationale": "3 of 3 hypotheses supported; supported drivers cover ~100% of the move; 88% of queries returned data; 1 context corroborations."
+      "rationale": "3 of 3 hypotheses supported across 2 independent cause group(s); 100% of the indirect revenue signals agree; 88% of queries returned data; 1 context corroborations.",
+      "coverage": 1.0,
+      "coverage_kind": "signals",
+      "independent_drivers": 2
     },
     "caveats": [
       "Values are the latest filed (as-restated) figures per period; XBRL tags vary by company and year.",
       "SEC companyfacts has no segment breakdown, so which products or customers drove revenue is not established here; confidence is capped at 0.70.",
       "Context snippets from Wikipedia corroborate hypotheses but never supply numbers."
     ],
-    "target_finding": "F3"
+    "target_finding": "F3",
+    "premise_ok": true,
+    "actual_direction": "up",
+    "cross_source": [
+      {
+        "finding": "F19",
+        "statement": "Cross-source (SEC EDGAR x FRED, one federated SQL JOIN): Nvidia revenue FY2023 -> FY2024 $26.97B -> $60.92B (+125.9%); the US producer price index for semiconductors averaged 56.9 over FY2023 and 57.2 over FY2024 (+0.5%), so price-adjusted revenue changed +124.7%: sector prices were roughly flat, so the move was volume or mix, not industry pricing",
+        "query_id": "Q-ac2267af99"
+      }
+    ]
   },
   "memory_written": [
-    "mem-37e9dc6ed5d2",
-    "mem-42fa6eacd189",
-    "mem-6c15b022bb24",
-    "mem-b825d8536a4d",
-    "mem-eff70d8c974e",
-    "mem-a2da065f39de",
-    "mem-6a9d43f26fba",
-    "mem-0f494889cb10",
-    "mem-44d9bdf9a70d",
-    "mem-8be55e0e4c4e"
+    "mem-048f881e7967",
+    "mem-f712c62a6cd1",
+    "mem-92104373598d",
+    "mem-0cfa19496582",
+    "mem-33622ddc4232",
+    "mem-1b75414ed766",
+    "mem-f53e0f1e0203",
+    "mem-ac0180dd5102",
+    "mem-47f462a26a05",
+    "mem-809911e0582f",
+    "mem-031566d58a10"
   ],
   "conflicts": [],
   "steps": [
     {
-      "t": 1792746228.046,
+      "t": 1792756954.116,
       "stage": "scout",
-      "message": "Intent explain.company_metric (band high, risk low); signed contract 001A16800894E000056AC2BCE24"
+      "message": "Intent explain.company_metric (band high, risk low); signed contract 001A168A434030000AC120DFF3D"
     },
     {
-      "t": 1792746228.05,
+      "t": 1792756954.118,
       "stage": "recall",
       "message": "H-MEM recalled 1 prior beliefs (minimal)"
     },
     {
-      "t": 1792746228.05,
+      "t": 1792756954.118,
       "stage": "plan",
       "message": "Resolve NVIDIA CORP (CIK 0001045810) and pull revenue for FY2021-FY2024 from SEC EDGAR"
     },
     {
-      "t": 1792746233.294,
+      "t": 1792756957.683,
       "stage": "queries",
       "message": "Ran 16 harness queries over 13 XBRL concepts"
     },
     {
-      "t": 1792746233.294,
+      "t": 1792756957.684,
       "stage": "findings",
       "message": "Target moved $26.97B -> $60.92B (+125.9%)"
     },
     {
-      "t": 1792746233.294,
+      "t": 1792756957.684,
       "stage": "hypotheses",
       "message": "Revenue: test pricing power, demand vs supply signals and operating leverage"
     },
     {
-      "t": 1792746233.907,
+      "t": 1792756958.405,
       "stage": "context",
       "message": "Background search found 4 context snippets (context corroborates, never supplies numbers)"
     },
     {
-      "t": 1792746233.928,
-      "stage": "remember",
-      "message": "Wrote 10 memories with provenance; 0 conflicts with prior beliefs"
+      "t": 1792756958.881,
+      "stage": "cross-source",
+      "message": "Federated JOIN EDGAR x FRED (PCU33443344) on fiscal-year windows: 7 fiscal years"
     },
     {
-      "t": 1792746233.928,
+      "t": 1792756958.912,
+      "stage": "remember",
+      "message": "Wrote 11 memories with provenance; 0 conflicts with prior beliefs"
+    },
+    {
+      "t": 1792756958.912,
       "stage": "done",
-      "message": "Finished in 5.9s"
+      "message": "Finished in 4.8s"
     }
   ],
   "llm": {

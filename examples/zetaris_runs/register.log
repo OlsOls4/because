@@ -52,6 +52,8 @@ OK  because.fred_series_unrate  rows=944
 OK  because.fred_series_icsa  rows=3120
 OK  because.fred_series_payems  rows=1053
 OK  because.fred_series_uslah  rows=1053
+OK  because.fred_series_uscons  rows=1053
+OK  because.fred_series_manemp  rows=1053
 OK  because.fred_series_indpro  rows=1293
 OK  because.fred_series_fedfunds  rows=867
-53/53 sources registered and readable
+55/55 sources registered and readable

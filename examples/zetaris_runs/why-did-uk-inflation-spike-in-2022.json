@@ -1,8 +1,8 @@
 {
   "question": "Why did UK inflation spike in 2022?",
   "backend": "zetaris-jdbc",
-  "started_at": "2026-10-23T09:03:41Z",
-  "finished_at": "2026-10-23T09:03:47Z",
+  "started_at": "2026-10-23T12:02:29Z",
+  "finished_at": "2026-10-23T12:02:33Z",
   "fallback_reason": null,
   "scout": {
     "intent": "explain.macro_series",
@@ -89,9 +89,9 @@
     },
     "plan": [],
     "contract": {
-      "contractId": "001A1680071920000242E34305E",
+      "contractId": "001A168A421150000B873345C80",
       "parentId": null,
-      "traceId": "7636e6418ad740f6b692a4fe9d2694e5",
+      "traceId": "04b817b10ef240a883d472eec4c687e6",
       "intent": {
         "primary": {
           "id": "explain.macro_series",
@@ -189,29 +189,29 @@
           "memory.write"
         ]
       },
-      "issuedAt": "2026-10-23T09:03:41Z",
-      "expiresAt": "2026-10-23T09:08:41Z",
+      "issuedAt": "2026-10-23T12:02:29Z",
+      "expiresAt": "2026-10-23T12:07:29Z",
       "registryVersion": 1,
       "policyPackVersion": "because-default@1",
       "signedBy": "scout",
-      "signature": "0b223bc3108bb42f4df35a8e624c1a273136560e778564fa5b91eb6b3d96ac2c"
+      "signature": "fad7c33720c9d1079546cde64568aad8be4acc893eb82eb0c59de673f0230087"
     },
     "telemetry": [
       {
         "event": "contract.issued",
-        "ts": 1792746221.9703867,
-        "contractId": "001A1680071920000242E34305E",
+        "ts": 1792756949.2695735,
+        "contractId": "001A168A421150000B873345C80",
         "intent": "explain.macro_series",
         "risk": "low",
         "profile": "deterministic"
       },
       {
         "event": "scout.decision",
-        "ts": 1792746221.9703918,
-        "traceId": "7636e6418ad740f6b692a4fe9d2694e5",
+        "ts": 1792756949.2695768,
+        "traceId": "04b817b10ef240a883d472eec4c687e6",
         "intent": "explain.macro_series",
         "band": "high",
-        "latencyMs": 2.57,
+        "latencyMs": 1.34,
         "stage2": "used"
       }
     ]
@@ -543,7 +543,7 @@
           "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23/data"
         }
       ],
-      "elapsed_ms": 717.6,
+      "elapsed_ms": 413.4,
       "error": null,
       "purpose": "UK CPI annual rate (ONS D7G7)"
     },
@@ -853,7 +853,7 @@
           "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7gb/mm23/data"
         }
       ],
-      "elapsed_ms": 450.8,
+      "elapsed_ms": 268.6,
       "error": null,
       "purpose": "CPI housing, water & fuels annual rate (ONS D7GB)"
     },
@@ -1163,7 +1163,7 @@
           "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g8/mm23/data"
         }
       ],
-      "elapsed_ms": 429.5,
+      "elapsed_ms": 266.5,
       "error": null,
       "purpose": "CPI food & non-alcoholic drinks annual rate (ONS D7G8)"
     },
@@ -1473,7 +1473,7 @@
           "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7ge/mm23/data"
         }
       ],
-      "elapsed_ms": 400.2,
+      "elapsed_ms": 278.2,
       "error": null,
       "purpose": "CPI transport annual rate (ONS D7GE)"
     },
@@ -1783,7 +1783,7 @@
           "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7nn/mm23/data"
         }
       ],
-      "elapsed_ms": 407.5,
+      "elapsed_ms": 306.7,
       "error": null,
       "purpose": "CPI services annual rate (ONS D7NN)"
     },
@@ -2093,7 +2093,7 @@
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PNGASEUUSDM"
         }
       ],
-      "elapsed_ms": 427.4,
+      "elapsed_ms": 327.8,
       "error": null,
       "purpose": "European natural gas price, USD (FRED PNGASEUUSDM)"
     },
@@ -2403,7 +2403,7 @@
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=POILBREUSDM"
         }
       ],
-      "elapsed_ms": 467.3,
+      "elapsed_ms": 230.2,
       "error": null,
       "purpose": "Brent crude oil price, USD (FRED POILBREUSDM)"
     },
@@ -2713,7 +2713,7 @@
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PFOODINDEXM"
         }
       ],
-      "elapsed_ms": 350.4,
+      "elapsed_ms": 245.9,
       "error": null,
       "purpose": "Global food price index (IMF via FRED PFOODINDEXM)"
     },
@@ -8719,7 +8719,7 @@
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DEXUSUK"
         }
       ],
-      "elapsed_ms": 462.6,
+      "elapsed_ms": 241.8,
       "error": null,
       "purpose": "US dollars per pound (FRED DEXUSUK)",
       "rows_truncated": 1496
@@ -9030,7 +9030,7 @@
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=IRSTCI01GBM156N"
         }
       ],
-      "elapsed_ms": 363.0,
+      "elapsed_ms": 224.3,
       "error": null,
       "purpose": "UK short-term interest rate (FRED IRSTCI01GBM156N)"
     },
@@ -9340,18 +9340,77 @@
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LRHUTTTTGBM156S"
         }
       ],
-      "elapsed_ms": 348.5,
+      "elapsed_ms": 232.7,
       "error": null,
       "purpose": "UK unemployment rate (FRED LRHUTTTTGBM156S)"
+    },
+    {
+      "query_id": "Q-49752693a1",
+      "sql": "SELECT l.lag_m, ROUND(CORR(x.v, y.v), 3) AS r, COUNT(*) AS n FROM (SELECT period, value AS v FROM because.ons_series_d7g7) x CROSS JOIN (SELECT 0 AS lag_m UNION ALL SELECT 3 AS lag_m UNION ALL SELECT 6 AS lag_m UNION ALL SELECT 9 AS lag_m UNION ALL SELECT 12 AS lag_m) l JOIN (SELECT s.period, (s.value / s.v12 - 1) * 100 AS v FROM (SELECT period, value, LAG(value, 12) OVER (ORDER BY period) AS v12, LAG(period, 12) OVER (ORDER BY period) AS p12 FROM because.fred_series_pngaseuusdm) s WHERE s.v12 IS NOT NULL AND s.v12 <> 0 AND (CAST(SUBSTR(s.period, 1, 4) AS INT) * 12 + CAST(SUBSTR(s.period, 6, 2) AS INT)) - (CAST(SUBSTR(s.p12, 1, 4) AS INT) * 12 + CAST(SUBSTR(s.p12, 6, 2) AS INT)) = 12) y ON (CAST(SUBSTR(y.period, 1, 4) AS INT) * 12 + CAST(SUBSTR(y.period, 6, 2) AS INT)) + l.lag_m = (CAST(SUBSTR(x.period, 1, 4) AS INT) * 12 + CAST(SUBSTR(x.period, 6, 2) AS INT)) WHERE SUBSTR(x.period, 1, 7) >= '2015-01' AND SUBSTR(x.period, 1, 7) <= '2022-12' GROUP BY l.lag_m ORDER BY l.lag_m",
+      "backend": "zetaris-jdbc",
+      "columns": [
+        "lag_m",
+        "r",
+        "n"
+      ],
+      "rows": [
+        [
+          0,
+          0.449,
+          96
+        ],
+        [
+          3,
+          0.705,
+          96
+        ],
+        [
+          6,
+          0.817,
+          96
+        ],
+        [
+          9,
+          0.899,
+          96
+        ],
+        [
+          12,
+          0.89,
+          96
+        ]
+      ],
+      "sources": [
+        {
+          "table": "because.ons_series_d7g7",
+          "kind": "ons_series",
+          "key": "D7G7",
+          "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23/data"
+        },
+        {
+          "table": "because.fred_series_pngaseuusdm",
+          "kind": "fred_series",
+          "key": "PNGASEUUSDM",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PNGASEUUSDM"
+        }
+      ],
+      "elapsed_ms": 740.7,
+      "error": null,
+      "purpose": "cross-source: ONS D7G7 JOIN FRED PNGASEUUSDM on month, driver leading 0-12 months",
+      "federated": [
+        "fred_series",
+        "ons_series"
+      ]
     }
   ],
   "findings": [
     {
       "id": "F1",
-      "statement": "UK CPI annual rate (ONS D7G7): 11.1% in 2022-10 (the 2022 peak), vs a 2020 average of 0.8% (+10.2 pts)",
+      "statement": "UK CPI annual rate (ONS D7G7): 5.4% in 2021-12 (start of 2022) -> 11.1% in 2022-10 (the 2022 peak), +5.7 pts; for context, the 2020 average was 0.8%",
       "kind": "data",
       "query_id": "Q-adbf08cc42",
       "rows": [
+        47,
         57
       ],
       "source_url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23/data",
@@ -9361,11 +9420,12 @@
     },
     {
       "id": "F2",
-      "statement": "CPI housing, water & fuels annual rate (ONS D7GB) (level): -0.4% average in 2020; reached 26.6% in the 12 months to 2022-10; best correlation with the target r=+0.98 at a 0-month lead",
+      "statement": "CPI housing, water & fuels annual rate (ONS D7GB) (level): 6.9% in 2021-12 -> 26.6% in 2022-10, a change of +19.7 pts; correlation with the target r=+0.98 at a 0-month lead",
       "kind": "data",
       "query_id": "Q-b17745667a",
       "rows": [
         45,
+        47,
         57
       ],
       "source_url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7gb/mm23/data",
@@ -9375,11 +9435,12 @@
     },
     {
       "id": "F3",
-      "statement": "CPI food & non-alcoholic drinks annual rate (ONS D7G8) (level): 0.7% average in 2020; reached 16.2% in the 12 months to 2022-10; best correlation with the target r=+0.93 at a 0-month lead",
+      "statement": "CPI food & non-alcoholic drinks annual rate (ONS D7G8) (level): 4.2% in 2021-12 -> 16.2% in 2022-10, a change of +12.0 pts; correlation with the target r=+0.93 at a 0-month lead",
       "kind": "data",
       "query_id": "Q-3ffeae45a9",
       "rows": [
         45,
+        47,
         57
       ],
       "source_url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g8/mm23/data",
@@ -9389,25 +9450,27 @@
     },
     {
       "id": "F4",
-      "statement": "CPI transport annual rate (ONS D7GE) (level): 0.3% average in 2020; reached 14.9% in the 12 months to 2022-10; best correlation with the target r=+0.96 at a 4-month lead",
+      "statement": "CPI transport annual rate (ONS D7GE) (level): 9.9% in 2021-10 -> 12.0% in 2022-08 (its best lead, 2 months earlier), a change of +2.1 pts; correlation with the target r=+0.94 at a 2-month lead",
       "kind": "data",
       "query_id": "Q-c4d0460962",
       "rows": [
+        43,
         45,
-        57
+        55
       ],
       "source_url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7ge/mm23/data",
-      "value": 14.9,
+      "value": 12.0,
       "unit": "",
       "fact_key": null
     },
     {
       "id": "F5",
-      "statement": "CPI services annual rate (ONS D7NN) (level): 1.8% average in 2020; reached 6.3% in the 12 months to 2022-10; best correlation with the target r=+0.97 at a 0-month lead",
+      "statement": "CPI services annual rate (ONS D7NN) (level): 3.4% in 2021-12 -> 6.3% in 2022-10, a change of +2.9 pts; correlation with the target r=+0.97 at a 0-month lead",
       "kind": "data",
       "query_id": "Q-452f4bd1b0",
       "rows": [
         45,
+        47,
         57
       ],
       "source_url": "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7nn/mm23/data",
@@ -9417,63 +9480,67 @@
     },
     {
       "id": "F6",
-      "statement": "European natural gas price, USD (FRED PNGASEUUSDM) (YoY change): -24.2% average in 2020; reached 572.5% in the 12 months to 2022-10; best correlation with the target r=+0.92 at a 9-month lead",
+      "statement": "European natural gas price, USD (FRED PNGASEUUSDM) (12-month % change): 122.4% in 2021-03 -> 281.9% in 2022-01 (its best lead, 9 months earlier), a change of +159.5 pts; correlation with the target r=+0.92 at a 9-month lead",
       "kind": "derived",
       "query_id": "Q-8b4d1aad49",
       "rows": [
-        45,
-        57
+        36,
+        38,
+        48
       ],
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PNGASEUUSDM",
-      "value": 572.4635127783288,
+      "value": 281.9201659316333,
       "unit": "",
       "fact_key": null
     },
     {
       "id": "F7",
-      "statement": "Brent crude oil price, USD (FRED POILBREUSDM) (YoY change): -31.7% average in 2020; reached 101.6% in the 12 months to 2022-10; best correlation with the target r=+0.78 at a 9-month lead",
+      "statement": "Brent crude oil price, USD (FRED POILBREUSDM) (12-month % change): 110.9% in 2021-05 -> 70.9% in 2022-03 (its best lead, 7 months earlier), a change of -40.0 pts; correlation with the target r=+0.77 at a 7-month lead",
       "kind": "derived",
       "query_id": "Q-27ef8fb67f",
       "rows": [
-        45,
-        57
+        38,
+        40,
+        50
       ],
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=POILBREUSDM",
-      "value": 101.56609363579379,
+      "value": 70.89162167698622,
       "unit": "",
       "fact_key": null
     },
     {
       "id": "F8",
-      "statement": "Global food price index (IMF via FRED PFOODINDEXM) (YoY change): 1.7% average in 2020; reached 31.4% in the 12 months to 2022-10; best correlation with the target r=+0.82 at a 9-month lead",
+      "statement": "Global food price index (IMF via FRED PFOODINDEXM) (12-month % change): 26.0% in 2021-03 -> 21.3% in 2022-01 (its best lead, 9 months earlier), a change of -4.7 pts; correlation with the target r=+0.82 at a 9-month lead",
       "kind": "derived",
       "query_id": "Q-d28c9a45c5",
       "rows": [
-        45,
-        57
+        36,
+        38,
+        48
       ],
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PFOODINDEXM",
-      "value": 31.40602085969548,
+      "value": 21.28386659123771,
       "unit": "",
       "fact_key": null
     },
     {
       "id": "F9",
-      "statement": "US dollars per pound (FRED DEXUSUK) (YoY change): 0.6% average in 2020; reached -17.6% in the 12 months to 2022-10; best correlation with the target r=-0.64 at a 0-month lead",
+      "statement": "US dollars per pound (FRED DEXUSUK) (12-month % change): -1.0% in 2021-12 -> -17.3% in 2022-10, a change of -16.3 pts; correlation with the target r=-0.64 at a 0-month lead",
       "kind": "derived",
       "query_id": "Q-b882e6c3f7",
       "rows": [
         936,
+        976,
         1186
       ],
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DEXUSUK",
-      "value": -17.567178619357605,
+      "value": -17.288280331949004,
       "unit": "",
       "fact_key": null
     },
     {
       "id": "F10",
-      "statement": "UK short-term interest rate (FRED IRSTCI01GBM156N): averaged 0.18 in the 6-18 months before the 2022-10 peak (vs 0.19 in 2020); 2.19 at the peak",
+      "statement": "UK short-term interest rate (FRED IRSTCI01GBM156N): averaged 0.18 in the 6-18 months before the 2022-10 peak (vs 0.19 in 2020); 2.19 at 2022-10",
       "kind": "data",
       "query_id": "Q-e25426e0c5",
       "rows": [
@@ -9486,7 +9553,7 @@
     },
     {
       "id": "F11",
-      "statement": "UK unemployment rate (FRED LRHUTTTTGBM156S): averaged 4.23 in the 6-18 months before the 2022-10 peak (vs 4.60 in 2020); 3.90 at the peak",
+      "statement": "UK unemployment rate (FRED LRHUTTTTGBM156S): averaged 4.23 in the 6-18 months before the 2022-10 peak (vs 4.60 in 2020); 3.90 at 2022-10",
       "kind": "data",
       "query_id": "Q-6301f00755",
       "rows": [
@@ -9540,125 +9607,165 @@
       "value": null,
       "unit": "",
       "fact_key": null
+    },
+    {
+      "id": "F16",
+      "statement": "Cross-source (ONS x FRED, one federated SQL JOIN on month): over 2015-01 to 2022-12, UK CPI annual rate tracks the 12-month change in European natural gas price (USD) 9 months earlier most closely (r = 0.90, n = 96 months, strong); same-month r = 0.45",
+      "kind": "cross-source",
+      "query_id": "Q-49752693a1",
+      "rows": [
+        0,
+        3
+      ],
+      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PNGASEUUSDM",
+      "value": 0.899,
+      "unit": "r",
+      "fact_key": "GB:inflation:2022:lead:PNGASEUUSDM"
     }
   ],
   "hypotheses": [
     {
       "id": "H1",
-      "statement": "Household energy (housing, water and fuels) prices surged",
-      "test": "CPI housing, water & fuels annual rate (ONS D7GB): direction & size of move vs 2020, and best lead correlation (lag 0-9m)",
+      "statement": "Household energy inflation (CPI housing, water & fuels) rose during the run-up to the 2022 peak",
+      "test": "CPI housing, water & fuels annual rate (ONS D7GB): sign and size of its change over the target's 2021-12 -> 2022-10 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
       "verdict": "supported",
-      "weight": 2.569,
+      "weight": 0.976,
       "evidence": [
         "F2",
         "F13"
       ],
       "counter": [],
-      "detail": "Moved 27.0 the expected way and co-moved with the target (r=+0.98, lead 0m)."
+      "detail": "Changed +19.7 pts over the same interval, the direction needed, and co-moved with the target (r=+0.98). Co-movement, not proof of cause.",
+      "group": "energy",
+      "context": "Household gas and electricity bills follow wholesale prices with a lag (in the UK via the Ofgem price cap).",
+      "one_off": ""
     },
     {
       "id": "H2",
-      "statement": "Food prices surged",
-      "test": "CPI food & non-alcoholic drinks annual rate (ONS D7G8): direction & size of move vs 2020, and best lead correlation (lag 0-9m)",
+      "statement": "Food inflation (CPI food & non-alcoholic drinks) rose during the run-up to the 2022 peak",
+      "test": "CPI food & non-alcoholic drinks annual rate (ONS D7G8): sign and size of its change over the target's 2021-12 -> 2022-10 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
       "verdict": "supported",
-      "weight": 1.408,
+      "weight": 0.928,
       "evidence": [
         "F3"
       ],
       "counter": [],
-      "detail": "Moved 15.5 the expected way and co-moved with the target (r=+0.93, lead 0m)."
+      "detail": "Changed +12.0 pts over the same interval, the direction needed, and co-moved with the target (r=+0.93). Co-movement, not proof of cause.",
+      "group": "food",
+      "context": "Retail food prices pass through farm, fertiliser and energy costs over several months.",
+      "one_off": ""
     },
     {
       "id": "H3",
-      "statement": "Transport costs (motor fuel) surged",
-      "test": "CPI transport annual rate (ONS D7GE): direction & size of move vs 2020, and best lead correlation (lag 0-9m)",
+      "statement": "Transport inflation (CPI transport, incl. motor fuel) rose during the run-up to the 2022 peak",
+      "test": "CPI transport annual rate (ONS D7GE): sign and size of its change over the target's 2021-12 -> 2022-10 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
       "verdict": "supported",
-      "weight": 1.361,
+      "weight": 0.346,
       "evidence": [
         "F4",
         "F13"
       ],
       "counter": [],
-      "detail": "Moved 14.6 the expected way and co-moved with the target (r=+0.96, lead 4m)."
+      "detail": "Changed +2.1 pts over the same interval (its best lead, 2 months earlier), the direction needed, and co-moved with the target (r=+0.94). Co-movement, not proof of cause.",
+      "group": "energy",
+      "context": "Motor fuel prices track crude oil quickly.",
+      "one_off": ""
     },
     {
       "id": "H4",
-      "statement": "Domestic services inflation (wage-driven) took off",
-      "test": "CPI services annual rate (ONS D7NN): direction & size of move vs 2020, and best lead correlation (lag 0-9m)",
-      "verdict": "inconclusive",
-      "weight": 0.426,
-      "evidence": [],
-      "counter": [
+      "statement": "Services inflation (CPI services) rose during the run-up to the 2022 peak",
+      "test": "CPI services annual rate (ONS D7NN): sign and size of its change over the target's 2021-12 -> 2022-10 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
+      "verdict": "supported",
+      "weight": 0.491,
+      "evidence": [
         "F5"
       ],
-      "detail": "Moved the right way but weakly or without a consistent lead."
+      "counter": [],
+      "detail": "Changed +2.9 pts over the same interval, the direction needed, and co-moved with the target (r=+0.97). Co-movement, not proof of cause.",
+      "group": "domestic",
+      "context": "Services prices are labour-intensive, so they tend to reflect wage growth.",
+      "one_off": ""
     },
     {
       "id": "H5",
-      "statement": "Wholesale gas prices spiked (Russia-Ukraine energy shock)",
-      "test": "European natural gas price, USD (FRED PNGASEUUSDM): direction & size of move vs 2020, and best lead correlation (lag 0-9m)",
+      "statement": "The 12-month change in wholesale European gas prices rose during the run-up to the 2022 peak",
+      "test": "European natural gas price, USD (FRED PNGASEUUSDM): sign and size of its change over the target's 2021-12 -> 2022-10 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
       "verdict": "supported",
-      "weight": 2.774,
+      "weight": 0.925,
       "evidence": [
         "F6",
         "F13"
       ],
       "counter": [],
-      "detail": "Moved 596.7 the expected way and co-moved with the target (r=+0.92, lead 9m)."
+      "detail": "Changed +159.5 pts over the same interval (its best lead, 9 months earlier), the direction needed, and co-moved with the target (r=+0.92). Co-movement, not proof of cause.",
+      "group": "energy",
+      "context": "Context: the 2021-22 European gas crisis and Russia's invasion of Ukraine (Feb 2022) drove wholesale gas to record highs; prices fell back through 2023.",
+      "one_off": ""
     },
     {
       "id": "H6",
-      "statement": "Oil prices rose",
-      "test": "Brent crude oil price, USD (FRED POILBREUSDM): direction & size of move vs 2020, and best lead correlation (lag 0-9m)",
-      "verdict": "supported",
-      "weight": 2.354,
-      "evidence": [
-        "F7",
-        "F13"
+      "statement": "The 12-month change in Brent crude oil prices rose during the run-up to the 2022 peak",
+      "test": "Brent crude oil price, USD (FRED POILBREUSDM): sign and size of its change over the target's 2021-12 -> 2022-10 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
+      "verdict": "contradicted",
+      "weight": 0.774,
+      "evidence": [],
+      "counter": [
+        "F7"
       ],
-      "counter": [],
-      "detail": "Moved 133.3 the expected way and co-moved with the target (r=+0.78, lead 9m)."
+      "detail": "Changed -40.0 pts over the same interval (its best lead, 7 months earlier): the opposite direction.",
+      "group": "energy",
+      "context": "Oil feeds into motor fuel and transport costs.",
+      "one_off": ""
     },
     {
       "id": "H7",
-      "statement": "Global food commodity prices rose",
-      "test": "Global food price index (IMF via FRED PFOODINDEXM): direction & size of move vs 2020, and best lead correlation (lag 0-9m)",
-      "verdict": "supported",
-      "weight": 2.376,
-      "evidence": [
+      "statement": "The 12-month change in global food commodity prices rose during the run-up to the 2022 peak",
+      "test": "Global food price index (IMF via FRED PFOODINDEXM): sign and size of its change over the target's 2021-12 -> 2022-10 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
+      "verdict": "inconclusive",
+      "weight": 0.259,
+      "evidence": [],
+      "counter": [
         "F8"
       ],
-      "counter": [],
-      "detail": "Moved 29.7 the expected way and co-moved with the target (r=+0.82, lead 9m)."
+      "detail": "Change of -4.7 pts is below the materiality threshold (5 pts).",
+      "group": "food",
+      "context": "World commodity prices feed into UK retail food prices with a lag.",
+      "one_off": ""
     },
     {
       "id": "H8",
-      "statement": "A weaker pound made imports dearer",
-      "test": "US dollars per pound (FRED DEXUSUK): direction & size of move vs 2020, and best lead correlation (lag 0-9m)",
+      "statement": "The 12-month change in the pound's value against the dollar fell during the run-up to the 2022 peak",
+      "test": "US dollars per pound (FRED DEXUSUK): sign and size of its change over the target's 2021-12 -> 2022-10 interval (shifted by its best lead of 0-9 months), and lead correlation r >= 0.5",
       "verdict": "supported",
-      "weight": 1.135,
+      "weight": 0.642,
       "evidence": [
         "F9"
       ],
       "counter": [],
-      "detail": "Moved -18.1 the expected way and co-moved with the target (r=-0.64, lead 0m)."
+      "detail": "Changed -16.3 pts over the same interval, the direction needed, and co-moved with the target (r=-0.64). Co-movement, not proof of cause.",
+      "group": "currency",
+      "context": "A weaker pound raises the sterling cost of dollar-priced imports such as energy and food.",
+      "one_off": ""
     },
     {
       "id": "H9",
-      "statement": "Monetary policy was loose (low rates) going into the spike",
-      "test": "UK short-term interest rate (FRED IRSTCI01GBM156N): direction & size of move vs 2020, and best lead correlation (lag 0-9m)",
+      "statement": "UK short-term interest rates were low (average below 1%) in the 6-18 months before the 2022 peak",
+      "test": "UK short-term interest rate (FRED IRSTCI01GBM156N): level in the 6-18 months before the peak",
       "verdict": "supported",
       "weight": 0.3,
       "evidence": [
         "F10"
       ],
       "counter": [],
-      "detail": "Pre-spike conditions match the hypothesis (enabling factor, not a trigger)."
+      "detail": "Pre-peak conditions match (an enabling condition, not a trigger).",
+      "group": "policy",
+      "context": "Low rates are an enabling condition for demand, not a trigger.",
+      "one_off": ""
     },
     {
       "id": "H10",
-      "statement": "A tight labour market (low unemployment) pushed wages up",
-      "test": "UK unemployment rate (FRED LRHUTTTTGBM156S): direction & size of move vs 2020, and best lead correlation (lag 0-9m)",
+      "statement": "UK unemployment was at least 0.3 pts below its 2020 average in the 6-18 months before the 2022 peak",
+      "test": "UK unemployment rate (FRED LRHUTTTTGBM156S): level in the 6-18 months before the peak",
       "verdict": "supported",
       "weight": 0.3,
       "evidence": [
@@ -9667,182 +9774,224 @@
         "F15"
       ],
       "counter": [],
-      "detail": "Pre-spike conditions match the hypothesis (enabling factor, not a trigger)."
+      "detail": "Pre-peak conditions match (an enabling condition, not a trigger).",
+      "group": "labour",
+      "context": "A tight labour market tends to push wages, and then services prices, up.",
+      "one_off": ""
     }
   ],
   "answer": {
-    "summary": "UK inflation rose in 2022: 0.8 -> 11.1 (+10.2 pts, peak 2022-10). The evidence points mainly to (1) wholesale gas prices spiked (Russia-Ukraine energy shock); (2) household energy (housing, water and fuels) prices surged; (3) global food commodity prices rose.",
+    "summary": "UK inflation rose in 2022: 5.4% (2021-12) -> 11.1% (2022-10 peak), +5.7 pts; 2020 average 0.8%. The evidence is consistent with these drivers: (1) household energy inflation (CPI housing, water & fuels) rose during the run-up to the 2022 peak; (2) food inflation (CPI food & non-alcoholic drinks) rose during the run-up to the 2022 peak; (3) the 12-month change in the pound's value against the dollar fell during the run-up to the 2022 peak.",
     "because": [
       {
-        "claim": "Wholesale gas prices spiked (Russia-Ukraine energy shock)",
-        "detail": "Moved 596.7 the expected way and co-moved with the target (r=+0.92, lead 9m).",
-        "evidence": [
-          "F6",
-          "F13"
-        ],
-        "hypothesis": "H5",
-        "weight": 2.774
-      },
-      {
-        "claim": "Household energy (housing, water and fuels) prices surged",
-        "detail": "Moved 27.0 the expected way and co-moved with the target (r=+0.98, lead 0m).",
+        "claim": "Household energy inflation (CPI housing, water & fuels) rose during the run-up to the 2022 peak",
+        "detail": "Changed +19.7 pts over the same interval, the direction needed, and co-moved with the target (r=+0.98). Co-movement, not proof of cause. Context (not tested): Household gas and electricity bills follow wholesale prices with a lag (in the UK via the Ofgem price cap).",
         "evidence": [
           "F2",
           "F13"
         ],
         "hypothesis": "H1",
-        "weight": 2.569
+        "weight": 0.976,
+        "group": "energy",
+        "context": "Household gas and electricity bills follow wholesale prices with a lag (in the UK via the Ofgem price cap)."
       },
       {
-        "claim": "Global food commodity prices rose",
-        "detail": "Moved 29.7 the expected way and co-moved with the target (r=+0.82, lead 9m).",
-        "evidence": [
-          "F8"
-        ],
-        "hypothesis": "H7",
-        "weight": 2.376
-      },
-      {
-        "claim": "Oil prices rose",
-        "detail": "Moved 133.3 the expected way and co-moved with the target (r=+0.78, lead 9m).",
-        "evidence": [
-          "F7",
-          "F13"
-        ],
-        "hypothesis": "H6",
-        "weight": 2.354
-      },
-      {
-        "claim": "Food prices surged",
-        "detail": "Moved 15.5 the expected way and co-moved with the target (r=+0.93, lead 0m).",
+        "claim": "Food inflation (CPI food & non-alcoholic drinks) rose during the run-up to the 2022 peak",
+        "detail": "Changed +12.0 pts over the same interval, the direction needed, and co-moved with the target (r=+0.93). Co-movement, not proof of cause. Context (not tested): Retail food prices pass through farm, fertiliser and energy costs over several months.",
         "evidence": [
           "F3"
         ],
         "hypothesis": "H2",
-        "weight": 1.408
+        "weight": 0.928,
+        "group": "food",
+        "context": "Retail food prices pass through farm, fertiliser and energy costs over several months."
       },
       {
-        "claim": "Transport costs (motor fuel) surged",
-        "detail": "Moved 14.6 the expected way and co-moved with the target (r=+0.96, lead 4m).",
+        "claim": "The 12-month change in wholesale European gas prices rose during the run-up to the 2022 peak",
+        "detail": "Changed +159.5 pts over the same interval (its best lead, 9 months earlier), the direction needed, and co-moved with the target (r=+0.92). Co-movement, not proof of cause. Context (not tested): the 2021-22 European gas crisis and Russia's invasion of Ukraine (Feb 2022) drove wholesale gas to record highs; prices fell back through 2023.",
+        "evidence": [
+          "F6",
+          "F13"
+        ],
+        "hypothesis": "H5",
+        "weight": 0.925,
+        "group": "energy",
+        "context": "Context: the 2021-22 European gas crisis and Russia's invasion of Ukraine (Feb 2022) drove wholesale gas to record highs; prices fell back through 2023."
+      },
+      {
+        "claim": "The 12-month change in the pound's value against the dollar fell during the run-up to the 2022 peak",
+        "detail": "Changed -16.3 pts over the same interval, the direction needed, and co-moved with the target (r=-0.64). Co-movement, not proof of cause. Context (not tested): A weaker pound raises the sterling cost of dollar-priced imports such as energy and food.",
+        "evidence": [
+          "F9"
+        ],
+        "hypothesis": "H8",
+        "weight": 0.642,
+        "group": "currency",
+        "context": "A weaker pound raises the sterling cost of dollar-priced imports such as energy and food."
+      },
+      {
+        "claim": "Services inflation (CPI services) rose during the run-up to the 2022 peak",
+        "detail": "Changed +2.9 pts over the same interval, the direction needed, and co-moved with the target (r=+0.97). Co-movement, not proof of cause. Context (not tested): Services prices are labour-intensive, so they tend to reflect wage growth.",
+        "evidence": [
+          "F5"
+        ],
+        "hypothesis": "H4",
+        "weight": 0.491,
+        "group": "domestic",
+        "context": "Services prices are labour-intensive, so they tend to reflect wage growth."
+      },
+      {
+        "claim": "Transport inflation (CPI transport, incl. motor fuel) rose during the run-up to the 2022 peak",
+        "detail": "Changed +2.1 pts over the same interval (its best lead, 2 months earlier), the direction needed, and co-moved with the target (r=+0.94). Co-movement, not proof of cause. Context (not tested): Motor fuel prices track crude oil quickly.",
         "evidence": [
           "F4",
           "F13"
         ],
         "hypothesis": "H3",
-        "weight": 1.361
+        "weight": 0.346,
+        "group": "energy",
+        "context": "Motor fuel prices track crude oil quickly."
       },
       {
-        "claim": "A weaker pound made imports dearer",
-        "detail": "Moved -18.1 the expected way and co-moved with the target (r=-0.64, lead 0m).",
-        "evidence": [
-          "F9"
-        ],
-        "hypothesis": "H8",
-        "weight": 1.135
-      },
-      {
-        "claim": "Monetary policy was loose (low rates) going into the spike",
-        "detail": "Pre-spike conditions match the hypothesis (enabling factor, not a trigger).",
+        "claim": "UK short-term interest rates were low (average below 1%) in the 6-18 months before the 2022 peak",
+        "detail": "Pre-peak conditions match (an enabling condition, not a trigger). Context (not tested): Low rates are an enabling condition for demand, not a trigger.",
         "evidence": [
           "F10"
         ],
         "hypothesis": "H9",
-        "weight": 0.3
+        "weight": 0.3,
+        "group": "policy",
+        "context": "Low rates are an enabling condition for demand, not a trigger."
       },
       {
-        "claim": "A tight labour market (low unemployment) pushed wages up",
-        "detail": "Pre-spike conditions match the hypothesis (enabling factor, not a trigger).",
+        "claim": "UK unemployment was at least 0.3 pts below its 2020 average in the 6-18 months before the 2022 peak",
+        "detail": "Pre-peak conditions match (an enabling condition, not a trigger). Context (not tested): A tight labour market tends to push wages, and then services prices, up.",
         "evidence": [
           "F11",
           "F12",
           "F15"
         ],
         "hypothesis": "H10",
-        "weight": 0.3
+        "weight": 0.3,
+        "group": "labour",
+        "context": "A tight labour market tends to push wages, and then services prices, up."
       }
     ],
     "counter_evidence": [
       {
-        "claim": "Weak or no support: Domestic services inflation (wage-driven) took off. Moved the right way but weakly or without a consistent lead.",
+        "claim": "Correlation is not causation: each supported driver moved the needed way over the same interval and co-moved with the target, which is consistent with it contributing but does not prove it did; component weights are not applied.",
         "evidence": [
-          "F5"
+          "F1"
+        ]
+      },
+      {
+        "claim": "Not supported: The 12-month change in Brent crude oil prices rose during the run-up to the 2022 peak. Changed -40.0 pts over the same interval (its best lead, 7 months earlier): the opposite direction.",
+        "evidence": [
+          "F7"
         ],
-        "hypothesis": "H4"
+        "hypothesis": "H6"
+      },
+      {
+        "claim": "Weak or no support: The 12-month change in global food commodity prices rose during the run-up to the 2022 peak. Change of -4.7 pts is below the materiality threshold (5 pts).",
+        "evidence": [
+          "F8"
+        ],
+        "hypothesis": "H7"
       }
     ],
     "inconclusive": [
       {
-        "claim": "Domestic services inflation (wage-driven) took off",
-        "detail": "Moved the right way but weakly or without a consistent lead.",
-        "hypothesis": "H4"
+        "claim": "The 12-month change in global food commodity prices rose during the run-up to the 2022 peak",
+        "detail": "Change of -4.7 pts is below the materiality threshold (5 pts).",
+        "hypothesis": "H7"
       }
     ],
     "confidence": {
-      "score": 0.94,
+      "score": 0.85,
       "label": "High",
-      "rationale": "9 of 10 hypotheses supported; supported drivers cover ~97% of the move; 100% of queries returned data; 6 context corroborations."
+      "rationale": "8 of 10 hypotheses supported across 6 independent cause group(s); supported drivers carry ~100% of the tested evidence weight (de-duplicated by cause; this is not a share of the move); 100% of queries returned data; 5 context corroborations; 1 hypotheses contradicted; macro answers are capped at 0.85 (no CPI weights applied).",
+      "coverage": 1.0,
+      "coverage_kind": "weight",
+      "independent_drivers": 6
     },
     "caveats": [
+      "The move is measured from December of the prior year to the in-year extreme; drivers are tested over the same interval.",
       "Correlation over a short window is evidence of co-movement, not proof of causation; component weights are not applied.",
+      "Context notes are background mechanisms; they are not tested and never supply numbers.",
       "Context snippets from Wikipedia corroborate hypotheses but never supply numbers."
     ],
-    "target_finding": "F1"
+    "target_finding": "F1",
+    "premise_ok": true,
+    "actual_direction": "up",
+    "cross_source": [
+      {
+        "finding": "F16",
+        "statement": "Cross-source (ONS x FRED, one federated SQL JOIN on month): over 2015-01 to 2022-12, UK CPI annual rate tracks the 12-month change in European natural gas price (USD) 9 months earlier most closely (r = 0.90, n = 96 months, strong); same-month r = 0.45",
+        "query_id": "Q-49752693a1"
+      }
+    ]
   },
   "memory_written": [
-    "mem-f8f6b95e81e2",
-    "mem-7aee1f6bbcee",
-    "mem-3f5cfc2d9ab4",
-    "mem-413921d26b2d",
-    "mem-27b49a6a1135",
-    "mem-34c6d099e093",
-    "mem-be6e944604c6",
-    "mem-b66e29e01192",
-    "mem-62c77d544516",
-    "mem-21e0aab7714a",
-    "mem-57206e44f600",
-    "mem-aeee44330386"
+    "mem-f8d311e44c71",
+    "mem-8b2215ff7bd6",
+    "mem-7d5238704866",
+    "mem-971496b0470b",
+    "mem-0c00008f1e66",
+    "mem-5b3afa833f0b",
+    "mem-29a2c9b5b3a0",
+    "mem-ab07dde728fe",
+    "mem-c28c2c252d8d",
+    "mem-c9bba9224ace",
+    "mem-3503a061a631",
+    "mem-17082a9b39a2",
+    "mem-011e10341e55"
   ],
   "conflicts": [],
   "steps": [
     {
-      "t": 1792746221.97,
+      "t": 1792756949.27,
       "stage": "scout",
-      "message": "Intent explain.macro_series (band high, risk low); signed contract 001A1680071920000242E34305E"
+      "message": "Intent explain.macro_series (band high, risk low); signed contract 001A168A421150000B873345C80"
     },
     {
-      "t": 1792746221.98,
+      "t": 1792756949.271,
       "stage": "recall",
       "message": "H-MEM recalled 0 prior beliefs (minimal)"
     },
     {
-      "t": 1792746221.98,
+      "t": 1792756949.271,
       "stage": "plan",
-      "message": "Pull UK CPI annual rate (ONS D7G7) for 2018-2023, find the 2022 extreme, then test 10 candidate drivers"
+      "message": "Pull UK CPI annual rate (ONS D7G7) for 2018-2023; measure the move from Dec 2021 to the 2022 extreme; test 10 candidate drivers over the same interval"
     },
     {
-      "t": 1792746222.699,
+      "t": 1792756949.686,
       "stage": "findings",
-      "message": "Target 0.8 -> 11.1 (+10.2 pts, peak 2022-10)"
+      "message": "Target 5.4 (2021-12) -> 11.1 (2022-10), +5.7 pts: up"
     },
     {
-      "t": 1792746226.844,
+      "t": 1792756952.328,
       "stage": "hypotheses",
-      "message": "Tested 10 drivers; 9 supported"
+      "message": "Tested 10 drivers; 8 supported across 6 cause groups"
     },
     {
-      "t": 1792746227.235,
+      "t": 1792756952.787,
       "stage": "context",
       "message": "Background search found 4 context snippets (context corroborates, never supplies numbers)"
     },
     {
-      "t": 1792746227.249,
-      "stage": "remember",
-      "message": "Wrote 12 memories with provenance; 0 conflicts with prior beliefs"
+      "t": 1792756953.528,
+      "stage": "cross-source",
+      "message": "Federated JOIN ONS x FRED (D7G7 x PNGASEUUSDM): best lead 9 months, r=0.90"
     },
     {
-      "t": 1792746227.249,
+      "t": 1792756953.565,
+      "stage": "remember",
+      "message": "Wrote 13 memories with provenance; 0 conflicts with prior beliefs"
+    },
+    {
+      "t": 1792756953.565,
       "stage": "done",
-      "message": "Finished in 5.3s"
+      "message": "Finished in 4.3s"
     }
   ],
   "llm": {

@@ -1,18 +1,18 @@
 # Why did Nvidia's revenue jump in fiscal 2024?
 
-_Backend: **zetaris-jdbc** · LLM: none · started 2026-10-23T09:03:48Z_
+_Backend: **zetaris-jdbc** · LLM: none · started 2026-10-23T12:02:34Z_
 
 ## Answer
 
-Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence points mainly to (1) demand outstripped supply and pricing power rose (gross margin expanded with revenue); (2) sales ran ahead of inventory (demand-led growth); (3) operating leverage amplified the move (operating income moved more than revenue).
+Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence is consistent with these drivers: (1) demand outstripped supply and pricing power rose (gross margin expanded with revenue); (2) sales ran ahead of inventory (demand-led growth).
 
-**Confidence: High (0.7)** - 3 of 3 hypotheses supported; supported drivers cover ~100% of the move; 88% of queries returned data; 1 context corroborations.
+**Confidence: High (0.7)** - 3 of 3 hypotheses supported across 2 independent cause group(s); 100% of the indirect revenue signals agree; 88% of queries returned data; 1 context corroborations.
 
 ## Because
 
 - **Demand outstripped supply and pricing power rose (gross margin expanded with revenue)** - Margin moved with revenue - consistent with pricing power / mix. [F5, F6, F7]
-- **Sales ran ahead of inventory (demand-led growth)** -  [F8, F9, F10, F16]
-- **Operating leverage amplified the move (operating income moved more than revenue)** -  [F11, F12, F13]
+- **Sales ran ahead of inventory (demand-led growth)** - Revenue grew +125.9% vs inventory +2.4% (gap +123 pts). [F8, F9, F10, F16]
+- **Operating leverage amplified the move (operating income moved more than revenue)** - Operating income moved +680.6% vs revenue +125.9%. [F11, F12, F13]
 
 ## Caveats
 
@@ -25,8 +25,8 @@ Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence poin
 | # | Hypothesis | Test | Verdict | Detail |
 |---|---|---|---|---|
 | H1 | Demand outstripped supply and pricing power rose (gross margin expanded with revenue) | Gross margin change alongside revenue (>= 2 pts) | **supported** | Margin moved with revenue - consistent with pricing power / mix. |
-| H2 | Sales ran ahead of inventory (demand-led growth) | Inventory growth vs revenue growth (10-pt gap) | **supported** |  |
-| H3 | Operating leverage amplified the move (operating income moved more than revenue) | Operating income % change vs revenue % change | **supported** |  |
+| H2 | Sales ran ahead of inventory (demand-led growth) | Inventory growth vs revenue growth (10-pt gap) | **supported** | Revenue grew +125.9% vs inventory +2.4% (gap +123 pts). |
+| H3 | Operating leverage amplified the move (operating income moved more than revenue) | Operating income % change vs revenue % change | **supported** | Operating income moved +680.6% vs revenue +125.9%. |
 
 ## Evidence (every claim's source)
 
@@ -50,6 +50,7 @@ Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence poin
 | F16 | Context (Wikipedia, 'Nvidia'): On March 1, 2024, Nvidia became the third company in the history of the United States to close with a market capitalization in excess of $2 trillion. | context |  | [link](https://en.wikipedia.org/wiki/Nvidia) |
 | F17 | Context (Wikipedia, 'Nvidia'): On June 18, 2024, the company became the world's most valuable, surpassing Microsoft and Apple, after its market capitalization exceeded $3.3 trillion. | context |  | [link](https://en.wikipedia.org/wiki/Nvidia) |
 | F18 | Context (Wikipedia, 'Nvidia'): In November 2024, the company was added to the Dow Jones Industrial Average. | context |  | [link](https://en.wikipedia.org/wiki/Nvidia) |
+| F19 | Cross-source (SEC EDGAR x FRED, one federated SQL JOIN): Nvidia revenue FY2023 -> FY2024 $26.97B -> $60.92B (+125.9%); the US producer price index for semiconductors averaged 56.9 over FY2023 and 57.2 over FY2024 (+0.5%), so price-adjusted revenue changed +124.7%: sector prices were roughly flat, so the move was volume or mix, not industry pricing | cross-source | `Q-ac2267af99` · [3, 4] | [link](https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/Revenues.json) |
 
 ## Queries run through the data harness
 
@@ -133,6 +134,12 @@ Nvidia's revenue rose in FY2024: $26.97B -> $60.92B (+125.9%). The evidence poin
   SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0001045810_sellinggeneralandadministrativeexpense WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date
   ```
   source: `because.edgar_concept_0001045810_sellinggeneralandadministrativeexpense` <- https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/SellingGeneralAndAdministrativeExpense.json
+- `Q-ac2267af99` (zetaris-jdbc, 7 rows) - cross-source: EDGAR Revenues JOIN FRED PCU33443344 on each fiscal-year window
+  ```sql
+  SELECT e.period_start, e.period_end, e.value_usd, ROUND(AVG(m.value), 3) AS index_avg, COUNT(m.value) AS index_months FROM (SELECT period_start, period_end, value_usd, ROW_NUMBER() OVER (PARTITION BY period_end ORDER BY filed_date DESC) AS rn FROM because.edgar_concept_0001045810_revenues WHERE form_type = '10-K' AND fiscal_period = 'FY' AND period_start IS NOT NULL AND (CAST(SUBSTR(period_end, 1, 4) AS INT) * 12 + CAST(SUBSTR(period_end, 6, 2) AS INT)) - (CAST(SUBSTR(period_start, 1, 4) AS INT) * 12 + CAST(SUBSTR(period_start, 6, 2) AS INT)) BETWEEN 11 AND 13) e JOIN because.fred_series_pcu33443344 m ON m.period >= e.period_start AND m.period <= e.period_end WHERE e.rn = 1 AND e.period_end >= '2020-01-01' GROUP BY e.period_start, e.period_end, e.value_usd ORDER BY e.period_end
+  ```
+  source: `because.edgar_concept_0001045810_revenues` <- https://data.sec.gov/api/xbrl/companyconcept/CIK0001045810/us-gaap/Revenues.json
+  source: `because.fred_series_pcu33443344` <- https://fred.stlouisfed.org/graph/fredgraph.csv?id=PCU33443344
 
 ## Evidence graph
 
@@ -184,22 +191,23 @@ flowchart LR
 
 ## Reasoning trace
 
-1. **scout** - Intent explain.company_metric (band high, risk low); signed contract 001A16800894E000056AC2BCE24
+1. **scout** - Intent explain.company_metric (band high, risk low); signed contract 001A168A434030000AC120DFF3D
 1. **recall** - H-MEM recalled 1 prior beliefs (minimal)
 1. **plan** - Resolve NVIDIA CORP (CIK 0001045810) and pull revenue for FY2021-FY2024 from SEC EDGAR
 1. **queries** - Ran 16 harness queries over 13 XBRL concepts
 1. **findings** - Target moved $26.97B -> $60.92B (+125.9%)
 1. **hypotheses** - Revenue: test pricing power, demand vs supply signals and operating leverage
 1. **context** - Background search found 4 context snippets (context corroborates, never supplies numbers)
-1. **remember** - Wrote 10 memories with provenance; 0 conflicts with prior beliefs
-1. **done** - Finished in 5.9s
+1. **cross-source** - Federated JOIN EDGAR x FRED (PCU33443344) on fiscal-year windows: 7 fiscal years
+1. **remember** - Wrote 11 memories with provenance; 0 conflicts with prior beliefs
+1. **done** - Finished in 4.8s
 
 ## Scout execution contract
 
-Intent `explain.company_metric` (band high, risk low). Contract `001A16800894E000056AC2BCE24`, capabilities ['background.search', 'harness.query', 'llm.narrate', 'memory.recall', 'memory.write'], expires 2026-10-23T09:08:48Z, HMAC `b8610f0b43ea5e1c…`.
+Intent `explain.company_metric` (band high, risk low). Contract `001A168A434030000AC120DFF3D`, capabilities ['background.search', 'harness.query', 'llm.narrate', 'memory.recall', 'memory.write'], expires 2026-10-23T12:07:34Z, HMAC `2a76a1d82aff4acd…`.
 
 ## Recalled from memory (H-MEM)
 
 - Intel revenue FY2024: $53.10B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2024-12-28) (score 0.3777, F4 of 'Why did Intel's gross margin fall in 2024?')
 
-_Wrote 10 memories with provenance; 0 conflicts with prior beliefs._
+_Wrote 11 memories with provenance; 0 conflicts with prior beliefs._

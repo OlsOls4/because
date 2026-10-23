@@ -1,8 +1,8 @@
 {
   "question": "What do you already know about Intel's margins?",
   "backend": "zetaris-jdbc",
-  "started_at": "2026-10-23T09:03:58Z",
-  "finished_at": "2026-10-23T09:03:58Z",
+  "started_at": "2026-10-23T12:02:42Z",
+  "finished_at": "2026-10-23T12:02:42Z",
   "fallback_reason": null,
   "scout": {
     "intent": "memory.explain_belief",
@@ -87,9 +87,9 @@
     },
     "plan": [],
     "contract": {
-      "contractId": "001A16800B0AD0000B1CCC5ED4E",
+      "contractId": "001A168A453F70000904512CB6E",
       "parentId": null,
-      "traceId": "52e2400df07646c2b311399c436ad996",
+      "traceId": "3b230faa2f8544bc900d21c48dcfce7e",
       "intent": {
         "primary": {
           "id": "memory.explain_belief",
@@ -160,29 +160,29 @@
           "memory.recall"
         ]
       },
-      "issuedAt": "2026-10-23T09:03:58Z",
-      "expiresAt": "2026-10-23T09:08:58Z",
+      "issuedAt": "2026-10-23T12:02:42Z",
+      "expiresAt": "2026-10-23T12:07:42Z",
       "registryVersion": 1,
       "policyPackVersion": "because-default@1",
       "signedBy": "scout",
-      "signature": "ce68e8ab10ec2baa17ab5223084a5667f601a2c030a8e0c93e3c78b6bc27d2d9"
+      "signature": "86e78feb4c5b41e9c7ad63c2c06c0339a65ed2be370332d89d6a3cd85bec7067"
     },
     "telemetry": [
       {
         "event": "contract.issued",
-        "ts": 1792746238.125482,
-        "contractId": "001A16800B0AD0000B1CCC5ED4E",
+        "ts": 1792756962.2953136,
+        "contractId": "001A168A453F70000904512CB6E",
         "intent": "memory.explain_belief",
         "risk": "low",
         "profile": "deterministic"
       },
       {
         "event": "scout.decision",
-        "ts": 1792746238.1254878,
-        "traceId": "52e2400df07646c2b311399c436ad996",
+        "ts": 1792756962.2953172,
+        "traceId": "3b230faa2f8544bc900d21c48dcfce7e",
         "intent": "memory.explain_belief",
         "band": "high",
-        "latencyMs": 2.46,
+        "latencyMs": 1.37,
         "stage2": "used"
       }
     ]
@@ -190,7 +190,7 @@
   "plan": {},
   "memory_recall": [
     {
-      "id": "mem-3a5d0561bf25",
+      "id": "mem-f8b92db1c044",
       "content": "Intel revenue FY2023: $54.23B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2023-12-30)",
       "score": 0.3162,
       "confidence": 0.9,
@@ -206,7 +206,7 @@
           "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
           "backend": "zetaris-jdbc"
         },
-        "learnedAt": 1792746221154
+        "learnedAt": 1792756948737
       },
       "history": [
         "create",
@@ -215,7 +215,7 @@
       "supersededBy": null
     },
     {
-      "id": "mem-465a757a63b5",
+      "id": "mem-53173db6da90",
       "content": "Intel gross profit FY2023: $21.71B (us-gaap:GrossProfit, 10-K filed 2026-01-23, period ending 2023-12-30)",
       "score": 0.3147,
       "confidence": 0.9,
@@ -231,7 +231,7 @@
           "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_grossprofit WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
           "backend": "zetaris-jdbc"
         },
-        "learnedAt": 1792746221153
+        "learnedAt": 1792756948737
       },
       "history": [
         "create",
@@ -240,7 +240,7 @@
       "supersededBy": null
     },
     {
-      "id": "mem-86cda9f3d497",
+      "id": "mem-30da18943d91",
       "content": "Intel revenue FY2024: $53.10B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2024-12-28)",
       "score": 0.3069,
       "confidence": 0.9,
@@ -256,7 +256,7 @@
           "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
           "backend": "zetaris-jdbc"
         },
-        "learnedAt": 1792746221154
+        "learnedAt": 1792756948738
       },
       "history": [
         "create",
@@ -266,7 +266,7 @@
       "supersededBy": null
     },
     {
-      "id": "mem-7a7305d08fa0",
+      "id": "mem-eb4f248bf583",
       "content": "Intel depreciation FY2023: $7.85B (us-gaap:Depreciation, 10-K filed 2026-01-23, period ending 2023-12-30)",
       "score": 0.3037,
       "confidence": 0.9,
@@ -282,7 +282,7 @@
           "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_depreciation WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
           "backend": "zetaris-jdbc"
         },
-        "learnedAt": 1792746221155
+        "learnedAt": 1792756948739
       },
       "history": [
         "create",
@@ -291,7 +291,7 @@
       "supersededBy": null
     },
     {
-      "id": "mem-949a1ada8c57",
+      "id": "mem-6280c09a709f",
       "content": "Intel gross profit FY2024: $17.34B (us-gaap:GrossProfit, 10-K filed 2026-01-23, period ending 2024-12-28)",
       "score": 0.3027,
       "confidence": 0.9,
@@ -307,7 +307,7 @@
           "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_grossprofit WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
           "backend": "zetaris-jdbc"
         },
-        "learnedAt": 1792746221154
+        "learnedAt": 1792756948738
       },
       "history": [
         "create",
@@ -316,7 +316,7 @@
       "supersededBy": null
     },
     {
-      "id": "mem-c64a515b3945",
+      "id": "mem-a46f9aeec7b9",
       "content": "Intel capital expenditure FY2024: $23.94B (us-gaap:PaymentsToAcquirePropertyPlantAndEquipment, 10-K filed 2026-01-23, period ending 2024-12-28)",
       "score": 0.2967,
       "confidence": 0.9,
@@ -332,7 +332,7 @@
           "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_paymentstoacquirepropertyplantandequipment WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
           "backend": "zetaris-jdbc"
         },
-        "learnedAt": 1792746221156
+        "learnedAt": 1792756948739
       },
       "history": [
         "create",
@@ -341,7 +341,7 @@
       "supersededBy": null
     },
     {
-      "id": "mem-41a106386a29",
+      "id": "mem-8ee466f81c58",
       "content": "Intel depreciation FY2024: $9.95B (us-gaap:Depreciation, 10-K filed 2026-01-23, period ending 2024-12-28)",
       "score": 0.294,
       "confidence": 0.9,
@@ -357,7 +357,7 @@
           "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_depreciation WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
           "backend": "zetaris-jdbc"
         },
-        "learnedAt": 1792746221155
+        "learnedAt": 1792756948739
       },
       "history": [
         "create",
@@ -366,7 +366,7 @@
       "supersededBy": null
     },
     {
-      "id": "mem-b845da40d902",
+      "id": "mem-87ba1f0f0ece",
       "content": "Intel gross margin FY2023 -> FY2024: 40.0% -> 32.7% (-7.4 pts)",
       "score": 0.2862,
       "confidence": 0.8,
@@ -380,7 +380,7 @@
           "sql": null,
           "backend": "zetaris-jdbc"
         },
-        "learnedAt": 1792746221155
+        "learnedAt": 1792756948738
       },
       "history": [
         "create",
@@ -396,7 +396,7 @@
     "summary": "Here is what I already believe and why:\n- Intel revenue FY2023: $54.23B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2023-12-30) (confidence 0.90; learned via harness_query: F2 of 'Why did Intel's gross margin fall in 2024?')\n- Intel gross profit FY2023: $21.71B (us-gaap:GrossProfit, 10-K filed 2026-01-23, period ending 2023-12-30) (confidence 0.90; learned via harness_query: F1 of 'Why did Intel's gross margin fall in 2024?')\n- Intel revenue FY2024: $53.10B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2024-12-28) (confidence 0.90; learned via harness_query: F4 of 'Why did Intel's gross margin fall in 2024?')\n- Intel depreciation FY2023: $7.85B (us-gaap:Depreciation, 10-K filed 2026-01-23, period ending 2023-12-30) (confidence 0.90; learned via harness_query: F9 of 'Why did Intel's gross margin fall in 2024?')\n- Intel gross profit FY2024: $17.34B (us-gaap:GrossProfit, 10-K filed 2026-01-23, period ending 2024-12-28) (confidence 0.90; learned via harness_query: F3 of 'Why did Intel's gross margin fall in 2024?')\n- Intel capital expenditure FY2024: $23.94B (us-gaap:PaymentsToAcquirePropertyPlantAndEquipment, 10-K filed 2026-01-23, period ending 2024-12-28) (confidence 0.90; learned via harness_query: F12 of 'Why did Intel's gross margin fall in 2024?')",
     "memory": [
       {
-        "id": "mem-3a5d0561bf25",
+        "id": "mem-f8b92db1c044",
         "content": "Intel revenue FY2023: $54.23B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2023-12-30)",
         "score": 0.3162,
         "confidence": 0.9,
@@ -412,7 +412,7 @@
             "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
             "backend": "zetaris-jdbc"
           },
-          "learnedAt": 1792746221154
+          "learnedAt": 1792756948737
         },
         "history": [
           "create",
@@ -421,7 +421,7 @@
         "supersededBy": null
       },
       {
-        "id": "mem-465a757a63b5",
+        "id": "mem-53173db6da90",
         "content": "Intel gross profit FY2023: $21.71B (us-gaap:GrossProfit, 10-K filed 2026-01-23, period ending 2023-12-30)",
         "score": 0.3147,
         "confidence": 0.9,
@@ -437,7 +437,7 @@
             "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_grossprofit WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
             "backend": "zetaris-jdbc"
           },
-          "learnedAt": 1792746221153
+          "learnedAt": 1792756948737
         },
         "history": [
           "create",
@@ -446,7 +446,7 @@
         "supersededBy": null
       },
       {
-        "id": "mem-86cda9f3d497",
+        "id": "mem-30da18943d91",
         "content": "Intel revenue FY2024: $53.10B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2024-12-28)",
         "score": 0.3069,
         "confidence": 0.9,
@@ -462,7 +462,7 @@
             "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
             "backend": "zetaris-jdbc"
           },
-          "learnedAt": 1792746221154
+          "learnedAt": 1792756948738
         },
         "history": [
           "create",
@@ -472,7 +472,7 @@
         "supersededBy": null
       },
       {
-        "id": "mem-7a7305d08fa0",
+        "id": "mem-eb4f248bf583",
         "content": "Intel depreciation FY2023: $7.85B (us-gaap:Depreciation, 10-K filed 2026-01-23, period ending 2023-12-30)",
         "score": 0.3037,
         "confidence": 0.9,
@@ -488,7 +488,7 @@
             "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_depreciation WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
             "backend": "zetaris-jdbc"
           },
-          "learnedAt": 1792746221155
+          "learnedAt": 1792756948739
         },
         "history": [
           "create",
@@ -497,7 +497,7 @@
         "supersededBy": null
       },
       {
-        "id": "mem-949a1ada8c57",
+        "id": "mem-6280c09a709f",
         "content": "Intel gross profit FY2024: $17.34B (us-gaap:GrossProfit, 10-K filed 2026-01-23, period ending 2024-12-28)",
         "score": 0.3027,
         "confidence": 0.9,
@@ -513,7 +513,7 @@
             "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_grossprofit WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
             "backend": "zetaris-jdbc"
           },
-          "learnedAt": 1792746221154
+          "learnedAt": 1792756948738
         },
         "history": [
           "create",
@@ -522,7 +522,7 @@
         "supersededBy": null
       },
       {
-        "id": "mem-c64a515b3945",
+        "id": "mem-a46f9aeec7b9",
         "content": "Intel capital expenditure FY2024: $23.94B (us-gaap:PaymentsToAcquirePropertyPlantAndEquipment, 10-K filed 2026-01-23, period ending 2024-12-28)",
         "score": 0.2967,
         "confidence": 0.9,
@@ -538,7 +538,7 @@
             "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_paymentstoacquirepropertyplantandequipment WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
             "backend": "zetaris-jdbc"
           },
-          "learnedAt": 1792746221156
+          "learnedAt": 1792756948739
         },
         "history": [
           "create",
@@ -547,7 +547,7 @@
         "supersededBy": null
       },
       {
-        "id": "mem-41a106386a29",
+        "id": "mem-8ee466f81c58",
         "content": "Intel depreciation FY2024: $9.95B (us-gaap:Depreciation, 10-K filed 2026-01-23, period ending 2024-12-28)",
         "score": 0.294,
         "confidence": 0.9,
@@ -563,7 +563,7 @@
             "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_depreciation WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
             "backend": "zetaris-jdbc"
           },
-          "learnedAt": 1792746221155
+          "learnedAt": 1792756948739
         },
         "history": [
           "create",
@@ -572,7 +572,7 @@
         "supersededBy": null
       },
       {
-        "id": "mem-b845da40d902",
+        "id": "mem-87ba1f0f0ece",
         "content": "Intel gross margin FY2023 -> FY2024: 40.0% -> 32.7% (-7.4 pts)",
         "score": 0.2862,
         "confidence": 0.8,
@@ -586,7 +586,7 @@
             "sql": null,
             "backend": "zetaris-jdbc"
           },
-          "learnedAt": 1792746221155
+          "learnedAt": 1792756948738
         },
         "history": [
           "create",
@@ -605,17 +605,17 @@
   "conflicts": [],
   "steps": [
     {
-      "t": 1792746238.125,
+      "t": 1792756962.295,
       "stage": "scout",
-      "message": "Intent memory.explain_belief (band high, risk low); signed contract 001A16800B0AD0000B1CCC5ED4E"
+      "message": "Intent memory.explain_belief (band high, risk low); signed contract 001A168A453F70000904512CB6E"
     },
     {
-      "t": 1792746238.129,
+      "t": 1792756962.297,
       "stage": "recall",
       "message": "Explained 8 stored beliefs with provenance"
     },
     {
-      "t": 1792746238.129,
+      "t": 1792756962.297,
       "stage": "done",
       "message": "Finished in 0.0s"
     }
