@@ -215,7 +215,7 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("question")
     s.add_argument("--backend", choices=["duckdb", "zetaris"], default=None, help="default: BECAUSE_BACKEND / SAMPLE_MODE")
     s.add_argument("--strict", action="store_true", help="fail instead of falling back to DuckDB if Zetaris is unreachable")
-    s.add_argument("--llm", choices=["auto", "nim", "groq", "gemini", "none"], default=None)
+    s.add_argument("--llm", choices=["auto", "nim", "nvidia", "groq", "gemini", "meterless", "none"], default=None)
     s.add_argument("--no-background", action="store_true", help="skip Wikipedia/GDELT context")
     s.add_argument("--format", choices=["text", "md", "json"], default="text")
     s.add_argument("--json", help="write the full trace JSON here")

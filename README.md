@@ -1,54 +1,86 @@
 # Because
 
-**The analyst agent that shows its work.** Ask *why* something happened ("Why did Intel's gross margin fall in 2024?",
-"Why did UK inflation spike in 2022?"). Because investigates several public data sources through a federated SQL
-harness, tests competing explanations, and answers with:
+**The analyst agent that shows its work.** Ask *why* a number moved and get an answer where every claim links to the
+exact SQL query and source row behind it, with the explanations that failed and a confidence you can audit.
 
-- **claims that each link to the exact query and source row** behind them,
-- **counter-evidence**: hypotheses that failed their test, and what the data cannot explain,
-- **a confidence score with its rationale**,
-- **the full reasoning trace**: plan, queries, findings, hypotheses tested, answer,
-- **memory with provenance**, so later it can explain *why it believes* something, across sessions.
+> **A user story.** A business journalist is filing at 5 pm and her draft says *"Intel's margins collapsed because of
+> weak demand"*. She asks Because **"Why did Intel's gross margin fall in 2024?"** About ten seconds later she has:
+> 40.0% → 32.7% (-7.4 pts), mostly restructuring and impairment charges (a likely one-off of $6.97B) and higher
+> depreciation, with lower revenue a smaller third factor. Each claim cites a finding (`[F15]`); a click shows the SQL and the
+> SEC EDGAR row it came from. A federated JOIN of EDGAR revenue with the FRED semiconductor price index shows revenue moved
+> against industry prices. She rewrites the sentence and links the trace.
 
 Built for the GenAI Works Open Agent Hackathon 2026, track **The Agent That Can Explain Why**.
 
-**Try it:** [because-agent.vercel.app](https://because-agent.vercel.app) (public demo in `SAMPLE_MODE`: the same agent and SQL on the DuckDB fallback; saved runs load instantly, live questions take about 10 s).
-**Demo video (3 min):** [youtu.be/7SHfgPPmVMQ](https://youtu.be/7SHfgPPmVMQ) · **Slides:** [`docs/deck/Because-deck.pdf`](docs/deck/Because-deck.pdf) ([PPTX](docs/deck/Because-deck.pptx)) · **Sponsor tech and pre-existing components:** [`docs/SPONSORS.md`](docs/SPONSORS.md)
-**Real Zetaris:** [`zetaris-e2e` workflow](.github/workflows/zetaris-e2e.yml) boots the Zetaris Lightning Docker bundle on a GitHub runner and runs the agent over JDBC; traces land in [`examples/zetaris_runs/`](examples/zetaris_runs/).
+| | |
+|---|---|
+| **Live demo** | [because-agent.vercel.app](https://because-agent.vercel.app) (DuckDB fallback running the same agent SQL; saved runs load instantly, live questions take about 10 s) |
+| **Demo video** | [youtu.be/7SHfgPPmVMQ](https://youtu.be/7SHfgPPmVMQ) |
+| **Runs on real Zetaris** | [CI run 39949595787](https://github.com/OlsOls4/because/actions/runs/39949595787): Zetaris Lightning 2.4.3.1 over JDBC, 5/5 questions, 0 query errors, federated cross-source JOINs, USL model 9/9. Traces: [`examples/zetaris_runs/`](examples/zetaris_runs/) |
+| **Evaluation** | [`docs/EVAL.md`](docs/EVAL.md): 19 questions, direction 19/19, reference driver found 16/19, failures committed |
+| **Slides** | [`docs/deck/Because-deck.pdf`](docs/deck/Because-deck.pdf) |
+| **Sponsor tech, pre-existing code** | [`docs/SPONSORS.md`](docs/SPONSORS.md) |
 
-![flow](https://img.shields.io/badge/Scout-H--MEM-4338ca) ![harness](https://img.shields.io/badge/harness-Zetaris%20%7C%20DuckDB-0f766e) ![llm](https://img.shields.io/badge/LLM-NVIDIA%20NIM%20%7C%20Groq%20%7C%20Gemini%20%7C%20none-6b7280) ![license](https://img.shields.io/badge/license-MIT-green)
+![answer with citation popover](docs/img/answer-citation.png)
 
-## The problem and who it is for
+## Quickstart (one command, no keys)
+
+```bash
+git clone https://github.com/OlsOls4/because && cd because && ./scripts/setup.sh && .venv/bin/because ask "Why did UK inflation fall in 2023?"
+```
+
+`./scripts/setup.sh` makes a venv, installs, and runs the offline tests (109 pass). Then `.venv/bin/because serve` opens the
+web UI at http://127.0.0.1:8000. Python 3.10+. No Zetaris instance or LLM key is needed: the default DuckDB backend runs the
+same SQL over the same public endpoints.
+
+## Why it matters
 
 Analysts, journalists, students and investors ask "why did X change?" all the time. LLMs answer fluently but
-unverifiably; dashboards show *what* changed but not *why*. Doing it properly means pulling several sources,
-lining up periods, testing explanations against each other and writing down what does *not* fit. That takes hours.
+unverifiably; dashboards show *what* changed but not *why*. Doing it properly means pulling several sources, lining up
+periods, testing explanations against each other and writing down what does *not* fit. That takes hours.
 
-Because does that loop in seconds and leaves an audit trail a sceptical reader can check line by line. The LLM is
-optional: every answer is computed from the data first, and an LLM may only rewrite those findings into prose, which
-is rejected unless every sentence cites a finding and every number appears in the evidence.
+Because does that loop in seconds and leaves an audit trail a sceptical reader can check line by line:
+
+- **claims that each link to the exact query and source row** behind them,
+- **counter-evidence**: hypotheses that failed their test, one-off items, and what the data cannot explain,
+- **a premise check**: "Why did UK inflation *rise* in 2023?" is answered with "it fell", not a made-up story,
+- **a calibrated confidence** with its rationale and explicit caps,
+- **the full reasoning trace** (plan, queries, findings, hypotheses, answer) and **memory with provenance** across sessions.
+
+The LLM is optional. Every answer is computed from the data first. An LLM may only rewrite those findings into prose, and
+that prose is rejected unless every sentence cites a finding and every number appears in the evidence.
+
+## Proof
+
+| What | Result | Evidence |
+|---|---|---|
+| Real Zetaris Lightning | 5/5 questions on `zetaris-jdbc`, 0 query errors, one federated cross-source JOIN per question where a second source exists | [run 39949595787](https://github.com/OlsOls4/because/actions/runs/39949595787), [`SUMMARY.md`](examples/zetaris_runs/SUMMARY.md) |
+| Federated finding | UK CPI tracks the 12-month change in European gas prices **9 months earlier**, r = 0.90 (n = 96 months; same-month r = 0.45): ONS × FRED in one SQL JOIN | [UK trace, F16](examples/zetaris_runs/why-did-uk-inflation-spike-in-2022.md) |
+| Zetaris Unified Semantic Layer | `COMPILE USL` + `ACTIVATE USL TABLE` over EDGAR and FRED: 9/9 statements | [`docs/zetaris_usl.sql`](docs/zetaris_usl.sql), [`usl.log`](examples/zetaris_runs/usl.log) |
+| Evaluation | direction 19/19 (2/2 false-premise traps caught), reference driver 16/19, mean confidence 0.71 on hits vs 0.52 on misses | [`docs/EVAL.md`](docs/EVAL.md) |
+| NVIDIA NIM narration | real narratives from `nvidia/nemotron-3.5-lightning-30b-a3b`, plus one natural rejection by the number-grounding validator | [`examples/outputs/*-narrated*`](examples/outputs/) |
+| Meterless conformance | H-MEM 13/13, Scout eval PASS, Markovian conformance ported to pytest | [`conformance/meterless/`](conformance/meterless/) |
 
 ## Example (real output, saved in [`examples/outputs/`](examples/outputs/))
 
 > **Why did Intel's gross margin fall in 2024?**
 >
-> Intel's gross margin fell in FY2024: 40.0% -> 32.7% (-7.4 pts). The evidence points mainly to (1) restructuring and
-> impairment charges increased; (2) depreciation from heavy capital spending rose as a share of revenue; (3) revenue
-> fell, so fixed manufacturing costs were spread over fewer sales.
+> Intel's gross margin fell in FY2024: 40.0% -> 32.7% (-7.4 pts). The evidence is consistent with these drivers:
+> (1) restructuring and impairment charges increased; (2) depreciation from heavy capital spending rose as a share of revenue;
+> (3) revenue fell, so fixed manufacturing costs were spread over fewer sales (under-absorption).
 >
-> - Restructuring and impairment charges: up to -6.1 pts. *They rose $7.03B while total cost of sales rose only $3.24B, so at most -6.1 pts can sit in cost of sales; the rest is in operating expenses.* [F15, F13, F14, F4, F2, F16]
-> - Depreciation: 14.5% -> 18.7% of revenue, up to -4.3 pts, on capex of 45% of revenue. [F10, F8, F9, F4, F2, F11, F12]
+> - Restructuring and impairment charges: up to -6.1 pts. *They rose $7.03B while total cost of sales rose only $3.24B, so at most -6.1 pts can sit in cost of sales; the rest is in operating expenses. $6.97B in FY2024 was over 2.5x the prior-years average: likely one-off.* [F15, F13, F14]
+> - Depreciation from heavy capital spending: up to -4.3 pts. [F10, F8, F9]
 > - Counter-evidence: driver sizes overlap, so treat each as an upper bound. [F18]
-> - Confidence: **High (0.74)**. 3 of 4 hypotheses supported; supported drivers cover about 80% of the move; 87% of queries returned data.
->
-> F13 = *Intel restructuring and impairment charges FY2024: $6.97B (us-gaap:RestructuringSettlementAndImpairmentProvisions, 10-K filed 2026-01-23)*, query `Q-16384213e5` row 46, `https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/RestructuringSettlementAndImpairmentProvisions.json`
+> - Confidence: **Medium (0.65)**. 3 of 4 hypotheses supported across 3 independent cause groups; supported line items add up to ~80% of the change; 87% of queries returned data; capped because the largest driver is a one-off.
 
 | Saved run | Answer | Confidence |
 |---|---|---|
-| [Why did Intel's gross margin fall in 2024?](examples/outputs/why-did-intel-s-gross-margin-fall-in-2024.md) | charges, depreciation, lower revenue | High 0.74 |
-| [Why did UK inflation spike in 2022?](examples/outputs/why-did-uk-inflation-spike-in-2022.md) | wholesale gas (r=+0.92, 9-month lead), household energy, food; looser money and a tight labour market as enabling conditions | High 0.94 |
-| [Why did Nvidia's revenue jump in fiscal 2024?](examples/outputs/why-did-nvidia-s-revenue-jump-in-fiscal-2024.md) | margin expanded with revenue (pricing power), sales outran inventory; capped at 0.70 because there is no segment data | High 0.70 |
-| [Why did US unemployment spike in 2020?](examples/outputs/why-did-us-unemployment-spike-in-2020.md) | jobless claims, leisure and hospitality collapse; **contradicted**: tight monetary policy | High 0.91 |
+| [Why did Intel's gross margin fall in 2024?](examples/outputs/why-did-intel-s-gross-margin-fall-in-2024.md) | charges (one-off), depreciation, lower revenue | Medium 0.65 |
+| [Why did UK inflation spike in 2022?](examples/outputs/why-did-uk-inflation-spike-in-2022.md) | household energy, food, weaker pound; wholesale gas leads by 9 months (r=+0.92) | High 0.85 (macro cap) |
+| [Why did Nvidia's revenue jump in fiscal 2024?](examples/outputs/why-did-nvidia-s-revenue-jump-in-fiscal-2024.md) | margin expanded with revenue (pricing power), sales outran inventory | High 0.70 (no segment data) |
+| [Why did US unemployment spike in 2020?](examples/outputs/why-did-us-unemployment-spike-in-2020.md) | leisure and hospitality collapse, jobless claims, industrial production | High 0.85 (macro cap) |
+| [UK inflation 2022, narrated by NVIDIA NIM](examples/outputs/why-did-uk-inflation-spike-in-2022-narrated.md) | validated narrative over the same findings | High 0.85 |
 | [What do you already know about Intel's margins?](examples/outputs/memory-recall-intel.md) | H-MEM recall with provenance from the earlier session | n/a |
 | [Prompt injection attempt](examples/outputs/guard-blocked.json) | refused by Scout's guard before any tool ran | n/a |
 
@@ -103,53 +135,44 @@ flowchart TB
 
 ## Sponsor technology
 
-### Zetaris: the data harness
-- `DataHarness` contract ([`because/harness/base.py`](because/harness/base.py)) with **`ZetarisBackend`** as primary
-  ([`zetaris_backend.py`](because/harness/zetaris_backend.py)): JDBC through `jaydebeapi` and the bundled Lightning driver
-  (`com.zetaris.lightning.jdbc.LightningDriver`, `jdbc:zetaris:lightning@localhost:10000`), plus an optional REST channel.
-- Sources are registered the way the Zetaris cookbooks do it: `CREATE LIGHTNING REST TABLE` (raw JSON) + `CREATE SCHEMASTORE VIEW ... LATERAL VIEW explode(...)`
-  into canonical columns ([`sources.zetaris_ddl`](because/harness/sources.py), full SQL in [`docs/zetaris_ddl.sql`](docs/zetaris_ddl.sql)).
-  New companies are registered lazily on first question. Existing views are reused, never dropped.
-- Agent SQL is portable ANSI, so the identical queries run on the **DuckDB fallback** over the same endpoints (no instance needed).
-- **FRED without an API key** goes through Zetaris too, as **Lightning FILESTORE CSV tables** (`CREATE LIGHTNING FILESTORE TABLE ... FORMAT CSV`
-  in a `BECAUSE_FILES` database, flattened by a SchemaStore view), so all three source families are federated by Lightning.
-  Raw REST tables are `CACHE TABLE`d right after registration (the cookbook's advice: uncached REST tables re-fetch the endpoint on every query).
-- Three channels: **JDBC** (default), the **UI proxy** (`/api/proxy/sql-editor/sqls/run-query` after `/api/auth/login`, as the bundle's `verify.sh` does), and the API-key REST channel; `ZETARIS_CHANNEL=auto` tries JDBC then the UI proxy.
-- **One-command local setup** for the free Hobby tier: [`scripts/zetaris_setup.sh`](scripts/zetaris_setup.sh), documented in [`docs/ZETARIS.md`](docs/ZETARIS.md).
-- **Runs on a real Zetaris instance in CI**: [`.github/workflows/zetaris-e2e.yml`](.github/workflows/zetaris-e2e.yml) downloads the bundle, starts the
-  seven containers on `ubuntu-latest`, waits for `verify.sh`, registers every source, asks the example questions with `--backend zetaris --strict`, and uploads traces,
-  DDL logs and compose logs. Recorded runs: [`examples/zetaris_runs/`](examples/zetaris_runs/).
+Details, and every pre-existing component, are in [`docs/SPONSORS.md`](docs/SPONSORS.md).
 
-### Meterless: context engines (implemented from their AGENTS.md specs)
-- **H-MEM** ([`because/meterless/hmem.py`](because/meterless/hmem.py)): canonical record with mandatory source and provenance, tiered layers,
-  hybrid retrieval with the canonical formula (threshold 0.35, top 5), domain-grouped reinjection, exact feedback deltas,
-  an append-only trust ledger (17 actions), conflict detection with the 0.70 auto-resolve gate (losers superseded, never deleted),
-  dreaming behind an approval boundary, and a preview-first sleep cycle with guardrails, backup and restore.
-  **Official conformance runner: 13/13 passed** ([`conformance/meterless/hmem-scorecard.txt`](conformance/meterless/hmem-scorecard.txt)), run unmodified
-  through a TypeScript adapter that drives the Python engine, plus a pytest port of the same vectors.
-- **Scout Intent** ([`because/meterless/scout.py`](because/meterless/scout.py)): registry with mandatory examples, stage-1 lexical scan with the 16 ms
-  self-test, local stage-2 semantic rescoring, canonical weights and bands, four clarification triggers, a five-layer guard,
-  capability-graph routing (local-first), model-profile routing, and HMAC-SHA256 contracts with TTL, verification, scope enforcement and replan lineage.
-  **Official eval harness: PASS** on corpus v1 (top-1 1.00, top-3 1.00, injection precision and recall 1.00, tool precision 1.00, clarification rate 0.03):
-  [`conformance/meterless/scout-eval-report.md`](conformance/meterless/scout-eval-report.md). The v1 corpus is a 32-example smoke set,
-  and many prompts match the fixture registry's own examples, so treat this as conformance, not a benchmark.
-- Reproduce both: `bash conformance/meterless/run.sh` (clones Meterless, needs Node 18+).
-- Not used yet: Markovian (flat-cost reasoning) and World Model. See Next steps.
+### Zetaris: the federated data harness
+- `DataHarness` ([`because/harness/base.py`](because/harness/base.py)) with **`ZetarisBackend`** as primary
+  ([`zetaris_backend.py`](because/harness/zetaris_backend.py)): JDBC through `jaydebeapi` and the bundled Lightning driver, plus UI-proxy and REST channels (`ZETARIS_CHANNEL=auto`).
+- Sources registered the cookbook way: SEC EDGAR and ONS as `CREATE LIGHTNING REST TABLE` + `CACHE TABLE` + `CREATE SCHEMASTORE VIEW ... LATERAL VIEW explode(...)`;
+  FRED (no API key) as `CREATE LIGHTNING FILESTORE TABLE ... FORMAT CSV`. Full SQL: [`docs/zetaris_ddl.sql`](docs/zetaris_ddl.sql).
+- **Federation in one statement.** [`because/agent/federated.py`](because/agent/federated.py) runs one cross-source SQL JOIN per question:
+  EDGAR revenue × FRED semiconductor PPI for companies (price-adjusted revenue), and ONS CPI × FRED European gas for UK inflation
+  (lead correlation via a `LAG` window). US unemployment has no second source in the playbook, so it is skipped there.
+- **Unified Semantic Layer**: [`docs/zetaris_usl.sql`](docs/zetaris_usl.sql) compiles a USL model over the registered EDGAR and FRED tables (9/9 statements in CI).
+- **Live in CI**: [`zetaris-e2e`](.github/workflows/zetaris-e2e.yml) boots the Hobby Docker bundle on a GitHub runner and asks every example question with
+  `--backend zetaris --strict`. Latest green run: [39949595787](https://github.com/OlsOls4/because/actions/runs/39949595787). Guide: [`docs/ZETARIS.md`](docs/ZETARIS.md).
+- Agent SQL is portable ANSI, so the identical queries run on the DuckDB fallback (the public demo uses it, and the UI says so).
 
-### NVIDIA
-- **NVIDIA NIM** (build.nvidia.com, OpenAI-compatible) is the first-choice LLM provider (`NVIDIA_API_KEY`, default `meta/llama-3.3-70b-instruct`),
-  used for the validated narrative and as a fallback question parser. Groq and Gemini are drop-in alternatives ([`because/llm.py`](because/llm.py)).
-  Scout's model profiles route to these with data-class clearance. With no key, Because runs fully deterministic.
+### Meterless: routing, guarding and memory with provenance
+- **Scout Intent** ([`because/meterless/scout.py`](because/meterless/scout.py)): intent registry, five-layer guard, clarification triggers and an
+  **HMAC-signed execution contract**; the analyst calls `scout.enforce(contract, capability)` before every tool. Official eval harness: PASS on corpus v1
+  (a 32-example smoke set, so conformance rather than a benchmark).
+- **H-MEM** ([`because/meterless/hmem.py`](because/meterless/hmem.py)): every finding is a memory with provenance `{query_id, sql, rows, source_url, backend}`;
+  conflict scan, trust ledger, preview-first dreaming and sleep. Official conformance runner: **13/13**.
+- **Meterless Runtime provider** in [`because/llm.py`](because/llm.py) (OpenAI-compatible, `--llm meterless`): implemented from the Meterless provider guide,
+  **not tested against a live runtime**.
+- **Markovian** ([`because/meterless/markovian.py`](because/meterless/markovian.py)): a library port with the upstream conformance checks ported to pytest.
+  It is **not wired into narration**: a trial with NIM produced text the validator rejected.
+
+### NVIDIA NIM
+- First-choice LLM provider (`NVIDIA_API_KEY`, default `nvidia/nemotron-3.5-lightning-30b-a3b`; `meta/llama-3.3-70b-instruct` is end-of-life on build.nvidia.com).
+  Used for the optional narrative and as a fallback question parser. Groq, Gemini and Meterless are drop-in alternatives.
+- Real outputs: [UK inflation 2022](examples/outputs/why-did-uk-inflation-spike-in-2022-narrated.md) and [Nvidia revenue](examples/outputs/why-did-nvidia-s-revenue-jump-in-fiscal-2024-narrated.md)
+  (Nemotron 3.5 Lightning). [Intel gross margin](examples/outputs/why-did-intel-s-gross-margin-fall-in-2024-narrated-rejected.md) shows a natural rejection
+  (model `nvidia/nemotron-3-ultra-550b-a55b`): it computed "$7.03 billion" and quoted "6.1 points", numbers that are not in any finding, so the deterministic answer was shown instead.
+- CI and the public demo use no LLM. With no key, Because runs fully deterministic.
 
 ### Cursor
-- Set up as a **Cursor** project: [`AGENTS.md`](AGENTS.md) plus project rules in [`.cursor/rules/`](.cursor/rules/) (evidence-first rules,
-  portable SQL, contract enforcement, Zetaris conventions) steer every Cursor agent run. v0.1 was written with AI coding
-  agents inside the build window and committed in one go (22 Oct 10:51 UTC); later features were built in Cursor sessions, logged below.
-- The **Cursor Agent CLI** (`cursor-agent -p --force --output-format stream-json`, headless with a Cursor user API key) did real work on this repo.
-  Each session's prompt, tool calls, final message and raw event stream are in [`docs/cursor-sessions/`](docs/cursor-sessions/):
-  1. [Zetaris backend hardening](docs/cursor-sessions/01-zetaris-backend-hardening.md): UI-proxy channel, `auto` channel fallback, `CACHE TABLE`, EDGAR 404 as empty table, JDBC column-label normalisation, 12 new tests.
-  2. [FRED as FILESTORE CSV tables + `because zetaris sql`](docs/cursor-sessions/02-fred-filestore-and-sql-cli.md) (stopped by the free plan's usage limit; one test fixed by hand, noted in the log).
-  3. [Web UI polish](docs/cursor-sessions/03-web-ui-polish.md): pipeline strip, Meterless card, Zetaris badge, citation tooltips, recorded-Zetaris-run chips, `tests/test_web.py`.
+- [`AGENTS.md`](AGENTS.md) and [`.cursor/rules/`](.cursor/rules/) steer agent runs. v0.1 was written with AI coding agents inside the build window and committed once
+  (22 Oct 10:51 UTC); later features were refined in three headless Cursor Agent CLI sessions, logged with prompts, tool calls and raw event streams in
+  [`docs/cursor-sessions/`](docs/cursor-sessions/). The latest reasoning, federation and NIM fixes were made without Cursor.
 
 ## Setup
 
@@ -175,7 +198,7 @@ See [`docs/ZETARIS.md`](docs/ZETARIS.md).
 **Actions → zetaris-e2e → Run workflow**. The bundle and its `.env` are never committed. Artifacts: traces (`*.md`, `*.json`), `SUMMARY.md`, `register.log`,
 `SHOW LIGHTNING TABLES` output and the compose logs of all seven services.
 
-**LLM narrative (optional)**: put one of `NVIDIA_API_KEY`, `GROQ_API_KEY`, `GEMINI_API_KEY` in `.env.local`.
+**LLM narrative (optional)**: put one of `NVIDIA_API_KEY`, `GROQ_API_KEY`, `GEMINI_API_KEY` in `.env.local`, or pass `--llm nvidia|groq|gemini|meterless`.
 
 ## Usage
 
@@ -183,6 +206,8 @@ See [`docs/ZETARIS.md`](docs/ZETARIS.md).
 because ask "Why did Intel's gross margin fall in 2024?"            # summary + citations
 because ask "..." --md trace.md --json trace.json                   # full trace
 because ask "..." --backend zetaris --strict                        # fail instead of falling back
+because ask "..." --llm nvidia                                      # validated NIM narrative (needs NVIDIA_API_KEY)
+python scripts/eval.py                                              # 19-question evaluation (docs/EVAL.md)
 because ask "What do you already know about Intel's margins?"       # memory recall with provenance
 because memory list "inflation"                                     # stored beliefs
 because memory why <memory-id>                                      # provenance + audit trail
@@ -205,7 +230,7 @@ macro: UK and US inflation, US and UK unemployment. Other questions get a clarif
 ## Tests
 
 ```bash
-pytest -q            # 58 offline tests: H-MEM conformance port, Scout, harness (Zetaris JDBC/UI/file-store flows with fake channels), web API, end-to-end analyst
+pytest -q            # 109 offline tests: H-MEM and Markovian conformance ports, Scout, harness (Zetaris flows with fake channels), confidence monotonicity, narrative validator, web API, end-to-end analyst
 pytest -m live       # live SEC/ONS/FRED checks
 bash conformance/meterless/run.sh   # official Meterless suites
 ```
@@ -231,17 +256,21 @@ Everything else in this repository was written during the hackathon (from 22 Oct
 
 ## Limitations
 
-- EDGAR `companyfacts` has no segment data, so revenue "why" answers are indirect (confidence capped at 0.70). XBRL does not say whether a charge sits
-  in cost of sales or operating expenses; the bridge reports upper bounds when lines overlap.
-- Macro tests show co-movement and timing, not causation. CPI component weights are not applied yet.
-- Background context is Wikipedia sentence matching. GDELT only covers recent months and is off by default (shared rate limit).
+- **Co-movement is not causation.** Macro tests check direction, size and timing (lead correlation); CPI component weights are not applied, so macro confidence is capped at 0.85.
+- **No segment, unit or price data** in SEC companyfacts. Revenue "why" answers are indirect (capped at 0.70), and all three eval misses are of this kind:
+  Tesla gross margin 2023 (price cuts), Apple revenue FY2023 (Mac/iPad and FX), Intel revenue 2023 (PC/server demand). See [`docs/EVAL.md`](docs/EVAL.md).
+- **XBRL does not say** whether a charge sits in cost of sales or operating expenses, so bridge contributions are upper bounds when lines overlap.
+- **Scope**: company metrics for SEC filers; UK/US inflation and unemployment. Other questions get a clarification or a plain scope message.
+- **The public demo runs on the DuckDB fallback**, not Zetaris (no hosted instance); the Zetaris runs are recorded from CI and viewable in the UI.
+- The eval is 19 questions with author-written references from filings and releases: a sanity check, not a benchmark.
+- The Meterless Runtime provider is untested against a live runtime; Markovian is a library, not part of the answer path.
 
 ## Next steps
 
-- Add a **Unified Semantic Layer** (`COMPILE USL`) model joining EDGAR facts and macro series.
-- **Markovian** engine for long investigations (bounded state between hypothesis rounds) and multi-company comparisons.
-- CPI component weights (ONS), segment revenue from XBRL frames, more countries (Eurostat is already a Zetaris cookbook source).
-- A dreaming pass that proposes cross-question insights ("energy shocks explain both UK and euro-area inflation") for approval in the UI.
+- Segment revenue from XBRL frames and an FX series, to close the three eval misses.
+- CPI component weights (ONS), so macro drivers can be sized as shares of the move.
+- Route the agent's own queries through the USL model, and add more countries (Eurostat is already a Zetaris cookbook source).
+- Wire Markovian into multi-company comparisons once its output passes the narrative validator.
 
 ## Licence
 

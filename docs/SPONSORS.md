@@ -22,19 +22,30 @@ the build window (22 Oct 2026 00:00 UTC).
 - **Portable SQL.** The analyst writes ANSI SQL over canonical columns, so the identical queries run on a DuckDB fallback
   (`SAMPLE_MODE`) when no Zetaris instance is available. The public demo and the saved examples use that fallback, and
   the UI shows which backend answered.
+- **Federation in one statement.** [`because/agent/federated.py`](../because/agent/federated.py) adds one cross-source SQL JOIN
+  per question, executed by Lightning across two registered sources:
+  - companies: SEC EDGAR revenue × FRED semiconductor producer price index (`PCU33443344`) on fiscal-year windows, giving
+    price-adjusted revenue (Intel FY2024: revenue -2.1% while the index rose +1.5%, so the move was volume, mix or share, not industry pricing);
+  - UK inflation: ONS CPI (`D7G7`) × FRED European natural gas (`PNGASEUUSDM`) on month, lagged 0-12 months with a `LAG` window
+    (Spark rejects view self-joins). Best lead **9 months, r = 0.90** over 2015-2022 (n = 96; same-month r = 0.45);
+  - US unemployment: skipped, because the playbook has no second source for it.
+- **Unified Semantic Layer.** [`zetaris_usl.sql`](zetaris_usl.sql) runs `COMPILE USL`, `ACTIVATE USL TABLE` (EDGAR annual facts and a
+  FRED price index) and a JOIN query over the model. In CI: **9/9 statements succeeded**
+  ([`usl.log`](../examples/zetaris_runs/usl.log)). The agent's own queries do not go through the USL yet.
 - **Real instance in CI.** [`.github/workflows/zetaris-e2e.yml`](../.github/workflows/zetaris-e2e.yml) downloads the free
   Hobby Docker bundle, starts it on a GitHub runner, waits for `verify.sh`, registers every source, and runs the example
   questions with `--backend zetaris --strict` over JDBC. Traces are written to [`examples/zetaris_runs/`](../examples/zetaris_runs/).
-  It needs three repository secrets (bundle URL and registry login); see the status note at the end.
+  Latest green run: [39949595787](https://github.com/OlsOls4/because/actions/runs/39949595787) (see Status notes).
 - Local setup: [`scripts/zetaris_setup.sh`](../scripts/zetaris_setup.sh) and [`docs/ZETARIS.md`](ZETARIS.md).
 
 **What is unique.** Zetaris is used as the agent's single query surface over heterogeneous public APIs (JSON REST and CSV
-files), and each query's id, SQL and backend label travel with every finding into the answer and into memory, so the
+files), the cross-source evidence (filings × prices, CPI × gas) comes from one federated statement, and each query's id, SQL and backend label travel with every finding into the answer and into memory, so the
 reader can rerun the exact statement behind a claim.
 
 ## Meterless: routing, guarding and memory with provenance
 
-Both engines are implemented in Python from the Meterless `AGENTS.md` specs and checked with the official Meterless test suites.
+Scout and H-MEM are implemented in Python from the Meterless `AGENTS.md` specs and checked with the official Meterless test suites.
+Two further pieces are present but less mature, stated exactly below.
 
 - **Scout Intent** ([`because/meterless/scout.py`](../because/meterless/scout.py)): intent registry
   ([`because/agent/intents.json`](../because/agent/intents.json)), lexical and semantic scoring with the canonical weights
@@ -49,6 +60,12 @@ Both engines are implemented in Python from the Meterless `AGENTS.md` specs and 
   a conflict scan flags restated numbers; an append-only trust ledger records feedback; dreaming and sleep are preview-first.
   Official conformance runner: **13/13 passed** ([`hmem-scorecard.txt`](../conformance/meterless/hmem-scorecard.txt)).
   Reproduce both suites with `bash conformance/meterless/run.sh`.
+- **Meterless Runtime provider** ([`because/llm.py`](../because/llm.py), `--llm meterless`): an OpenAI-compatible provider following
+  the Meterless provider guide (`meterless-app` header, URL normalisation, online/unauthorized/offline status). It has unit tests
+  but has **not been tested against a live Meterless runtime**.
+- **Markovian** ([`because/meterless/markovian.py`](../because/meterless/markovian.py)): a library port of the bounded-carryover
+  engine with the upstream conformance checks ported to pytest ([`tests/test_markovian_conformance.py`](../tests/test_markovian_conformance.py)).
+  It is **not wired into narration**: a trial with NIM produced a narrative the number-grounding validator rejected, so it stays a library.
 
 **What is unique.** Memory is used for *explanation*, not only recall: "What do you already know about Intel's margins?"
 answers from H-MEM and shows, for each belief, the query and source it came from
@@ -57,21 +74,30 @@ answers from H-MEM and shows, for each belief, the query and source it came from
 ## Cursor (with Space XAI)
 
 - The repository carries Cursor project rules ([`.cursor/rules/because.mdc`](../.cursor/rules/because.mdc),
-  [`.cursor/rules/zetaris.mdc`](../.cursor/rules/zetaris.mdc)) and [`AGENTS.md`](../AGENTS.md), which steer every Cursor agent run.
-- Three headless **Cursor Agent CLI** sessions (`cursor-agent -p --force --output-format stream-json`) did real work on this
-  repository; prompts, tool calls, results and raw event streams are in [`docs/cursor-sessions/`](cursor-sessions/):
+  [`.cursor/rules/zetaris.mdc`](../.cursor/rules/zetaris.mdc)) and [`AGENTS.md`](../AGENTS.md), which steer agent runs.
+- v0.1 was written with AI coding agents during the build window (22 Oct 2026 00:00-10:51 UTC) and committed once (`fa77036`).
+- Later features were refined in three headless **Cursor Agent CLI** sessions (`cursor-agent -p --force --output-format stream-json`);
+  prompts, tool calls, results and raw event streams are in [`docs/cursor-sessions/`](cursor-sessions/):
   Zetaris backend hardening (UI-proxy channel, `auto` fallback, `CACHE TABLE`, column normalisation, 12 tests);
   FRED as FILESTORE tables plus `because zetaris sql`; and web UI polish (pipeline strip, Meterless card, Zetaris badge).
-- The free plan's agent usage limit was reached during session 2; the log notes the one test fixed by hand afterwards.
+  The free plan's agent usage limit was reached during session 2; the log notes the one test fixed by hand afterwards.
+- **Honest note:** the latest changes (reasoning fixes after review, federated JOINs, USL, NVIDIA NIM narrations, Meterless provider and
+  Markovian library, these docs) were made **without Cursor**, because the Cursor Agent CLI was not available in that build environment.
 
 ## NVIDIA
 
 - **NVIDIA NIM** (build.nvidia.com, OpenAI-compatible API) is the first-choice LLM provider in
-  [`because/llm.py`](../because/llm.py) (`NVIDIA_API_KEY`, default `meta/llama-3.3-70b-instruct`), used for the optional
-  narrative and as a fallback question parser. Scout's model profiles route to it.
+  [`because/llm.py`](../because/llm.py) (`NVIDIA_API_KEY`, `--llm nvidia`), used for the optional narrative and as a fallback
+  question parser. Default model **`nvidia/nemotron-3.5-lightning-30b-a3b`**; the earlier default `meta/llama-3.3-70b-instruct`
+  is end-of-life on build.nvidia.com (HTTP 410). Scout's model profiles route to it.
 - The narrative is accepted only if every sentence cites a finding and every number appears in the evidence (`validate_narrative`).
-- Without a key, Because runs fully deterministic. The saved examples, the public demo and the demo video were produced
-  with no LLM, so they show the NIM path in code and configuration, not in recorded output.
+- **Real recorded output:** [UK inflation 2022](../examples/outputs/why-did-uk-inflation-spike-in-2022-narrated.md) and
+  [Nvidia revenue FY2024](../examples/outputs/why-did-nvidia-s-revenue-jump-in-fiscal-2024-narrated.md), narrated by Nemotron 3.5 Lightning
+  and accepted by the validator.
+- **A natural rejection:** [Intel gross margin 2024](../examples/outputs/why-did-intel-s-gross-margin-fall-in-2024-narrated-rejected.md)
+  (model `nvidia/nemotron-3-ultra-550b-a55b`). The model computed a "$7.03 billion" increase and quoted "6.1 points"; neither number is in
+  any finding, so the narrative was rejected and the deterministic answer shown. It is kept as evidence the guard works.
+- CI, the public demo and the demo video use no LLM. Without a key, Because runs fully deterministic.
 
 ## Pre-existing components (declared)
 
@@ -92,9 +118,11 @@ allowed by the rules and is owned by the author.
 ## Status notes
 
 - `zetaris-e2e` runs on a real Zetaris Lightning 2.4.3.1 instance (repository secrets `ZETARIS_BUNDLE_URL`, `ZETARIS_ACR_USER`,
-  `ZETARIS_ACR_PASSWORD`). Recorded run [39928173953](https://github.com/OlsOls4/because/actions/runs/39928173953) (23 Oct 2026):
-  all five example questions answered over JDBC on `zetaris-jdbc` with 0 query errors; traces in
-  [`examples/zetaris_runs/`](../examples/zetaris_runs/).
+  `ZETARIS_ACR_PASSWORD`). Latest green run [39949595787](https://github.com/OlsOls4/because/actions/runs/39949595787) (23 Oct 2026):
+  all five example questions over JDBC on `zetaris-jdbc`, 0 query errors, one federated cross-source JOIN per question where a second
+  source exists, and the USL model 9/9. Traces in [`examples/zetaris_runs/`](../examples/zetaris_runs/). The first green run was
+  [39928173953](https://github.com/OlsOls4/because/actions/runs/39928173953).
+- Evaluation: 19 questions, direction 19/19, reference driver found 16/19, misses committed ([`EVAL.md`](EVAL.md)).
 - Commit history: v0.1 (commit `fa77036`, 22 Oct 10:51 UTC) was written from scratch inside the build window (22 Oct
   00:00-10:51 UTC) and committed in one go; everything since is incremental commits. Only the components listed under
   "Pre-existing components" predate the window.

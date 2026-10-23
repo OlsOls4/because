@@ -104,13 +104,35 @@ WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_dat
 
 Sources are registered lazily too: asking about a new company creates its tables on first use.
 
+## Federated JOINs (one per question)
+
+[`because/agent/federated.py`](../because/agent/federated.py) adds one statement per investigation that joins two sources
+registered in Lightning, so the cross-source evidence is computed by Zetaris rather than stitched together in Python:
+
+| Question type | JOIN | Result in run 39949595787 |
+|---|---|---|
+| Company revenue / margin | SEC EDGAR revenue × FRED semiconductor PPI (`PCU33443344`) on fiscal-year windows | Intel FY2024: revenue -2.1%, index +1.5%, price-adjusted -3.6% (volume, mix or share, not industry pricing). Nvidia FY2024: index +0.5%, price-adjusted +124.7% |
+| UK inflation | ONS CPI `D7G7` × FRED `PNGASEUUSDM` on month, driver lagged 0-12 months via a `LAG` window | best lead 9 months, r = 0.90 (n = 96, 2015-2022); same month r = 0.45 |
+| US unemployment | none: the playbook has no second source | skipped |
+
+Spark rejects a self-join of the same SchemaStore view, so the lead series is built with `LAG(...) OVER (ORDER BY period)`
+inside one statement. The SQL is in each trace (`Q-...` ids with label `cross-source`).
+
+## Unified Semantic Layer (optional)
+
+[`zetaris_usl.sql`](zetaris_usl.sql) creates `lightning.metastore.because`, compiles a USL model (`because_usl`) with an
+`annual_fact` table (EDGAR 10-K facts) and a `price_index` table (FRED CSV), activates both over the registered raw tables
+and runs a JOIN over the model. The CI step is non-fatal; in run 39949595787 all 9 statements succeeded
+([`usl.log`](../examples/zetaris_runs/usl.log)). The agent's own queries still use the SchemaStore views, not the USL.
+
 ## Status and known gaps
 
 * Written against the getting-started docs and scripts (`scripts/zetaris_sql.py` JDBC channel, REST cookbook,
   EDGAR/PUDL/NOAA guide). **Verified on a live instance**: the `zetaris-e2e` workflow boots the Hobby bundle (Lightning
-  2.4.3.1) on a GitHub runner; run [39928173953](https://github.com/OlsOls4/because/actions/runs/39928173953) answered all
-  five example questions over JDBC with 0 query errors (`examples/zetaris_runs/`). Unit tests also cover the registration
-  flow and SQL shape with a fake JDBC channel.
+  2.4.3.1) on a GitHub runner. Latest green run [39949595787](https://github.com/OlsOls4/because/actions/runs/39949595787):
+  all five example questions over JDBC with 0 query errors, a federated JOIN per question (below) and the USL model 9/9
+  (`examples/zetaris_runs/`). The first green run was [39928173953](https://github.com/OlsOls4/because/actions/runs/39928173953).
+  Unit tests also cover the registration flow and SQL shape with a fake JDBC channel.
 * Lessons from the live runs: SEC rejects `noreply` User-Agent addresses (HTTP 403 inside the Lightning REST fetch), and
   instant (balance-sheet) XBRL concepts such as `InventoryNet` have no `start` field, so their SchemaStore view selects
   `NULL AS period_start`.

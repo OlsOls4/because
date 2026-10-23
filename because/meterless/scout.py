@@ -453,7 +453,7 @@ class Scout:
 
 DEFAULT_MODEL_PROFILES = [
     {"id": "deterministic", "provider": "local", "model": "rules", "cost": 0, "latencyP95": 5, "dataClasses": ["public", "sensitive"], "capabilities": ["json"]},
-    {"id": "nim-llama-3.3-70b", "provider": "nvidia-nim", "model": "meta/llama-3.3-70b-instruct", "cost": 0, "latencyP95": 4000, "dataClasses": ["public"], "capabilities": ["json", "function_calling"]},
+    {"id": "nim-nemotron-3.5-lightning", "provider": "nvidia-nim", "model": "nvidia/nemotron-3.5-lightning-30b-a3b", "cost": 0, "latencyP95": 4000, "dataClasses": ["public"], "capabilities": ["json", "function_calling"]},
     {"id": "groq-llama-3.3-70b", "provider": "groq", "model": "llama-3.3-70b-versatile", "cost": 0, "latencyP95": 1500, "dataClasses": ["public"], "capabilities": ["json", "function_calling"]},
     {"id": "gemini-2.5-flash", "provider": "gemini", "model": "gemini-2.5-flash", "cost": 0, "latencyP95": 3000, "dataClasses": ["public"], "capabilities": ["json", "function_calling", "vision"]},
 ]
