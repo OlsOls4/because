@@ -171,6 +171,9 @@ def fred_file_store_active() -> bool:
     return bool(os.environ.get("BECAUSE_ZETARIS_FILE_DIR")) and not os.environ.get("FRED_API_KEY")
 
 
+INSTANT_CONCEPTS = {"InventoryNet", "Assets", "Liabilities", "StockholdersEquity", "CashAndCashEquivalentsAtCarryingValue"}
+
+
 def zetaris_ddl(spec: SourceSpec) -> list[str]:
     """Statements that register `spec` in Zetaris. One statement per entry.
 
@@ -181,13 +184,15 @@ def zetaris_ddl(spec: SourceSpec) -> list[str]:
     view = spec.table_name
     ua = user_agent()
     if spec.kind == "edgar_concept":
+        # Balance-sheet (instant) concepts carry no `start` field; Spark rejects the missing struct field.
+        start_expr = "CAST(NULL AS STRING)" if spec.key.split(":")[-1] in INSTANT_CONCEPTS else "fact.`start`"
         return [
             f'CREATE LIGHTNING REST TABLE {raw} FROM {ZETARIS_DATABASE} REQUEST(\n'
             f'    endpoint "{source_url(spec)}",\n    method "get",\n    response_type "json",\n'
             f'    http_encoding "URLENCODED"\n) HEADER (\n    user-agent "{ua}"\n) BODY ()',
             f"CREATE SCHEMASTORE VIEW {view} WITH CONTAINER {ZETARIS_CONTAINER} AS\nSELECT\n"
             "    CAST(cik AS STRING) AS cik,\n    `entityName` AS entity_name,\n    tag AS concept,\n"
-            "    fact.`start` AS period_start,\n    fact.`end` AS period_end,\n"
+            f"    {start_expr} AS period_start,\n    fact.`end` AS period_end,\n"
             "    CAST(fact.val AS DOUBLE) AS value_usd,\n    fact.accn AS accession_number,\n"
             "    CAST(fact.fy AS BIGINT) AS fiscal_year,\n    fact.fp AS fiscal_period,\n"
             "    fact.form AS form_type,\n    fact.filed AS filed_date\n"
