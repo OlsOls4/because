@@ -233,6 +233,8 @@ class Analyst:
                         "confidence": {"score": 0, "label": "n/a", "rationale": "Investigation failed."}}
             return self._finish(t, t0)
         t.answer = self._compose(outcome)
+        from because.agent.federated import cross_source  # one federated JOIN across two source families
+        cross_source(self, pb)
         self._narrate()
         self._remember(outcome)
         return self._finish(t, t0)

@@ -51,7 +51,7 @@ jobs:
       BECAUSE_ZETARIS_HYBRID: "1"
       BECAUSE_ZETARIS_FILE_DIR: /tmp/because-data
       BECAUSE_ZETARIS_FILE_URI: file:///home/zetaris/customer-data/shared/because
-      BECAUSE_USER_AGENT: ${{ secrets.BECAUSE_USER_AGENT || 'Because Agent ollymcbride4@gmail.com' }}
+      BECAUSE_USER_AGENT: ${{ secrets.BECAUSE_USER_AGENT || 'because-agent-ci because-agent@example.com' }}
       FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
       NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
       GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -185,6 +185,35 @@ jobs:
           done
           python scripts/zetaris_run_summary.py "$OUT" | tee "$OUT/SUMMARY.md" >> "$GITHUB_STEP_SUMMARY"
           [ "$fails" = 0 ]
+
+      - name: Optional - Zetaris USL model (docs/zetaris_usl.sql, non-fatal)
+        if: always()
+        continue-on-error: true
+        run: |
+          python - <<'PY' 2>&1 | tee "$OUT/usl.log"
+          import json, re
+          from pathlib import Path
+          from because.harness.zetaris_backend import ZetarisBackend
+          text = Path("docs/zetaris_usl.sql").read_text()
+          parts = re.split(r"^-- @@\s*$", text, flags=re.M)
+          stmts = []
+          for p in parts:
+              body = "\n".join(l for l in p.splitlines() if not l.strip().startswith("--")).strip()
+              if body:
+                  stmts.append(body)
+          z = ZetarisBackend()
+          ok = 0
+          for s in stmts:
+              head = " ".join(s.split())[:110]
+              try:
+                  cols, rows = z.channel.run(s)
+                  ok += 1
+                  print(f"OK   {head}\n     -> {json.dumps({'columns': cols, 'rows': rows[:12]}, default=str)[:900]}")
+              except Exception as e:
+                  print(f"FAIL {head}\n     -> {str(e)[:600]}")
+          print(f"USL: {ok}/{len(stmts)} statements succeeded")
+          PY
+          echo "### Zetaris USL (optional)" >> "$GITHUB_STEP_SUMMARY"; tail -1 "$OUT/usl.log" >> "$GITHUB_STEP_SUMMARY" || true
 
       - name: Collect compose logs
         if: always()
