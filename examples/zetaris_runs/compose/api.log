@@ -1,0 +1,878 @@
+api-1  | 2026.10.23 08:59:33:774 io-compute-blocker-0 INFO com.zaxxer.hikari.HikariDataSource
+api-1  |     HikariPool-1 - Starting...    
+api-1  | 2026.10.23 08:59:34:337 io-compute-blocker-0 INFO com.zaxxer.hikari.pool.PoolBase
+api-1  |     HikariPool-1 - Driver does not support get/set network timeout for connections. (Method not supported)    
+api-1  | 2026.10.23 08:59:34:377 io-compute-blocker-0 INFO com.zaxxer.hikari.pool.HikariPool
+api-1  |     HikariPool-1 - Added connection com.zetaris.lightning.jdbc.LightningConnection@2ae7b918    
+api-1  | 2026.10.23 08:59:34:379 io-compute-blocker-0 INFO com.zaxxer.hikari.HikariDataSource
+api-1  |     HikariPool-1 - Start completed.    
+api-1  | WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+api-1  | 2026.10.23 08:59:36:307 io-compute-blocker-0 INFO com.zaxxer.hikari.HikariDataSource
+api-1  |     HikariPool-2 - Starting...    
+api-1  | 2026.10.23 08:59:36:471 io-compute-blocker-0 INFO com.zaxxer.hikari.pool.HikariPool
+api-1  |     HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@1fc57e7e    
+api-1  | 2026.10.23 08:59:36:472 io-compute-blocker-0 INFO com.zaxxer.hikari.HikariDataSource
+api-1  |     HikariPool-2 - Start completed.    
+api-1  |     HikariPool-3 - Starting...    
+api-1  | 2026.10.23 08:59:36:911 io-compute-blocker-0 INFO com.zaxxer.hikari.pool.HikariPool
+api-1  |     HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@3f607023    
+api-1  | 2026.10.23 08:59:36:912 io-compute-blocker-0 INFO com.zaxxer.hikari.HikariDataSource
+api-1  |     HikariPool-3 - Start completed.    
+api-1  | 2026.10.23 08:59:37:213 io-compute-0 INFO com.zetaris.lightning.service.apicall.ApiCallChainService.scheduleApiCallChains:162
+api-1  |     [93e1d1c4-3f64-488b-8766-b00b54f273db, UserName(SCHEDULER), a2848d8a][ScheduleApiCallChains] >>> Email(Daemon@zetaris.com)    
+api-1  | 2026.10.23 08:59:37:211 io-compute-1 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [bf366a14-1898-448c-93be-351769d64b87, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick] >>> ()    
+api-1  | 2026.10.23 08:59:37:246 io-compute-1 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [bf366a14-1898-448c-93be-351769d64b87, UserName(SCHEDULER), a2848d8a][reapStaleExecutions] >>> ()    
+api-1  | 2026.10.23 08:59:37:263 io-compute-0 INFO com.zetaris.lightning.repository.apicall.ApiCallChainDB.listAllLightningApiCallChains:24
+api-1  |     [93e1d1c4-3f64-488b-8766-b00b54f273db, UserName(SCHEDULER), a2848d8a][listAllApiCallChain] >>> ()    
+api-1  | 2026.10.23 08:59:37:529 io-compute-blocker-2 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [bf366a14-1898-448c-93be-351769d64b87, UserName(SCHEDULER), a2848d8a][reapStaleExecutions][Elapsed:283 ms] >>> () <<< 0    
+api-1  | 2026.10.23 08:59:37:551 io-compute-blocker-2 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [bf366a14-1898-448c-93be-351769d64b87, UserName(SCHEDULER), a2848d8a][listDueSchedules] >>> ()    
+api-1  | 2026.10.23 08:59:37:581 io-compute-blocker-3 INFO com.zetaris.lightning.repository.apicall.ApiCallChainDB.listAllLightningApiCallChains:24
+api-1  |     [93e1d1c4-3f64-488b-8766-b00b54f273db, UserName(SCHEDULER), a2848d8a][listAllApiCallChain][Elapsed:317 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 08:59:37:587 io-compute-blocker-3 INFO com.zetaris.lightning.service.apicall.ApiCallChainService.scheduleApiCallChains:162
+api-1  |     [93e1d1c4-3f64-488b-8766-b00b54f273db, UserName(SCHEDULER), a2848d8a][ScheduleApiCallChains][Elapsed:423 ms] >>> Email(Daemon@zetaris.com) <<< ()    
+api-1  | 2026.10.23 08:59:37:596 io-compute-blocker-4 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [bf366a14-1898-448c-93be-351769d64b87, UserName(SCHEDULER), a2848d8a][listDueSchedules][Elapsed:45 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 08:59:37:601 io-compute-blocker-4 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [bf366a14-1898-448c-93be-351769d64b87, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick][Elapsed:428 ms] >>> () <<< ()    
+api-1  | 2026.10.23 08:59:44:643 io-compute-2 INFO org.http4s.blaze.channel.nio1.NIO1SocketServerGroup
+api-1  |     Service bound to address /[0:0:0:0:0:0:0:0]:8888    
+api-1  | 2026.10.23 08:59:44:643 io-compute-3 INFO org.http4s.blaze.channel.nio1.NIO1SocketServerGroup
+api-1  |     Service bound to address /[0:0:0:0:0:0:0:0]:8889    
+api-1  | 2026.10.23 08:59:44:653 io-compute-0 INFO org.http4s.blaze.server.BlazeServerBuilder
+api-1  |     
+api-1  |       _   _   _        _ _
+api-1  |      | |_| |_| |_ _ __| | | ___
+api-1  |      | ' \  _|  _| '_ \_  _(_-<
+api-1  |      |_||_\__|\__| .__/ |_|/__/
+api-1  |                  |_|    
+api-1  | 2026.10.23 08:59:44:653 io-compute-3 INFO org.http4s.blaze.server.BlazeServerBuilder
+api-1  |     
+api-1  |       _   _   _        _ _
+api-1  |      | |_| |_| |_ _ __| | | ___
+api-1  |      | ' \  _|  _| '_ \_  _(_-<
+api-1  |      |_||_\__|\__| .__/ |_|/__/
+api-1  |                  |_|    
+api-1  |     http4s v0.23.36 on blaze v0.23.18 started at http://[::]:8889/    
+api-1  | 2026.10.23 08:59:44:658 io-compute-0 INFO org.http4s.blaze.server.BlazeServerBuilder
+api-1  |     http4s v0.23.36 on blaze v0.23.18 started at http://[::]:8888/    
+api-1  | 2026.10.23 08:59:48:064 io-compute-1 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][OrgUserLogin] >>> admin@zetaris.com    
+api-1  | 2026.10.23 08:59:48:081 io-compute-1 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][findUnlockedLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 08:59:48:106 io-compute-blocker-2 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][findUnlockedLightningUser][Elapsed:25 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 08:59:48:110 io-compute-blocker-2 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][getLatestOrganisationStatus] >>> ()    
+api-1  | 2026.10.23 08:59:48:134 io-compute-blocker-5 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][getLatestOrganisationStatus][Elapsed:23 ms] >>> () <<< OrganisationStatus(1, ACTIVE)    
+api-1  | 2026.10.23 08:59:48:289 io-compute-blocker-5 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 08:59:48:302 io-compute-blocker-2 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:13 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 08:59:48:305 io-compute-blocker-2 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][OrgUserLogin][Elapsed:240 ms] >>> admin@zetaris.com <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 08:59:48:310 io-compute-blocker-2 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][storeLog] >>> (ApiName=OrgUserLogin,Finished = true)    
+api-1  | 2026.10.23 08:59:48:316 io-compute-blocker-2 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][clearExpiredLog][Elapsed:2 ms] >>> () <<< ()    
+api-1  | 2026.10.23 08:59:48:321 io-compute-blocker-2 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][storeRestLog] >>> 07305aba-7730-4778-8b98-615fa79d5df0    
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][storeRestLog][Elapsed:2 ms] >>> 07305aba-7730-4778-8b98-615fa79d5df0 <<< ()    
+api-1  | 2026.10.23 08:59:48:324 io-compute-blocker-2 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, NoPrincipal, a2848d8a][storeLog][Elapsed:14 ms] >>> (ApiName=OrgUserLogin,Finished = true) <<< ()    
+api-1  | 2026.10.23 08:59:48:339 io-compute-blocker-2 INFO com.zetaris.lightning.service.authn.AuthnService.orgUserLoginAsJwt:340
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt] >>> ()    
+api-1  |     [07305aba-7730-4778-8b98-615fa79d5df0, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt][Elapsed:77 ms] >>> () <<< Tokens: <REDACTED>    
+api-1  | 2026.10.23 08:59:48:449 io-compute-blocker-2 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 GET /api/v1.0/internal/auth/legacy-login Headers(Host: api:8889, Authorization: <REDACTED>, User-Agent: curl/8.5.0, Accept: */*, X-Request-ID: 07305aba-7730-4778-8b98-615fa79d5df0)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 1238, X-Request-ID: 07305aba-7730-4778-8b98-615fa79d5df0)    
+api-1  | 2026.10.23 09:00:06:695 io-compute-2 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][OrgUserLogin] >>> admin@zetaris.com    
+api-1  | 2026.10.23 09:00:06:701 io-compute-2 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][findUnlockedLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:06:710 io-compute-blocker-1 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][findUnlockedLightningUser][Elapsed:9 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:00:06:711 io-compute-blocker-1 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][getLatestOrganisationStatus] >>> ()    
+api-1  | 2026.10.23 09:00:06:719 io-compute-blocker-6 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][getLatestOrganisationStatus][Elapsed:7 ms] >>> () <<< OrganisationStatus(1, ACTIVE)    
+api-1  | 2026.10.23 09:00:06:830 io-compute-blocker-6 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:06:839 io-compute-blocker-4 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:9 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:00:06:841 io-compute-blocker-4 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][OrgUserLogin][Elapsed:146 ms] >>> admin@zetaris.com <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:06:842 io-compute-blocker-4 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][storeLog] >>> (ApiName=OrgUserLogin,Finished = true)    
+api-1  | 2026.10.23 09:00:06:843 io-compute-blocker-4 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:00:06:844 io-compute-blocker-4 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][storeRestLog] >>> 94f632c8-dc12-48d4-b7a0-be7b17947685    
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][storeRestLog][Elapsed:0 ms] >>> 94f632c8-dc12-48d4-b7a0-be7b17947685 <<< ()    
+api-1  | 2026.10.23 09:00:06:845 io-compute-blocker-4 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, NoPrincipal, a2848d8a][storeLog][Elapsed:3 ms] >>> (ApiName=OrgUserLogin,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:00:06:846 io-compute-blocker-4 INFO com.zetaris.lightning.service.authn.AuthnService.orgUserLoginAsJwt:340
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt] >>> ()    
+api-1  |     [94f632c8-dc12-48d4-b7a0-be7b17947685, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt][Elapsed:61 ms] >>> () <<< Tokens: <REDACTED>    
+api-1  | 2026.10.23 09:00:06:911 io-compute-blocker-4 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 GET /api/v1.0/internal/auth/legacy-login Headers(host: api:8889, connection: keep-alive, Authorization: <REDACTED>, X-Request-ID: 94f632c8-dc12-48d4-b7a0-be7b17947685, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: node, accept-encoding: gzip, deflate)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 1238, X-Request-ID: 94f632c8-dc12-48d4-b7a0-be7b17947685)    
+api-1  | 2026.10.23 09:00:07:098 io-compute-3 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser] >>> ApiToken(Redacted)    
+api-1  | 2026.10.23 09:00:07:109 io-compute-3 INFO com.zetaris.lightning.effects.auth.SsoUtil.getJwtInfoEffect:38
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo] >>> JwtToken(Redacted)    
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo][Elapsed:21 ms] >>> JwtToken(Redacted) <<< JwtBasicInfo(keyId = None, audience = Zetaris, issuer = Zetaris)    
+api-1  | 2026.10.23 09:00:07:176 io-compute-blocker-0 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:07:181 io-compute-blocker-0 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:07:190 io-compute-blocker-4 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser][Elapsed:9 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:00:07:193 io-compute-blocker-4 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser][Elapsed:17 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:07:200 io-compute-blocker-4 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:07:210 io-compute-blocker-2 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:9 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:00:07:214 io-compute-blocker-2 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser][Elapsed:116 ms] >>> ApiToken(Redacted) <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:07:582 io-compute-blocker-2 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted))    
+api-1  | 2026.10.23 09:00:07:588 io-compute-blocker-2 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId] >>> OrgId(1)    
+api-1  | 2026.10.23 09:00:07:596 io-compute-blocker-4 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId][Elapsed:8 ms] >>> OrgId(1) <<< Some(OrganisationId(0120bbb631725d203199e6296a7c9167))    
+api-1  | 2026.10.23 09:00:07:604 io-compute-3 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [885ad77f-eb27-4cf9-b448-c1d54ae0a0b0, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick] >>> ()    
+api-1  | 2026.10.23 09:00:07:607 io-compute-3 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [885ad77f-eb27-4cf9-b448-c1d54ae0a0b0, UserName(SCHEDULER), a2848d8a][reapStaleExecutions] >>> ()    
+api-1  | 2026.10.23 09:00:07:612 io-compute-blocker-4 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow] >>> ()    
+api-1  | 2026.10.23 09:00:07:614 io-compute-blocker-3 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [885ad77f-eb27-4cf9-b448-c1d54ae0a0b0, UserName(SCHEDULER), a2848d8a][reapStaleExecutions][Elapsed:7 ms] >>> () <<< 0    
+api-1  | 2026.10.23 09:00:07:615 io-compute-blocker-3 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [885ad77f-eb27-4cf9-b448-c1d54ae0a0b0, UserName(SCHEDULER), a2848d8a][listDueSchedules] >>> ()    
+api-1  | 2026.10.23 09:00:07:620 io-compute-blocker-1 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [885ad77f-eb27-4cf9-b448-c1d54ae0a0b0, UserName(SCHEDULER), a2848d8a][listDueSchedules][Elapsed:5 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:00:07:620 io-compute-blocker-1 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [885ad77f-eb27-4cf9-b448-c1d54ae0a0b0, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick][Elapsed:15 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:00:07:669 io-compute-blocker-2 WARN org.zetarisapache.hive.jdbc.HiveConnection
+api-1  |     Request to set autoCommit to false; Hive does not support autoCommit=false.    
+api-1  | 2026.10.23 09:00:10:969 io-compute-blocker-2 WARN org.zetarisapache.hive.jdbc.HiveConnection
+api-1  |     commit is not supported, ignore it    
+api-1  | 2026.10.23 09:00:10:970 io-compute-blocker-2 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow][Elapsed:3358 ms] >>> () <<< Total:1, Skipped:-1, JsonRow(Redacted)    
+api-1  | 2026.10.23 09:00:10:980 io-compute-blocker-2 INFO com.zetaris.lightning.service.query.QueryCacheService.cacheJsonRowsToMemory:38
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory] >>> QueryCacheKey(MDU0NDNlOTEtNjczNi00YjE2LTg2ZTAtZWZjZmI4MTU2ZWIw)    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory][Elapsed:11 ms] >>> QueryCacheKey(MDU0NDNlOTEtNjczNi00YjE2LTg2ZTAtZWZjZmI4MTU2ZWIw) <<< ()    
+api-1  | 2026.10.23 09:00:10:992 io-compute-blocker-2 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart][Elapsed:3410 ms] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted)) <<< OpenSqlResponse(1, QueryToken(Redacted))    
+api-1  | 2026.10.23 09:00:10:993 io-compute-blocker-2 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog] >>> (ApiName=SqlQueryStart,Finished = true)    
+api-1  | 2026.10.23 09:00:10:994 io-compute-blocker-2 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog][Elapsed:2 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:00:10:997 io-compute-blocker-2 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog] >>> 11111111-2222-3333-4444-555555555555    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog][Elapsed:1 ms] >>> 11111111-2222-3333-4444-555555555555 <<< ()    
+api-1  | 2026.10.23 09:00:10:999 io-compute-blocker-2 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog][Elapsed:5 ms] >>> (ApiName=SqlQueryStart,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:00:11:004 io-compute-blocker-2 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 POST /api/v1.0/query/sql/start Headers(host: api:8888, connection: keep-alive, authorization: <REDACTED>, x-request-id: 11111111-2222-3333-4444-555555555555, x-org-id: 1, content-type: application/json, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: undici, accept-encoding: gzip, deflate, content-length: 44)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 150, x-request-id: 11111111-2222-3333-4444-555555555555)    
+api-1  | 2026.10.23 09:00:32:225 io-compute-0 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][OrgUserLogin] >>> admin@zetaris.com    
+api-1  | 2026.10.23 09:00:32:229 io-compute-0 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][findUnlockedLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:32:235 io-compute-blocker-3 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][findUnlockedLightningUser][Elapsed:5 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:00:32:236 io-compute-blocker-3 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][getLatestOrganisationStatus] >>> ()    
+api-1  | 2026.10.23 09:00:32:242 io-compute-blocker-2 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][getLatestOrganisationStatus][Elapsed:5 ms] >>> () <<< OrganisationStatus(1, ACTIVE)    
+api-1  | 2026.10.23 09:00:32:282 io-compute-blocker-2 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:32:286 io-compute-blocker-1 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:00:32:286 io-compute-blocker-1 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][OrgUserLogin][Elapsed:61 ms] >>> admin@zetaris.com <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:32:287 io-compute-blocker-1 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][storeLog] >>> (ApiName=OrgUserLogin,Finished = true)    
+api-1  | 2026.10.23 09:00:32:287 io-compute-blocker-1 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:00:32:288 io-compute-blocker-1 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][storeRestLog] >>> 7b2f6a2c-5661-4b46-a520-09fecf209cbd    
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][storeRestLog][Elapsed:2 ms] >>> 7b2f6a2c-5661-4b46-a520-09fecf209cbd <<< ()    
+api-1  | 2026.10.23 09:00:32:290 io-compute-blocker-1 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, NoPrincipal, a2848d8a][storeLog][Elapsed:3 ms] >>> (ApiName=OrgUserLogin,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:00:32:292 io-compute-blocker-1 INFO com.zetaris.lightning.service.authn.AuthnService.orgUserLoginAsJwt:340
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt] >>> ()    
+api-1  |     [7b2f6a2c-5661-4b46-a520-09fecf209cbd, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt][Elapsed:8 ms] >>> () <<< Tokens: <REDACTED>    
+api-1  | 2026.10.23 09:00:32:301 io-compute-blocker-1 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 GET /api/v1.0/internal/auth/legacy-login Headers(host: api:8889, connection: keep-alive, Authorization: <REDACTED>, X-Request-ID: 7b2f6a2c-5661-4b46-a520-09fecf209cbd, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: node, accept-encoding: gzip, deflate)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 1238, X-Request-ID: 7b2f6a2c-5661-4b46-a520-09fecf209cbd)    
+api-1  | 2026.10.23 09:00:32:383 io-compute-3 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser] >>> ApiToken(Redacted)    
+api-1  | 2026.10.23 09:00:32:384 io-compute-3 INFO com.zetaris.lightning.effects.auth.SsoUtil.getJwtInfoEffect:38
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo] >>> JwtToken(Redacted)    
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo][Elapsed:1 ms] >>> JwtToken(Redacted) <<< JwtBasicInfo(keyId = None, audience = Zetaris, issuer = Zetaris)    
+api-1  | 2026.10.23 09:00:32:392 io-compute-blocker-0 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:32:392 io-compute-blocker-0 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:32:396 io-compute-blocker-2 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:00:32:396 io-compute-blocker-2 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser][Elapsed:4 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:32:397 io-compute-blocker-2 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:32:399 io-compute-blocker-5 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:00:32:399 io-compute-blocker-5 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser][Elapsed:16 ms] >>> ApiToken(Redacted) <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:32:403 io-compute-blocker-5 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted))    
+api-1  | 2026.10.23 09:00:32:403 io-compute-blocker-5 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId] >>> OrgId(1)    
+api-1  | 2026.10.23 09:00:32:406 io-compute-blocker-1 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId][Elapsed:2 ms] >>> OrgId(1) <<< Some(OrganisationId(0120bbb631725d203199e6296a7c9167))    
+api-1  | 2026.10.23 09:00:32:407 io-compute-blocker-1 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow] >>> ()    
+api-1  | 2026.10.23 09:00:32:408 io-compute-blocker-5 WARN org.zetarisapache.hive.jdbc.HiveConnection
+api-1  |     Request to set autoCommit to false; Hive does not support autoCommit=false.    
+api-1  |     commit is not supported, ignore it    
+api-1  | 2026.10.23 09:00:32:500 io-compute-blocker-5 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow][Elapsed:93 ms] >>> () <<< Total:1, Skipped:-1, JsonRow(Redacted)    
+api-1  | 2026.10.23 09:00:32:501 io-compute-blocker-5 INFO com.zetaris.lightning.service.query.QueryCacheService.cacheJsonRowsToMemory:38
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory] >>> QueryCacheKey(N2Q0OTJmYzEtODUzZS00MTU0LWE2NTAtYmZlNjc2Mjg0NDcw)    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory][Elapsed:2 ms] >>> QueryCacheKey(N2Q0OTJmYzEtODUzZS00MTU0LWE2NTAtYmZlNjc2Mjg0NDcw) <<< ()    
+api-1  | 2026.10.23 09:00:32:504 io-compute-blocker-5 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart][Elapsed:100 ms] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted)) <<< OpenSqlResponse(1, QueryToken(Redacted))    
+api-1  | 2026.10.23 09:00:32:504 io-compute-blocker-5 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog] >>> (ApiName=SqlQueryStart,Finished = true)    
+api-1  | 2026.10.23 09:00:32:505 io-compute-blocker-5 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:00:32:506 io-compute-blocker-5 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog] >>> 11111111-2222-3333-4444-555555555555    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog][Elapsed:0 ms] >>> 11111111-2222-3333-4444-555555555555 <<< ()    
+api-1  | 2026.10.23 09:00:32:507 io-compute-blocker-5 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog][Elapsed:2 ms] >>> (ApiName=SqlQueryStart,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:00:32:508 io-compute-blocker-5 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 POST /api/v1.0/query/sql/start Headers(host: api:8888, connection: keep-alive, authorization: <REDACTED>, x-request-id: 11111111-2222-3333-4444-555555555555, x-org-id: 1, content-type: application/json, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: undici, accept-encoding: gzip, deflate, content-length: 44)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 150, x-request-id: 11111111-2222-3333-4444-555555555555)    
+api-1  | 2026.10.23 09:00:37:589 io-compute-2 INFO com.zetaris.lightning.service.apicall.ApiCallChainService.scheduleApiCallChains:162
+api-1  |     [fcb3c90c-2410-4338-8ee4-8f5a68be999d, UserName(SCHEDULER), a2848d8a][ScheduleApiCallChains] >>> Email(Daemon@zetaris.com)    
+api-1  | 2026.10.23 09:00:37:594 io-compute-2 INFO com.zetaris.lightning.repository.apicall.ApiCallChainDB.listAllLightningApiCallChains:24
+api-1  |     [fcb3c90c-2410-4338-8ee4-8f5a68be999d, UserName(SCHEDULER), a2848d8a][listAllApiCallChain] >>> ()    
+api-1  | 2026.10.23 09:00:37:597 io-compute-blocker-4 INFO com.zetaris.lightning.repository.apicall.ApiCallChainDB.listAllLightningApiCallChains:24
+api-1  |     [fcb3c90c-2410-4338-8ee4-8f5a68be999d, UserName(SCHEDULER), a2848d8a][listAllApiCallChain][Elapsed:3 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:00:37:598 io-compute-blocker-4 INFO com.zetaris.lightning.service.apicall.ApiCallChainService.scheduleApiCallChains:162
+api-1  |     [fcb3c90c-2410-4338-8ee4-8f5a68be999d, UserName(SCHEDULER), a2848d8a][ScheduleApiCallChains][Elapsed:8 ms] >>> Email(Daemon@zetaris.com) <<< ()    
+api-1  | 2026.10.23 09:00:37:621 io-compute-3 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [9d206a28-5b8d-4643-b917-c09f013b9815, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick] >>> ()    
+api-1  | 2026.10.23 09:00:37:622 io-compute-3 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [9d206a28-5b8d-4643-b917-c09f013b9815, UserName(SCHEDULER), a2848d8a][reapStaleExecutions] >>> ()    
+api-1  | 2026.10.23 09:00:37:627 io-compute-blocker-0 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [9d206a28-5b8d-4643-b917-c09f013b9815, UserName(SCHEDULER), a2848d8a][reapStaleExecutions][Elapsed:4 ms] >>> () <<< 0    
+api-1  | 2026.10.23 09:00:37:627 io-compute-blocker-0 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [9d206a28-5b8d-4643-b917-c09f013b9815, UserName(SCHEDULER), a2848d8a][listDueSchedules] >>> ()    
+api-1  | 2026.10.23 09:00:37:631 io-compute-blocker-6 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [9d206a28-5b8d-4643-b917-c09f013b9815, UserName(SCHEDULER), a2848d8a][listDueSchedules][Elapsed:3 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:00:37:632 io-compute-blocker-6 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [9d206a28-5b8d-4643-b917-c09f013b9815, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick][Elapsed:10 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:00:53:533 io-compute-0 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][OrgUserLogin] >>> admin@zetaris.com    
+api-1  | 2026.10.23 09:00:53:537 io-compute-0 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][findUnlockedLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:53:542 io-compute-blocker-2 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][findUnlockedLightningUser][Elapsed:4 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:00:53:542 io-compute-blocker-2 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][getLatestOrganisationStatus] >>> ()    
+api-1  | 2026.10.23 09:00:53:544 io-compute-blocker-4 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][getLatestOrganisationStatus][Elapsed:2 ms] >>> () <<< OrganisationStatus(1, ACTIVE)    
+api-1  | 2026.10.23 09:00:53:580 io-compute-blocker-4 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:53:583 io-compute-blocker-2 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:00:53:584 io-compute-blocker-2 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][OrgUserLogin][Elapsed:50 ms] >>> admin@zetaris.com <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:53:584 io-compute-blocker-2 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][storeLog] >>> (ApiName=OrgUserLogin,Finished = true)    
+api-1  | 2026.10.23 09:00:53:584 io-compute-blocker-2 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:00:53:585 io-compute-blocker-2 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][storeRestLog] >>> d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1    
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][storeRestLog][Elapsed:0 ms] >>> d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1 <<< ()    
+api-1  | 2026.10.23 09:00:53:586 io-compute-blocker-2 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, NoPrincipal, a2848d8a][storeLog][Elapsed:2 ms] >>> (ApiName=OrgUserLogin,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:00:53:587 io-compute-blocker-2 INFO com.zetaris.lightning.service.authn.AuthnService.orgUserLoginAsJwt:340
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt] >>> ()    
+api-1  |     [d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt][Elapsed:8 ms] >>> () <<< Tokens: <REDACTED>    
+api-1  | 2026.10.23 09:00:53:596 io-compute-blocker-2 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 GET /api/v1.0/internal/auth/legacy-login Headers(host: api:8889, connection: keep-alive, Authorization: <REDACTED>, X-Request-ID: d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: node, accept-encoding: gzip, deflate)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 1238, X-Request-ID: d6d7fcc9-cba7-4d2c-a903-0b3f98d371c1)    
+api-1  | 2026.10.23 09:00:53:707 io-compute-1 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser] >>> ApiToken(Redacted)    
+api-1  | 2026.10.23 09:00:53:707 io-compute-1 INFO com.zetaris.lightning.effects.auth.SsoUtil.getJwtInfoEffect:38
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo] >>> JwtToken(Redacted)    
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo][Elapsed:1 ms] >>> JwtToken(Redacted) <<< JwtBasicInfo(keyId = None, audience = Zetaris, issuer = Zetaris)    
+api-1  | 2026.10.23 09:00:53:715 io-compute-blocker-3 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:53:715 io-compute-blocker-3 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:53:719 io-compute-blocker-1 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:00:53:719 io-compute-blocker-1 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser][Elapsed:4 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:53:719 io-compute-blocker-1 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:53:722 io-compute-blocker-6 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:00:53:722 io-compute-blocker-6 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser][Elapsed:15 ms] >>> ApiToken(Redacted) <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:00:53:728 io-compute-blocker-6 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted))    
+api-1  | 2026.10.23 09:00:53:729 io-compute-blocker-6 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId] >>> OrgId(1)    
+api-1  | 2026.10.23 09:00:53:731 io-compute-blocker-2 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId][Elapsed:2 ms] >>> OrgId(1) <<< Some(OrganisationId(0120bbb631725d203199e6296a7c9167))    
+api-1  | 2026.10.23 09:00:53:731 io-compute-blocker-2 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow] >>> ()    
+api-1  | 2026.10.23 09:00:53:734 io-compute-blocker-3 WARN org.zetarisapache.hive.jdbc.HiveConnection
+api-1  |     Request to set autoCommit to false; Hive does not support autoCommit=false.    
+api-1  |     commit is not supported, ignore it    
+api-1  | 2026.10.23 09:00:53:838 io-compute-blocker-3 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow][Elapsed:106 ms] >>> () <<< Total:1, Skipped:-1, JsonRow(Redacted)    
+api-1  | 2026.10.23 09:00:53:839 io-compute-blocker-3 INFO com.zetaris.lightning.service.query.QueryCacheService.cacheJsonRowsToMemory:38
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory] >>> QueryCacheKey(YjE4MTVmYjMtNWIxMC00Yjk0LWJiYWEtZDU1OWM0MDFlMzA1)    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory][Elapsed:0 ms] >>> QueryCacheKey(YjE4MTVmYjMtNWIxMC00Yjk0LWJiYWEtZDU1OWM0MDFlMzA1) <<< ()    
+api-1  | 2026.10.23 09:00:53:841 io-compute-blocker-3 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart][Elapsed:112 ms] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted)) <<< OpenSqlResponse(1, QueryToken(Redacted))    
+api-1  | 2026.10.23 09:00:53:841 io-compute-blocker-3 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog] >>> (ApiName=SqlQueryStart,Finished = true)    
+api-1  | 2026.10.23 09:00:53:841 io-compute-blocker-3 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:00:53:843 io-compute-blocker-3 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog] >>> 11111111-2222-3333-4444-555555555555    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog][Elapsed:0 ms] >>> 11111111-2222-3333-4444-555555555555 <<< ()    
+api-1  | 2026.10.23 09:00:53:843 io-compute-blocker-3 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog][Elapsed:2 ms] >>> (ApiName=SqlQueryStart,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:00:53:845 io-compute-blocker-3 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 POST /api/v1.0/query/sql/start Headers(host: api:8888, connection: keep-alive, authorization: <REDACTED>, x-request-id: 11111111-2222-3333-4444-555555555555, x-org-id: 1, content-type: application/json, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: undici, accept-encoding: gzip, deflate, content-length: 44)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 150, x-request-id: 11111111-2222-3333-4444-555555555555)    
+api-1  | 2026.10.23 09:01:07:632 io-compute-2 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [047cd329-0d6a-4dff-8ee4-4a80ce27677e, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick] >>> ()    
+api-1  | 2026.10.23 09:01:07:636 io-compute-2 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [047cd329-0d6a-4dff-8ee4-4a80ce27677e, UserName(SCHEDULER), a2848d8a][reapStaleExecutions] >>> ()    
+api-1  | 2026.10.23 09:01:07:640 io-compute-blocker-2 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [047cd329-0d6a-4dff-8ee4-4a80ce27677e, UserName(SCHEDULER), a2848d8a][reapStaleExecutions][Elapsed:3 ms] >>> () <<< 0    
+api-1  | 2026.10.23 09:01:07:640 io-compute-blocker-2 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [047cd329-0d6a-4dff-8ee4-4a80ce27677e, UserName(SCHEDULER), a2848d8a][listDueSchedules] >>> ()    
+api-1  | 2026.10.23 09:01:07:642 io-compute-blocker-1 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [047cd329-0d6a-4dff-8ee4-4a80ce27677e, UserName(SCHEDULER), a2848d8a][listDueSchedules][Elapsed:2 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:01:07:642 io-compute-blocker-1 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [047cd329-0d6a-4dff-8ee4-4a80ce27677e, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick][Elapsed:10 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:01:14:915 io-compute-3 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][OrgUserLogin] >>> admin@zetaris.com    
+api-1  | 2026.10.23 09:01:14:919 io-compute-3 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][findUnlockedLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:14:923 io-compute-blocker-5 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][findUnlockedLightningUser][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:01:14:923 io-compute-blocker-5 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][getLatestOrganisationStatus] >>> ()    
+api-1  | 2026.10.23 09:01:14:925 io-compute-blocker-0 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][getLatestOrganisationStatus][Elapsed:1 ms] >>> () <<< OrganisationStatus(1, ACTIVE)    
+api-1  | 2026.10.23 09:01:14:977 io-compute-blocker-0 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:14:980 io-compute-blocker-4 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:01:14:980 io-compute-blocker-4 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][OrgUserLogin][Elapsed:64 ms] >>> admin@zetaris.com <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:14:980 io-compute-blocker-4 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][storeLog] >>> (ApiName=OrgUserLogin,Finished = true)    
+api-1  | 2026.10.23 09:01:14:981 io-compute-blocker-4 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:01:14:982 io-compute-blocker-4 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][storeRestLog] >>> 146c1355-4fee-4c7a-bada-4da027b5cdff    
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][storeRestLog][Elapsed:0 ms] >>> 146c1355-4fee-4c7a-bada-4da027b5cdff <<< ()    
+api-1  | 2026.10.23 09:01:14:983 io-compute-blocker-4 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, NoPrincipal, a2848d8a][storeLog][Elapsed:2 ms] >>> (ApiName=OrgUserLogin,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:01:14:983 io-compute-blocker-4 INFO com.zetaris.lightning.service.authn.AuthnService.orgUserLoginAsJwt:340
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt] >>> ()    
+api-1  |     [146c1355-4fee-4c7a-bada-4da027b5cdff, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt][Elapsed:7 ms] >>> () <<< Tokens: <REDACTED>    
+api-1  | 2026.10.23 09:01:14:992 io-compute-blocker-4 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 GET /api/v1.0/internal/auth/legacy-login Headers(host: api:8889, connection: keep-alive, Authorization: <REDACTED>, X-Request-ID: 146c1355-4fee-4c7a-bada-4da027b5cdff, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: node, accept-encoding: gzip, deflate)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 1238, X-Request-ID: 146c1355-4fee-4c7a-bada-4da027b5cdff)    
+api-1  | 2026.10.23 09:01:15:072 io-compute-0 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser] >>> ApiToken(Redacted)    
+api-1  | 2026.10.23 09:01:15:072 io-compute-0 INFO com.zetaris.lightning.effects.auth.SsoUtil.getJwtInfoEffect:38
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo] >>> JwtToken(Redacted)    
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo][Elapsed:1 ms] >>> JwtToken(Redacted) <<< JwtBasicInfo(keyId = None, audience = Zetaris, issuer = Zetaris)    
+api-1  | 2026.10.23 09:01:15:078 io-compute-blocker-5 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:15:078 io-compute-blocker-5 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:15:081 io-compute-blocker-4 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:01:15:081 io-compute-blocker-4 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:15:081 io-compute-blocker-4 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:15:083 io-compute-blocker-5 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:1 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:01:15:084 io-compute-blocker-5 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser][Elapsed:11 ms] >>> ApiToken(Redacted) <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:15:086 io-compute-blocker-5 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted))    
+api-1  | 2026.10.23 09:01:15:087 io-compute-blocker-5 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId] >>> OrgId(1)    
+api-1  | 2026.10.23 09:01:15:089 io-compute-blocker-0 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId][Elapsed:1 ms] >>> OrgId(1) <<< Some(OrganisationId(0120bbb631725d203199e6296a7c9167))    
+api-1  | 2026.10.23 09:01:15:089 io-compute-blocker-0 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow] >>> ()    
+api-1  | 2026.10.23 09:01:15:091 io-compute-blocker-4 WARN org.zetarisapache.hive.jdbc.HiveConnection
+api-1  |     Request to set autoCommit to false; Hive does not support autoCommit=false.    
+api-1  |     commit is not supported, ignore it    
+api-1  | 2026.10.23 09:01:15:164 io-compute-blocker-4 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow][Elapsed:74 ms] >>> () <<< Total:1, Skipped:-1, JsonRow(Redacted)    
+api-1  | 2026.10.23 09:01:15:164 io-compute-blocker-4 INFO com.zetaris.lightning.service.query.QueryCacheService.cacheJsonRowsToMemory:38
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory] >>> QueryCacheKey(NDZhZWI3ZDAtMzY1YS00M2Y2LWJkZTAtM2Q3MmNkOGQ0NzZh)    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory][Elapsed:0 ms] >>> QueryCacheKey(NDZhZWI3ZDAtMzY1YS00M2Y2LWJkZTAtM2Q3MmNkOGQ0NzZh) <<< ()    
+api-1  | 2026.10.23 09:01:15:165 io-compute-blocker-4 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart][Elapsed:78 ms] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted)) <<< OpenSqlResponse(1, QueryToken(Redacted))    
+api-1  | 2026.10.23 09:01:15:166 io-compute-blocker-4 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog] >>> (ApiName=SqlQueryStart,Finished = true)    
+api-1  | 2026.10.23 09:01:15:166 io-compute-blocker-4 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:01:15:167 io-compute-blocker-4 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog] >>> 11111111-2222-3333-4444-555555555555    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog][Elapsed:0 ms] >>> 11111111-2222-3333-4444-555555555555 <<< ()    
+api-1  | 2026.10.23 09:01:15:168 io-compute-blocker-4 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog][Elapsed:2 ms] >>> (ApiName=SqlQueryStart,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:01:15:170 io-compute-blocker-4 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 POST /api/v1.0/query/sql/start Headers(host: api:8888, connection: keep-alive, authorization: <REDACTED>, x-request-id: 11111111-2222-3333-4444-555555555555, x-org-id: 1, content-type: application/json, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: undici, accept-encoding: gzip, deflate, content-length: 44)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 150, x-request-id: 11111111-2222-3333-4444-555555555555)    
+api-1  | 2026.10.23 09:01:36:190 io-compute-3 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][OrgUserLogin] >>> admin@zetaris.com    
+api-1  | 2026.10.23 09:01:36:194 io-compute-3 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][findUnlockedLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:36:198 io-compute-blocker-6 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][findUnlockedLightningUser][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:01:36:199 io-compute-blocker-6 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][getLatestOrganisationStatus] >>> ()    
+api-1  | 2026.10.23 09:01:36:201 io-compute-blocker-4 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][getLatestOrganisationStatus][Elapsed:2 ms] >>> () <<< OrganisationStatus(1, ACTIVE)    
+api-1  | 2026.10.23 09:01:36:237 io-compute-blocker-4 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:36:240 io-compute-blocker-0 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:01:36:240 io-compute-blocker-0 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][OrgUserLogin][Elapsed:50 ms] >>> admin@zetaris.com <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:36:240 io-compute-blocker-0 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][storeLog] >>> (ApiName=OrgUserLogin,Finished = true)    
+api-1  | 2026.10.23 09:01:36:241 io-compute-blocker-0 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:01:36:241 io-compute-blocker-0 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][storeRestLog] >>> 995770e5-6b19-4285-bf72-c9a90ff74d5b    
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][storeRestLog][Elapsed:0 ms] >>> 995770e5-6b19-4285-bf72-c9a90ff74d5b <<< ()    
+api-1  | 2026.10.23 09:01:36:242 io-compute-blocker-0 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, NoPrincipal, a2848d8a][storeLog][Elapsed:1 ms] >>> (ApiName=OrgUserLogin,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:01:36:243 io-compute-blocker-0 INFO com.zetaris.lightning.service.authn.AuthnService.orgUserLoginAsJwt:340
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt] >>> ()    
+api-1  |     [995770e5-6b19-4285-bf72-c9a90ff74d5b, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt][Elapsed:8 ms] >>> () <<< Tokens: <REDACTED>    
+api-1  | 2026.10.23 09:01:36:253 io-compute-blocker-0 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 GET /api/v1.0/internal/auth/legacy-login Headers(host: api:8889, connection: keep-alive, Authorization: <REDACTED>, X-Request-ID: 995770e5-6b19-4285-bf72-c9a90ff74d5b, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: node, accept-encoding: gzip, deflate)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 1238, X-Request-ID: 995770e5-6b19-4285-bf72-c9a90ff74d5b)    
+api-1  | 2026.10.23 09:01:36:343 io-compute-3 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser] >>> ApiToken(Redacted)    
+api-1  | 2026.10.23 09:01:36:344 io-compute-3 INFO com.zetaris.lightning.effects.auth.SsoUtil.getJwtInfoEffect:38
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo] >>> JwtToken(Redacted)    
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo][Elapsed:1 ms] >>> JwtToken(Redacted) <<< JwtBasicInfo(keyId = None, audience = Zetaris, issuer = Zetaris)    
+api-1  | 2026.10.23 09:01:36:350 io-compute-blocker-5 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:36:350 io-compute-blocker-5 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:36:352 io-compute-blocker-1 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:01:36:353 io-compute-blocker-1 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:36:353 io-compute-blocker-1 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:36:355 io-compute-blocker-0 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:1 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:01:36:355 io-compute-blocker-0 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser][Elapsed:11 ms] >>> ApiToken(Redacted) <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:36:358 io-compute-blocker-0 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted))    
+api-1  | 2026.10.23 09:01:36:359 io-compute-blocker-0 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId] >>> OrgId(1)    
+api-1  | 2026.10.23 09:01:36:361 io-compute-blocker-3 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId][Elapsed:2 ms] >>> OrgId(1) <<< Some(OrganisationId(0120bbb631725d203199e6296a7c9167))    
+api-1  | 2026.10.23 09:01:36:361 io-compute-blocker-3 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow] >>> ()    
+api-1  | 2026.10.23 09:01:36:363 io-compute-blocker-0 WARN org.zetarisapache.hive.jdbc.HiveConnection
+api-1  |     Request to set autoCommit to false; Hive does not support autoCommit=false.    
+api-1  |     commit is not supported, ignore it    
+api-1  | 2026.10.23 09:01:36:454 io-compute-blocker-0 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow][Elapsed:93 ms] >>> () <<< Total:1, Skipped:-1, JsonRow(Redacted)    
+api-1  | 2026.10.23 09:01:36:455 io-compute-blocker-0 INFO com.zetaris.lightning.service.query.QueryCacheService.cacheJsonRowsToMemory:38
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory] >>> QueryCacheKey(NmMzNTg3MWYtOGFkOC00MGM5LTgzNTgtMzhhOTA2Zjk3ODg4)    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory][Elapsed:0 ms] >>> QueryCacheKey(NmMzNTg3MWYtOGFkOC00MGM5LTgzNTgtMzhhOTA2Zjk3ODg4) <<< ()    
+api-1  | 2026.10.23 09:01:36:457 io-compute-blocker-0 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart][Elapsed:98 ms] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted)) <<< OpenSqlResponse(1, QueryToken(Redacted))    
+api-1  | 2026.10.23 09:01:36:457 io-compute-blocker-0 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog] >>> (ApiName=SqlQueryStart,Finished = true)    
+api-1  | 2026.10.23 09:01:36:458 io-compute-blocker-0 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:01:36:459 io-compute-blocker-0 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog] >>> 11111111-2222-3333-4444-555555555555    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog][Elapsed:1 ms] >>> 11111111-2222-3333-4444-555555555555 <<< ()    
+api-1  | 2026.10.23 09:01:36:461 io-compute-blocker-0 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog][Elapsed:3 ms] >>> (ApiName=SqlQueryStart,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:01:36:462 io-compute-blocker-0 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 POST /api/v1.0/query/sql/start Headers(host: api:8888, connection: keep-alive, authorization: <REDACTED>, x-request-id: 11111111-2222-3333-4444-555555555555, x-org-id: 1, content-type: application/json, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: undici, accept-encoding: gzip, deflate, content-length: 44)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 150, x-request-id: 11111111-2222-3333-4444-555555555555)    
+api-1  | 2026.10.23 09:01:37:598 io-compute-0 INFO com.zetaris.lightning.service.apicall.ApiCallChainService.scheduleApiCallChains:162
+api-1  |     [42f35528-6419-4a6d-8386-34459496ecdf, UserName(SCHEDULER), a2848d8a][ScheduleApiCallChains] >>> Email(Daemon@zetaris.com)    
+api-1  | 2026.10.23 09:01:37:599 io-compute-0 INFO com.zetaris.lightning.repository.apicall.ApiCallChainDB.listAllLightningApiCallChains:24
+api-1  |     [42f35528-6419-4a6d-8386-34459496ecdf, UserName(SCHEDULER), a2848d8a][listAllApiCallChain] >>> ()    
+api-1  | 2026.10.23 09:01:37:602 io-compute-blocker-6 INFO com.zetaris.lightning.repository.apicall.ApiCallChainDB.listAllLightningApiCallChains:24
+api-1  |     [42f35528-6419-4a6d-8386-34459496ecdf, UserName(SCHEDULER), a2848d8a][listAllApiCallChain][Elapsed:2 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:01:37:602 io-compute-blocker-6 INFO com.zetaris.lightning.service.apicall.ApiCallChainService.scheduleApiCallChains:162
+api-1  |     [42f35528-6419-4a6d-8386-34459496ecdf, UserName(SCHEDULER), a2848d8a][ScheduleApiCallChains][Elapsed:3 ms] >>> Email(Daemon@zetaris.com) <<< ()    
+api-1  | 2026.10.23 09:01:37:643 io-compute-2 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [c96c043e-43a5-4a6d-b7a4-4f4e12ddad43, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick] >>> ()    
+api-1  | 2026.10.23 09:01:37:643 io-compute-2 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [c96c043e-43a5-4a6d-b7a4-4f4e12ddad43, UserName(SCHEDULER), a2848d8a][reapStaleExecutions] >>> ()    
+api-1  | 2026.10.23 09:01:37:646 io-compute-blocker-3 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [c96c043e-43a5-4a6d-b7a4-4f4e12ddad43, UserName(SCHEDULER), a2848d8a][reapStaleExecutions][Elapsed:2 ms] >>> () <<< 0    
+api-1  | 2026.10.23 09:01:37:646 io-compute-blocker-3 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [c96c043e-43a5-4a6d-b7a4-4f4e12ddad43, UserName(SCHEDULER), a2848d8a][listDueSchedules] >>> ()    
+api-1  | 2026.10.23 09:01:37:648 io-compute-blocker-6 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [c96c043e-43a5-4a6d-b7a4-4f4e12ddad43, UserName(SCHEDULER), a2848d8a][listDueSchedules][Elapsed:2 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:01:37:648 io-compute-blocker-6 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [c96c043e-43a5-4a6d-b7a4-4f4e12ddad43, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick][Elapsed:5 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:01:57:471 io-compute-2 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][OrgUserLogin] >>> admin@zetaris.com    
+api-1  | 2026.10.23 09:01:57:474 io-compute-2 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][findUnlockedLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:57:478 io-compute-blocker-2 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][findUnlockedLightningUser][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:01:57:478 io-compute-blocker-2 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][getLatestOrganisationStatus] >>> ()    
+api-1  | 2026.10.23 09:01:57:480 io-compute-blocker-3 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][getLatestOrganisationStatus][Elapsed:1 ms] >>> () <<< OrganisationStatus(1, ACTIVE)    
+api-1  | 2026.10.23 09:01:57:513 io-compute-blocker-3 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:57:516 io-compute-blocker-1 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:01:57:516 io-compute-blocker-1 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][OrgUserLogin][Elapsed:45 ms] >>> admin@zetaris.com <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:57:517 io-compute-blocker-1 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][storeLog] >>> (ApiName=OrgUserLogin,Finished = true)    
+api-1  | 2026.10.23 09:01:57:517 io-compute-blocker-1 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:01:57:518 io-compute-blocker-1 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][storeRestLog] >>> 1037c383-1305-4a86-9477-3dbb4610d762    
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][storeRestLog][Elapsed:0 ms] >>> 1037c383-1305-4a86-9477-3dbb4610d762 <<< ()    
+api-1  | 2026.10.23 09:01:57:518 io-compute-blocker-1 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, NoPrincipal, a2848d8a][storeLog][Elapsed:1 ms] >>> (ApiName=OrgUserLogin,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:01:57:520 io-compute-blocker-1 INFO com.zetaris.lightning.service.authn.AuthnService.orgUserLoginAsJwt:340
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt] >>> ()    
+api-1  |     [1037c383-1305-4a86-9477-3dbb4610d762, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt][Elapsed:9 ms] >>> () <<< Tokens: <REDACTED>    
+api-1  | 2026.10.23 09:01:57:531 io-compute-blocker-1 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 GET /api/v1.0/internal/auth/legacy-login Headers(host: api:8889, connection: keep-alive, Authorization: <REDACTED>, X-Request-ID: 1037c383-1305-4a86-9477-3dbb4610d762, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: node, accept-encoding: gzip, deflate)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 1238, X-Request-ID: 1037c383-1305-4a86-9477-3dbb4610d762)    
+api-1  | 2026.10.23 09:01:57:613 io-compute-0 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser] >>> ApiToken(Redacted)    
+api-1  | 2026.10.23 09:01:57:614 io-compute-0 INFO com.zetaris.lightning.effects.auth.SsoUtil.getJwtInfoEffect:38
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo] >>> JwtToken(Redacted)    
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo][Elapsed:1 ms] >>> JwtToken(Redacted) <<< JwtBasicInfo(keyId = None, audience = Zetaris, issuer = Zetaris)    
+api-1  | 2026.10.23 09:01:57:618 io-compute-blocker-0 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:57:619 io-compute-blocker-0 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:57:621 io-compute-blocker-2 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:01:57:621 io-compute-blocker-2 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:57:622 io-compute-blocker-2 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:57:623 io-compute-blocker-6 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:1 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:01:57:623 io-compute-blocker-6 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser][Elapsed:10 ms] >>> ApiToken(Redacted) <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:01:57:627 io-compute-blocker-6 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted))    
+api-1  | 2026.10.23 09:01:57:627 io-compute-blocker-6 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId] >>> OrgId(1)    
+api-1  | 2026.10.23 09:01:57:629 io-compute-blocker-4 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId][Elapsed:1 ms] >>> OrgId(1) <<< Some(OrganisationId(0120bbb631725d203199e6296a7c9167))    
+api-1  | 2026.10.23 09:01:57:629 io-compute-blocker-4 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow] >>> ()    
+api-1  | 2026.10.23 09:01:57:631 io-compute-blocker-6 WARN org.zetarisapache.hive.jdbc.HiveConnection
+api-1  |     Request to set autoCommit to false; Hive does not support autoCommit=false.    
+api-1  |     commit is not supported, ignore it    
+api-1  | 2026.10.23 09:01:57:700 io-compute-blocker-6 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow][Elapsed:71 ms] >>> () <<< Total:1, Skipped:-1, JsonRow(Redacted)    
+api-1  | 2026.10.23 09:01:57:701 io-compute-blocker-6 INFO com.zetaris.lightning.service.query.QueryCacheService.cacheJsonRowsToMemory:38
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory] >>> QueryCacheKey(NjEzNjFlY2YtZjc0Ny00MWIyLWIzZWYtNGI1ZjNlMWUyM2Fm)    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory][Elapsed:0 ms] >>> QueryCacheKey(NjEzNjFlY2YtZjc0Ny00MWIyLWIzZWYtNGI1ZjNlMWUyM2Fm) <<< ()    
+api-1  | 2026.10.23 09:01:57:702 io-compute-blocker-6 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart][Elapsed:75 ms] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted)) <<< OpenSqlResponse(1, QueryToken(Redacted))    
+api-1  | 2026.10.23 09:01:57:702 io-compute-blocker-6 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog] >>> (ApiName=SqlQueryStart,Finished = true)    
+api-1  | 2026.10.23 09:01:57:703 io-compute-blocker-6 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:01:57:703 io-compute-blocker-6 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog] >>> 11111111-2222-3333-4444-555555555555    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog][Elapsed:1 ms] >>> 11111111-2222-3333-4444-555555555555 <<< ()    
+api-1  | 2026.10.23 09:01:57:705 io-compute-blocker-6 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog][Elapsed:3 ms] >>> (ApiName=SqlQueryStart,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:01:57:707 io-compute-blocker-6 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 POST /api/v1.0/query/sql/start Headers(host: api:8888, connection: keep-alive, authorization: <REDACTED>, x-request-id: 11111111-2222-3333-4444-555555555555, x-org-id: 1, content-type: application/json, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: undici, accept-encoding: gzip, deflate, content-length: 44)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 150, x-request-id: 11111111-2222-3333-4444-555555555555)    
+api-1  | 2026.10.23 09:02:07:649 io-compute-1 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [4070ebc7-7d53-4599-be3c-979885bfd070, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick] >>> ()    
+api-1  | 2026.10.23 09:02:07:653 io-compute-1 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [4070ebc7-7d53-4599-be3c-979885bfd070, UserName(SCHEDULER), a2848d8a][reapStaleExecutions] >>> ()    
+api-1  | 2026.10.23 09:02:07:655 io-compute-blocker-0 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [4070ebc7-7d53-4599-be3c-979885bfd070, UserName(SCHEDULER), a2848d8a][reapStaleExecutions][Elapsed:2 ms] >>> () <<< 0    
+api-1  | 2026.10.23 09:02:07:656 io-compute-blocker-0 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [4070ebc7-7d53-4599-be3c-979885bfd070, UserName(SCHEDULER), a2848d8a][listDueSchedules] >>> ()    
+api-1  | 2026.10.23 09:02:07:657 io-compute-blocker-2 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [4070ebc7-7d53-4599-be3c-979885bfd070, UserName(SCHEDULER), a2848d8a][listDueSchedules][Elapsed:1 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:02:07:658 io-compute-blocker-2 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [4070ebc7-7d53-4599-be3c-979885bfd070, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick][Elapsed:8 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:02:18:759 io-compute-2 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][OrgUserLogin] >>> admin@zetaris.com    
+api-1  | 2026.10.23 09:02:18:763 io-compute-2 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][findUnlockedLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:18:767 io-compute-blocker-4 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][findUnlockedLightningUser][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:02:18:767 io-compute-blocker-4 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][getLatestOrganisationStatus] >>> ()    
+api-1  | 2026.10.23 09:02:18:768 io-compute-blocker-0 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][getLatestOrganisationStatus][Elapsed:1 ms] >>> () <<< OrganisationStatus(1, ACTIVE)    
+api-1  | 2026.10.23 09:02:18:800 io-compute-blocker-0 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:18:803 io-compute-blocker-5 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:02:18:804 io-compute-blocker-5 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][OrgUserLogin][Elapsed:44 ms] >>> admin@zetaris.com <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:18:804 io-compute-blocker-5 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][storeLog] >>> (ApiName=OrgUserLogin,Finished = true)    
+api-1  | 2026.10.23 09:02:18:804 io-compute-blocker-5 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:02:18:805 io-compute-blocker-5 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][storeRestLog] >>> bd8e0096-5da7-43df-87b4-9bedb0d0849f    
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][storeRestLog][Elapsed:0 ms] >>> bd8e0096-5da7-43df-87b4-9bedb0d0849f <<< ()    
+api-1  | 2026.10.23 09:02:18:805 io-compute-blocker-5 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, NoPrincipal, a2848d8a][storeLog][Elapsed:1 ms] >>> (ApiName=OrgUserLogin,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:02:18:806 io-compute-blocker-5 INFO com.zetaris.lightning.service.authn.AuthnService.orgUserLoginAsJwt:340
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt] >>> ()    
+api-1  |     [bd8e0096-5da7-43df-87b4-9bedb0d0849f, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt][Elapsed:7 ms] >>> () <<< Tokens: <REDACTED>    
+api-1  | 2026.10.23 09:02:18:814 io-compute-blocker-5 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 GET /api/v1.0/internal/auth/legacy-login Headers(host: api:8889, connection: keep-alive, Authorization: <REDACTED>, X-Request-ID: bd8e0096-5da7-43df-87b4-9bedb0d0849f, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: node, accept-encoding: gzip, deflate)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 1238, X-Request-ID: bd8e0096-5da7-43df-87b4-9bedb0d0849f)    
+api-1  | 2026.10.23 09:02:18:892 io-compute-3 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser] >>> ApiToken(Redacted)    
+api-1  | 2026.10.23 09:02:18:892 io-compute-3 INFO com.zetaris.lightning.effects.auth.SsoUtil.getJwtInfoEffect:38
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo] >>> JwtToken(Redacted)    
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo][Elapsed:1 ms] >>> JwtToken(Redacted) <<< JwtBasicInfo(keyId = None, audience = Zetaris, issuer = Zetaris)    
+api-1  | 2026.10.23 09:02:18:896 io-compute-blocker-0 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:18:896 io-compute-blocker-0 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:18:899 io-compute-blocker-2 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:02:18:899 io-compute-blocker-2 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:18:899 io-compute-blocker-2 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:18:901 io-compute-blocker-1 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:1 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:02:18:901 io-compute-blocker-1 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser][Elapsed:9 ms] >>> ApiToken(Redacted) <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:18:904 io-compute-blocker-1 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted))    
+api-1  | 2026.10.23 09:02:18:905 io-compute-blocker-1 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId] >>> OrgId(1)    
+api-1  | 2026.10.23 09:02:18:907 io-compute-blocker-5 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId][Elapsed:1 ms] >>> OrgId(1) <<< Some(OrganisationId(0120bbb631725d203199e6296a7c9167))    
+api-1  | 2026.10.23 09:02:18:907 io-compute-blocker-5 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow] >>> ()    
+api-1  | 2026.10.23 09:02:18:908 io-compute-blocker-6 WARN org.zetarisapache.hive.jdbc.HiveConnection
+api-1  |     Request to set autoCommit to false; Hive does not support autoCommit=false.    
+api-1  |     commit is not supported, ignore it    
+api-1  | 2026.10.23 09:02:18:976 io-compute-blocker-6 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow][Elapsed:68 ms] >>> () <<< Total:1, Skipped:-1, JsonRow(Redacted)    
+api-1  | 2026.10.23 09:02:18:977 io-compute-blocker-6 INFO com.zetaris.lightning.service.query.QueryCacheService.cacheJsonRowsToMemory:38
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory] >>> QueryCacheKey(OWFkZDQzMjAtNTJlZi00MTcwLWE5NGEtY2I1Yjg5MTEwNjBi)    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory][Elapsed:0 ms] >>> QueryCacheKey(OWFkZDQzMjAtNTJlZi00MTcwLWE5NGEtY2I1Yjg5MTEwNjBi) <<< ()    
+api-1  | 2026.10.23 09:02:18:978 io-compute-blocker-6 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart][Elapsed:73 ms] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted)) <<< OpenSqlResponse(1, QueryToken(Redacted))    
+api-1  | 2026.10.23 09:02:18:978 io-compute-blocker-6 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog] >>> (ApiName=SqlQueryStart,Finished = true)    
+api-1  | 2026.10.23 09:02:18:979 io-compute-blocker-6 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:02:18:979 io-compute-blocker-6 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog] >>> 11111111-2222-3333-4444-555555555555    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog][Elapsed:0 ms] >>> 11111111-2222-3333-4444-555555555555 <<< ()    
+api-1  | 2026.10.23 09:02:18:980 io-compute-blocker-6 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog][Elapsed:1 ms] >>> (ApiName=SqlQueryStart,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:02:18:981 io-compute-blocker-6 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 POST /api/v1.0/query/sql/start Headers(host: api:8888, connection: keep-alive, authorization: <REDACTED>, x-request-id: 11111111-2222-3333-4444-555555555555, x-org-id: 1, content-type: application/json, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: undici, accept-encoding: gzip, deflate, content-length: 44)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 150, x-request-id: 11111111-2222-3333-4444-555555555555)    
+api-1  | 2026.10.23 09:02:37:603 io-compute-3 INFO com.zetaris.lightning.service.apicall.ApiCallChainService.scheduleApiCallChains:162
+api-1  |     [a441857a-3821-4f70-af1c-89dd1a1b560f, UserName(SCHEDULER), a2848d8a][ScheduleApiCallChains] >>> Email(Daemon@zetaris.com)    
+api-1  | 2026.10.23 09:02:37:607 io-compute-3 INFO com.zetaris.lightning.repository.apicall.ApiCallChainDB.listAllLightningApiCallChains:24
+api-1  |     [a441857a-3821-4f70-af1c-89dd1a1b560f, UserName(SCHEDULER), a2848d8a][listAllApiCallChain] >>> ()    
+api-1  | 2026.10.23 09:02:37:609 io-compute-blocker-0 INFO com.zetaris.lightning.repository.apicall.ApiCallChainDB.listAllLightningApiCallChains:24
+api-1  |     [a441857a-3821-4f70-af1c-89dd1a1b560f, UserName(SCHEDULER), a2848d8a][listAllApiCallChain][Elapsed:2 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:02:37:610 io-compute-blocker-0 INFO com.zetaris.lightning.service.apicall.ApiCallChainService.scheduleApiCallChains:162
+api-1  |     [a441857a-3821-4f70-af1c-89dd1a1b560f, UserName(SCHEDULER), a2848d8a][ScheduleApiCallChains][Elapsed:6 ms] >>> Email(Daemon@zetaris.com) <<< ()    
+api-1  | 2026.10.23 09:02:37:658 io-compute-1 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [07ebc7c0-1421-4a10-a300-117e83001303, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick] >>> ()    
+api-1  | 2026.10.23 09:02:37:659 io-compute-1 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [07ebc7c0-1421-4a10-a300-117e83001303, UserName(SCHEDULER), a2848d8a][reapStaleExecutions] >>> ()    
+api-1  | 2026.10.23 09:02:37:661 io-compute-blocker-6 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [07ebc7c0-1421-4a10-a300-117e83001303, UserName(SCHEDULER), a2848d8a][reapStaleExecutions][Elapsed:2 ms] >>> () <<< 0    
+api-1  | 2026.10.23 09:02:37:661 io-compute-blocker-6 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [07ebc7c0-1421-4a10-a300-117e83001303, UserName(SCHEDULER), a2848d8a][listDueSchedules] >>> ()    
+api-1  | 2026.10.23 09:02:37:663 io-compute-blocker-0 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [07ebc7c0-1421-4a10-a300-117e83001303, UserName(SCHEDULER), a2848d8a][listDueSchedules][Elapsed:1 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:02:37:663 io-compute-blocker-0 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [07ebc7c0-1421-4a10-a300-117e83001303, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick][Elapsed:4 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:02:39:982 io-compute-1 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][OrgUserLogin] >>> admin@zetaris.com    
+api-1  | 2026.10.23 09:02:39:982 io-compute-1 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][findUnlockedLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:39:986 io-compute-blocker-1 INFO com.zetaris.lightning.repository.users.UsersDB.findUnlockedLightningUser:85
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][findUnlockedLightningUser][Elapsed:3 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:02:39:986 io-compute-blocker-1 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][getLatestOrganisationStatus] >>> ()    
+api-1  | 2026.10.23 09:02:39:988 io-compute-blocker-5 INFO com.zetaris.lightning.repository.authn.AuthnDB.getLatestOrganisationStatus:88
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][getLatestOrganisationStatus][Elapsed:1 ms] >>> () <<< OrganisationStatus(1, ACTIVE)    
+api-1  | 2026.10.23 09:02:40:027 io-compute-blocker-5 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:40:030 io-compute-blocker-4 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:02:40:030 io-compute-blocker-4 INFO com.zetaris.lightning.service.authn.AuthnService.basicLoginAsPrincipal:316
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][OrgUserLogin][Elapsed:48 ms] >>> admin@zetaris.com <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:40:030 io-compute-blocker-4 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][storeLog] >>> (ApiName=OrgUserLogin,Finished = true)    
+api-1  | 2026.10.23 09:02:40:031 io-compute-blocker-4 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:02:40:031 io-compute-blocker-4 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][storeRestLog] >>> 55becf3f-0e4d-4880-9277-e97ff244ab16    
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][storeRestLog][Elapsed:0 ms] >>> 55becf3f-0e4d-4880-9277-e97ff244ab16 <<< ()    
+api-1  | 2026.10.23 09:02:40:032 io-compute-blocker-4 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, NoPrincipal, a2848d8a][storeLog][Elapsed:1 ms] >>> (ApiName=OrgUserLogin,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:02:40:033 io-compute-blocker-4 INFO com.zetaris.lightning.service.authn.AuthnService.orgUserLoginAsJwt:340
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt] >>> ()    
+api-1  |     [55becf3f-0e4d-4880-9277-e97ff244ab16, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][BasicLoginJwt][Elapsed:6 ms] >>> () <<< Tokens: <REDACTED>    
+api-1  | 2026.10.23 09:02:40:040 io-compute-blocker-4 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 GET /api/v1.0/internal/auth/legacy-login Headers(host: api:8889, connection: keep-alive, Authorization: <REDACTED>, X-Request-ID: 55becf3f-0e4d-4880-9277-e97ff244ab16, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: node, accept-encoding: gzip, deflate)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 1238, X-Request-ID: 55becf3f-0e4d-4880-9277-e97ff244ab16)    
+api-1  | 2026.10.23 09:02:40:119 io-compute-3 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser] >>> ApiToken(Redacted)    
+api-1  | 2026.10.23 09:02:40:119 io-compute-3 INFO com.zetaris.lightning.effects.auth.SsoUtil.getJwtInfoEffect:38
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo] >>> JwtToken(Redacted)    
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getJwtInfo][Elapsed:0 ms] >>> JwtToken(Redacted) <<< JwtBasicInfo(keyId = None, audience = Zetaris, issuer = Zetaris)    
+api-1  | 2026.10.23 09:02:40:122 io-compute-blocker-0 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:40:123 io-compute-blocker-0 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:40:125 io-compute-blocker-5 INFO com.zetaris.lightning.repository.users.UsersDB.findLightningUser:81
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][findLightningUser][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Some(Email(ADMIN@ZETARIS.COM))    
+api-1  | 2026.10.23 09:02:40:125 io-compute-blocker-5 INFO com.zetaris.lightning.service.users.UsersService.getLightningUser:171
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][GetLightningUser][Elapsed:2 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:40:125 io-compute-blocker-5 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps] >>> Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:40:126 io-compute-blocker-2 INFO com.zetaris.lightning.repository.roles.RolesDB.getUserRoles:47
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][getUserRolesOps][Elapsed:1 ms] >>> Email(ADMIN@ZETARIS.COM) <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:02:40:127 io-compute-blocker-2 INFO com.zetaris.lightning.service.authn.AuthnService.authAsOrgUser:370
+api-1  |     [11111111-2222-3333-4444-555555555555, NoPrincipal, a2848d8a][AuthAsOrgUser][Elapsed:8 ms] >>> ApiToken(Redacted) <<< AdminUserPrincipal(Email(ADMIN@ZETARIS.COM)    
+api-1  | 2026.10.23 09:02:40:129 io-compute-blocker-2 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted))    
+api-1  | 2026.10.23 09:02:40:130 io-compute-blocker-2 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId] >>> OrgId(1)    
+api-1  | 2026.10.23 09:02:40:131 io-compute-blocker-5 INFO com.zetaris.lightning.repository.authn.AuthnDB.findOrganisationId:33
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][findOrganisationId][Elapsed:1 ms] >>> OrgId(1) <<< Some(OrganisationId(0120bbb631725d203199e6296a7c9167))    
+api-1  | 2026.10.23 09:02:40:131 io-compute-blocker-5 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow] >>> ()    
+api-1  | 2026.10.23 09:02:40:133 io-compute-blocker-4 WARN org.zetarisapache.hive.jdbc.HiveConnection
+api-1  |     Request to set autoCommit to false; Hive does not support autoCommit=false.    
+api-1  |     commit is not supported, ignore it    
+api-1  | 2026.10.23 09:02:40:214 io-compute-blocker-4 INFO com.zetaris.lightning.repository.query.QueryDB.querySqlAsJsonRow:29
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][querySqlAsJsonRow][Elapsed:82 ms] >>> () <<< Total:1, Skipped:-1, JsonRow(Redacted)    
+api-1  | 2026.10.23 09:02:40:215 io-compute-blocker-4 INFO com.zetaris.lightning.service.query.QueryCacheService.cacheJsonRowsToMemory:38
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory] >>> QueryCacheKey(YzI2OTk1M2YtOGQ2MS00NTIxLTg1NTEtZTM0YWY0NjQ4YTVh)    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][cacheJsonRowsToMemory][Elapsed:1 ms] >>> QueryCacheKey(YzI2OTk1M2YtOGQ2MS00NTIxLTg1NTEtZTM0YWY0NjQ4YTVh) <<< ()    
+api-1  | 2026.10.23 09:02:40:216 io-compute-blocker-4 INFO com.zetaris.lightning.service.query.QueryService.sqlQueryStart:123
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][SqlQueryStart][Elapsed:87 ms] >>> (AdminUserPrincipal(Email(ADMIN@ZETARIS.COM),Select(Redacted)) <<< OpenSqlResponse(1, QueryToken(Redacted))    
+api-1  | 2026.10.23 09:02:40:217 io-compute-blocker-4 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog] >>> (ApiName=SqlQueryStart,Finished = true)    
+api-1  | 2026.10.23 09:02:40:217 io-compute-blocker-4 INFO com.zetaris.lightning.repository.audit.AuditDB.clearExpiredLog:40
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog] >>> ()    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][clearExpiredLog][Elapsed:0 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:02:40:218 io-compute-blocker-4 INFO com.zetaris.lightning.repository.audit.AuditDB.storeRestLog:22
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog] >>> 11111111-2222-3333-4444-555555555555    
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeRestLog][Elapsed:0 ms] >>> 11111111-2222-3333-4444-555555555555 <<< ()    
+api-1  | 2026.10.23 09:02:40:220 io-compute-blocker-4 INFO com.zetaris.lightning.service.audit.AuditService.storeLog:55
+api-1  |     [11111111-2222-3333-4444-555555555555, AdminUserPrincipal(Email(ADMIN@ZETARIS.COM), a2848d8a][storeLog][Elapsed:3 ms] >>> (ApiName=SqlQueryStart,Finished = true) <<< ()    
+api-1  | 2026.10.23 09:02:40:221 io-compute-blocker-4 INFO org.http4s.server.middleware.Logger
+api-1  |     HTTP/1.1 POST /api/v1.0/query/sql/start Headers(host: api:8888, connection: keep-alive, authorization: <REDACTED>, x-request-id: 11111111-2222-3333-4444-555555555555, x-org-id: 1, content-type: application/json, accept: */*, accept-language: *, sec-fetch-mode: cors, user-agent: undici, accept-encoding: gzip, deflate, content-length: 44)    
+api-1  |     HTTP/1.1 200 OK Headers(Content-Type: application/json, Content-Length: 150, x-request-id: 11111111-2222-3333-4444-555555555555)    
+api-1  | 2026.10.23 09:03:07:664 io-compute-3 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [ee41677d-7ae5-4fcc-97c2-5d3967041771, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick] >>> ()    
+api-1  | 2026.10.23 09:03:07:669 io-compute-3 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [ee41677d-7ae5-4fcc-97c2-5d3967041771, UserName(SCHEDULER), a2848d8a][reapStaleExecutions] >>> ()    
+api-1  | 2026.10.23 09:03:07:674 io-compute-blocker-1 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [ee41677d-7ae5-4fcc-97c2-5d3967041771, UserName(SCHEDULER), a2848d8a][reapStaleExecutions][Elapsed:4 ms] >>> () <<< 0    
+api-1  | 2026.10.23 09:03:07:675 io-compute-blocker-1 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [ee41677d-7ae5-4fcc-97c2-5d3967041771, UserName(SCHEDULER), a2848d8a][listDueSchedules] >>> ()    
+api-1  | 2026.10.23 09:03:07:681 io-compute-blocker-5 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [ee41677d-7ae5-4fcc-97c2-5d3967041771, UserName(SCHEDULER), a2848d8a][listDueSchedules][Elapsed:5 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:03:07:682 io-compute-blocker-5 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [ee41677d-7ae5-4fcc-97c2-5d3967041771, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick][Elapsed:17 ms] >>> () <<< ()    
+api-1  | 2026.10.23 09:03:37:610 io-compute-1 INFO com.zetaris.lightning.service.apicall.ApiCallChainService.scheduleApiCallChains:162
+api-1  |     [619767c1-f330-4022-90ff-87db769a901c, UserName(SCHEDULER), a2848d8a][ScheduleApiCallChains] >>> Email(Daemon@zetaris.com)    
+api-1  | 2026.10.23 09:03:37:615 io-compute-1 INFO com.zetaris.lightning.repository.apicall.ApiCallChainDB.listAllLightningApiCallChains:24
+api-1  |     [619767c1-f330-4022-90ff-87db769a901c, UserName(SCHEDULER), a2848d8a][listAllApiCallChain] >>> ()    
+api-1  | 2026.10.23 09:03:37:619 io-compute-blocker-2 INFO com.zetaris.lightning.repository.apicall.ApiCallChainDB.listAllLightningApiCallChains:24
+api-1  |     [619767c1-f330-4022-90ff-87db769a901c, UserName(SCHEDULER), a2848d8a][listAllApiCallChain][Elapsed:4 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:03:37:621 io-compute-blocker-2 INFO com.zetaris.lightning.service.apicall.ApiCallChainService.scheduleApiCallChains:162
+api-1  |     [619767c1-f330-4022-90ff-87db769a901c, UserName(SCHEDULER), a2848d8a][ScheduleApiCallChains][Elapsed:10 ms] >>> Email(Daemon@zetaris.com) <<< ()    
+api-1  | 2026.10.23 09:03:37:682 io-compute-3 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [f60c259d-d6f9-4844-8519-d1c75b2b3e73, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick] >>> ()    
+api-1  | 2026.10.23 09:03:37:683 io-compute-3 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [f60c259d-d6f9-4844-8519-d1c75b2b3e73, UserName(SCHEDULER), a2848d8a][reapStaleExecutions] >>> ()    
+api-1  | 2026.10.23 09:03:37:688 io-compute-blocker-1 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.reapStaleExecutions:405
+api-1  |     [f60c259d-d6f9-4844-8519-d1c75b2b3e73, UserName(SCHEDULER), a2848d8a][reapStaleExecutions][Elapsed:4 ms] >>> () <<< 0    
+api-1  | 2026.10.23 09:03:37:688 io-compute-blocker-1 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [f60c259d-d6f9-4844-8519-d1c75b2b3e73, UserName(SCHEDULER), a2848d8a][listDueSchedules] >>> ()    
+api-1  | 2026.10.23 09:03:37:694 io-compute-blocker-5 INFO com.zetaris.lightning.repository.pipeline.PipelineDB.listDueSchedules:369
+api-1  |     [f60c259d-d6f9-4844-8519-d1c75b2b3e73, UserName(SCHEDULER), a2848d8a][listDueSchedules][Elapsed:5 ms] >>> () <<< Total:0, Skipped:-1,     
+api-1  | 2026.10.23 09:03:37:696 io-compute-blocker-5 INFO com.zetaris.lightning.service.scheduler.PipelineSchedulerService.tick:84
+api-1  |     [f60c259d-d6f9-4844-8519-d1c75b2b3e73, UserName(SCHEDULER), a2848d8a][pipelineSchedulerTick][Elapsed:14 ms] >>> () <<< ()    

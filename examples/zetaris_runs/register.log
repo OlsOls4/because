@@ -1,0 +1,57 @@
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+OK  because.edgar_concept_0000050863_revenues  rows=?
+OK  because.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax  rows=105
+OK  because.edgar_concept_0000050863_costofrevenue  rows=?
+OK  because.edgar_concept_0000050863_costofgoodsandservicessold  rows=228
+OK  because.edgar_concept_0000050863_grossprofit  rows=228
+OK  because.edgar_concept_0000050863_operatingincomeloss  rows=229
+OK  because.edgar_concept_0000050863_netincomeloss  rows=228
+OK  because.edgar_concept_0000050863_researchanddevelopmentexpense  rows=228
+OK  because.edgar_concept_0000050863_sellinggeneralandadministrativeexpense  rows=228
+OK  because.edgar_concept_0000050863_restructuringsettlementandimpairmentprovisions  rows=197
+OK  because.edgar_concept_0000050863_restructuringcharges  rows=48
+OK  because.edgar_concept_0000050863_goodwillimpairmentloss  rows=31
+OK  because.edgar_concept_0000050863_depreciation  rows=158
+OK  because.edgar_concept_0000050863_depreciationdepletionandamortization  rows=?
+OK  because.edgar_concept_0000050863_paymentstoacquirepropertyplantandequipment  rows=158
+OK  because.edgar_concept_0000050863_paymentstoacquireproductiveassets  rows=?
+OK  because.edgar_concept_0000050863_inventorynet  rows=140
+OK  because.edgar_concept_0000050863_inventorywritedown  rows=3
+OK  because.edgar_concept_0001045810_revenues  rows=280
+OK  because.edgar_concept_0001045810_revenuefromcontractwithcustomerexcludingassessedtax  rows=28
+OK  because.edgar_concept_0001045810_costofrevenue  rows=280
+OK  because.edgar_concept_0001045810_costofgoodsandservicessold  rows=25
+OK  because.edgar_concept_0001045810_grossprofit  rows=305
+OK  because.edgar_concept_0001045810_operatingincomeloss  rows=225
+OK  because.edgar_concept_0001045810_netincomeloss  rows=314
+OK  because.edgar_concept_0001045810_researchanddevelopmentexpense  rows=225
+OK  because.edgar_concept_0001045810_sellinggeneralandadministrativeexpense  rows=225
+OK  because.edgar_concept_0001045810_restructuringsettlementandimpairmentprovisions  rows=?
+OK  because.edgar_concept_0001045810_restructuringcharges  rows=43
+OK  because.edgar_concept_0001045810_goodwillimpairmentloss  rows=26
+OK  because.edgar_concept_0001045810_depreciation  rows=48
+OK  because.edgar_concept_0001045810_depreciationdepletionandamortization  rows=45
+OK  because.edgar_concept_0001045810_paymentstoacquirepropertyplantandequipment  rows=55
+OK  because.edgar_concept_0001045810_paymentstoacquireproductiveassets  rows=35
+OK  because.edgar_concept_0001045810_inventorynet  rows=138
+OK  because.edgar_concept_0001045810_inventorywritedown  rows=39
+OK  because.ons_series_d7g7  rows=453
+OK  because.ons_series_d7gb  rows=453
+OK  because.ons_series_d7g8  rows=453
+OK  because.ons_series_d7ge  rows=453
+OK  because.ons_series_d7nn  rows=453
+OK  because.fred_series_pngaseuusdm  rows=417
+OK  because.fred_series_poilbreusdm  rows=417
+OK  because.fred_series_pfoodindexm  rows=417
+OK  because.fred_series_dexusuk  rows=13990
+OK  because.fred_series_irstci01gbm156n  rows=585
+OK  because.fred_series_lrhuttttgbm156s  rows=522
+OK  because.fred_series_unrate  rows=944
+OK  because.fred_series_icsa  rows=3120
+OK  because.fred_series_payems  rows=1053
+OK  because.fred_series_uslah  rows=1053
+OK  because.fred_series_indpro  rows=1293
+OK  because.fred_series_fedfunds  rows=867
+53/53 sources registered and readable

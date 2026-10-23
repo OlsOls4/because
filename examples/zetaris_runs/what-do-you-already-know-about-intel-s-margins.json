@@ -1,0 +1,627 @@
+{
+  "question": "What do you already know about Intel's margins?",
+  "backend": "zetaris-jdbc",
+  "started_at": "2026-10-23T09:03:58Z",
+  "finished_at": "2026-10-23T09:03:58Z",
+  "fallback_reason": null,
+  "scout": {
+    "intent": "memory.explain_belief",
+    "band": "high",
+    "candidates": [
+      {
+        "intent": "memory.explain_belief",
+        "score": 1.0,
+        "parts": {
+          "lexical": 1.0,
+          "semantic": 1.0,
+          "contextual": 0.0,
+          "recency": 0.0
+        }
+      },
+      {
+        "intent": "explain.company_metric",
+        "score": 0.3634,
+        "parts": {
+          "lexical": 0.309,
+          "semantic": 0.426,
+          "contextual": 0.0,
+          "recency": 0.0
+        }
+      },
+      {
+        "intent": "GENERAL",
+        "score": 0.337,
+        "parts": {
+          "lexical": 0.408,
+          "semantic": 0.256,
+          "contextual": 0.0,
+          "recency": 0.0
+        }
+      },
+      {
+        "intent": "explain.macro_series",
+        "score": 0.0823,
+        "parts": {
+          "lexical": 0.154,
+          "semantic": 0.0,
+          "contextual": 0.0,
+          "recency": 0.0
+        }
+      }
+    ],
+    "risk": {
+      "level": "low",
+      "flags": [],
+      "redactions": [],
+      "layers": [
+        {
+          "layer": "injection",
+          "status": "pass",
+          "kind": [],
+          "score": 0.0
+        },
+        {
+          "layer": "policy",
+          "status": "pass",
+          "reason": null
+        },
+        {
+          "layer": "scope",
+          "status": "pass",
+          "reason": null
+        },
+        {
+          "layer": "sensitivity",
+          "status": "pass"
+        },
+        {
+          "layer": "rate",
+          "status": "pass"
+        }
+      ],
+      "reason": null
+    },
+    "clarification": null,
+    "parameters": {
+      "topic": "What do you already know about Intel's margins?"
+    },
+    "plan": [],
+    "contract": {
+      "contractId": "001A16800B0AD0000B1CCC5ED4E",
+      "parentId": null,
+      "traceId": "52e2400df07646c2b311399c436ad996",
+      "intent": {
+        "primary": {
+          "id": "memory.explain_belief",
+          "version": 1
+        },
+        "parameters": {
+          "topic": "What do you already know about Intel's margins?"
+        },
+        "references": {
+          "topic": "What do you already know about Intel's margins?"
+        },
+        "confidence": 1.0,
+        "alternates": [
+          {
+            "intent": "explain.company_metric",
+            "score": 0.3634,
+            "parts": {
+              "lexical": 0.309,
+              "semantic": 0.426,
+              "contextual": 0.0,
+              "recency": 0.0
+            }
+          },
+          {
+            "intent": "GENERAL",
+            "score": 0.337,
+            "parts": {
+              "lexical": 0.408,
+              "semantic": 0.256,
+              "contextual": 0.0,
+              "recency": 0.0
+            }
+          },
+          {
+            "intent": "explain.macro_series",
+            "score": 0.0823,
+            "parts": {
+              "lexical": 0.154,
+              "semantic": 0.0,
+              "contextual": 0.0,
+              "recency": 0.0
+            }
+          }
+        ]
+      },
+      "risk": {
+        "level": "low",
+        "flags": [],
+        "redactions": [],
+        "approvals": []
+      },
+      "toolPlan": [
+        {
+          "capability": "memory.recall",
+          "tool": "memory.recall",
+          "input": {}
+        }
+      ],
+      "modelProfile": {
+        "id": "deterministic",
+        "provider": "local",
+        "model": "rules"
+      },
+      "scope": {
+        "user": "local",
+        "surface": "cli",
+        "capabilities": [
+          "memory.recall"
+        ]
+      },
+      "issuedAt": "2026-10-23T09:03:58Z",
+      "expiresAt": "2026-10-23T09:08:58Z",
+      "registryVersion": 1,
+      "policyPackVersion": "because-default@1",
+      "signedBy": "scout",
+      "signature": "ce68e8ab10ec2baa17ab5223084a5667f601a2c030a8e0c93e3c78b6bc27d2d9"
+    },
+    "telemetry": [
+      {
+        "event": "contract.issued",
+        "ts": 1792746238.125482,
+        "contractId": "001A16800B0AD0000B1CCC5ED4E",
+        "intent": "memory.explain_belief",
+        "risk": "low",
+        "profile": "deterministic"
+      },
+      {
+        "event": "scout.decision",
+        "ts": 1792746238.1254878,
+        "traceId": "52e2400df07646c2b311399c436ad996",
+        "intent": "memory.explain_belief",
+        "band": "high",
+        "latencyMs": 2.46,
+        "stage2": "used"
+      }
+    ]
+  },
+  "plan": {},
+  "memory_recall": [
+    {
+      "id": "mem-3a5d0561bf25",
+      "content": "Intel revenue FY2023: $54.23B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2023-12-30)",
+      "score": 0.3162,
+      "confidence": 0.9,
+      "provenance": {
+        "origin": "harness_query",
+        "label": "F2 of 'Why did Intel's gross margin fall in 2024?'",
+        "refs": {
+          "query_id": "Q-2e267f926c",
+          "rows": [
+            20
+          ],
+          "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+          "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+          "backend": "zetaris-jdbc"
+        },
+        "learnedAt": 1792746221154
+      },
+      "history": [
+        "create",
+        "read"
+      ],
+      "supersededBy": null
+    },
+    {
+      "id": "mem-465a757a63b5",
+      "content": "Intel gross profit FY2023: $21.71B (us-gaap:GrossProfit, 10-K filed 2026-01-23, period ending 2023-12-30)",
+      "score": 0.3147,
+      "confidence": 0.9,
+      "provenance": {
+        "origin": "harness_query",
+        "label": "F1 of 'Why did Intel's gross margin fall in 2024?'",
+        "refs": {
+          "query_id": "Q-4d0305f353",
+          "rows": [
+            47
+          ],
+          "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/GrossProfit.json",
+          "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_grossprofit WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+          "backend": "zetaris-jdbc"
+        },
+        "learnedAt": 1792746221153
+      },
+      "history": [
+        "create",
+        "read"
+      ],
+      "supersededBy": null
+    },
+    {
+      "id": "mem-86cda9f3d497",
+      "content": "Intel revenue FY2024: $53.10B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2024-12-28)",
+      "score": 0.3069,
+      "confidence": 0.9,
+      "provenance": {
+        "origin": "harness_query",
+        "label": "F4 of 'Why did Intel's gross margin fall in 2024?'",
+        "refs": {
+          "query_id": "Q-2e267f926c",
+          "rows": [
+            22
+          ],
+          "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+          "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+          "backend": "zetaris-jdbc"
+        },
+        "learnedAt": 1792746221154
+      },
+      "history": [
+        "create",
+        "read",
+        "read"
+      ],
+      "supersededBy": null
+    },
+    {
+      "id": "mem-7a7305d08fa0",
+      "content": "Intel depreciation FY2023: $7.85B (us-gaap:Depreciation, 10-K filed 2026-01-23, period ending 2023-12-30)",
+      "score": 0.3037,
+      "confidence": 0.9,
+      "provenance": {
+        "origin": "harness_query",
+        "label": "F9 of 'Why did Intel's gross margin fall in 2024?'",
+        "refs": {
+          "query_id": "Q-c5de0dee2a",
+          "rows": [
+            47
+          ],
+          "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/Depreciation.json",
+          "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_depreciation WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+          "backend": "zetaris-jdbc"
+        },
+        "learnedAt": 1792746221155
+      },
+      "history": [
+        "create",
+        "read"
+      ],
+      "supersededBy": null
+    },
+    {
+      "id": "mem-949a1ada8c57",
+      "content": "Intel gross profit FY2024: $17.34B (us-gaap:GrossProfit, 10-K filed 2026-01-23, period ending 2024-12-28)",
+      "score": 0.3027,
+      "confidence": 0.9,
+      "provenance": {
+        "origin": "harness_query",
+        "label": "F3 of 'Why did Intel's gross margin fall in 2024?'",
+        "refs": {
+          "query_id": "Q-4d0305f353",
+          "rows": [
+            49
+          ],
+          "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/GrossProfit.json",
+          "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_grossprofit WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+          "backend": "zetaris-jdbc"
+        },
+        "learnedAt": 1792746221154
+      },
+      "history": [
+        "create",
+        "read"
+      ],
+      "supersededBy": null
+    },
+    {
+      "id": "mem-c64a515b3945",
+      "content": "Intel capital expenditure FY2024: $23.94B (us-gaap:PaymentsToAcquirePropertyPlantAndEquipment, 10-K filed 2026-01-23, period ending 2024-12-28)",
+      "score": 0.2967,
+      "confidence": 0.9,
+      "provenance": {
+        "origin": "harness_query",
+        "label": "F12 of 'Why did Intel's gross margin fall in 2024?'",
+        "refs": {
+          "query_id": "Q-e83ae3bad1",
+          "rows": [
+            49
+          ],
+          "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+          "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_paymentstoacquirepropertyplantandequipment WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+          "backend": "zetaris-jdbc"
+        },
+        "learnedAt": 1792746221156
+      },
+      "history": [
+        "create",
+        "read"
+      ],
+      "supersededBy": null
+    },
+    {
+      "id": "mem-41a106386a29",
+      "content": "Intel depreciation FY2024: $9.95B (us-gaap:Depreciation, 10-K filed 2026-01-23, period ending 2024-12-28)",
+      "score": 0.294,
+      "confidence": 0.9,
+      "provenance": {
+        "origin": "harness_query",
+        "label": "F8 of 'Why did Intel's gross margin fall in 2024?'",
+        "refs": {
+          "query_id": "Q-c5de0dee2a",
+          "rows": [
+            49
+          ],
+          "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/Depreciation.json",
+          "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_depreciation WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+          "backend": "zetaris-jdbc"
+        },
+        "learnedAt": 1792746221155
+      },
+      "history": [
+        "create",
+        "read"
+      ],
+      "supersededBy": null
+    },
+    {
+      "id": "mem-b845da40d902",
+      "content": "Intel gross margin FY2023 -> FY2024: 40.0% -> 32.7% (-7.4 pts)",
+      "score": 0.2862,
+      "confidence": 0.8,
+      "provenance": {
+        "origin": "harness_query",
+        "label": "F5 of 'Why did Intel's gross margin fall in 2024?'",
+        "refs": {
+          "query_id": null,
+          "rows": [],
+          "source_url": null,
+          "sql": null,
+          "backend": "zetaris-jdbc"
+        },
+        "learnedAt": 1792746221155
+      },
+      "history": [
+        "create",
+        "read"
+      ],
+      "supersededBy": null
+    }
+  ],
+  "queries": [],
+  "findings": [],
+  "hypotheses": [],
+  "answer": {
+    "summary": "Here is what I already believe and why:\n- Intel revenue FY2023: $54.23B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2023-12-30) (confidence 0.90; learned via harness_query: F2 of 'Why did Intel's gross margin fall in 2024?')\n- Intel gross profit FY2023: $21.71B (us-gaap:GrossProfit, 10-K filed 2026-01-23, period ending 2023-12-30) (confidence 0.90; learned via harness_query: F1 of 'Why did Intel's gross margin fall in 2024?')\n- Intel revenue FY2024: $53.10B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2024-12-28) (confidence 0.90; learned via harness_query: F4 of 'Why did Intel's gross margin fall in 2024?')\n- Intel depreciation FY2023: $7.85B (us-gaap:Depreciation, 10-K filed 2026-01-23, period ending 2023-12-30) (confidence 0.90; learned via harness_query: F9 of 'Why did Intel's gross margin fall in 2024?')\n- Intel gross profit FY2024: $17.34B (us-gaap:GrossProfit, 10-K filed 2026-01-23, period ending 2024-12-28) (confidence 0.90; learned via harness_query: F3 of 'Why did Intel's gross margin fall in 2024?')\n- Intel capital expenditure FY2024: $23.94B (us-gaap:PaymentsToAcquirePropertyPlantAndEquipment, 10-K filed 2026-01-23, period ending 2024-12-28) (confidence 0.90; learned via harness_query: F12 of 'Why did Intel's gross margin fall in 2024?')",
+    "memory": [
+      {
+        "id": "mem-3a5d0561bf25",
+        "content": "Intel revenue FY2023: $54.23B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2023-12-30)",
+        "score": 0.3162,
+        "confidence": 0.9,
+        "provenance": {
+          "origin": "harness_query",
+          "label": "F2 of 'Why did Intel's gross margin fall in 2024?'",
+          "refs": {
+            "query_id": "Q-2e267f926c",
+            "rows": [
+              20
+            ],
+            "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+            "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+            "backend": "zetaris-jdbc"
+          },
+          "learnedAt": 1792746221154
+        },
+        "history": [
+          "create",
+          "read"
+        ],
+        "supersededBy": null
+      },
+      {
+        "id": "mem-465a757a63b5",
+        "content": "Intel gross profit FY2023: $21.71B (us-gaap:GrossProfit, 10-K filed 2026-01-23, period ending 2023-12-30)",
+        "score": 0.3147,
+        "confidence": 0.9,
+        "provenance": {
+          "origin": "harness_query",
+          "label": "F1 of 'Why did Intel's gross margin fall in 2024?'",
+          "refs": {
+            "query_id": "Q-4d0305f353",
+            "rows": [
+              47
+            ],
+            "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/GrossProfit.json",
+            "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_grossprofit WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+            "backend": "zetaris-jdbc"
+          },
+          "learnedAt": 1792746221153
+        },
+        "history": [
+          "create",
+          "read"
+        ],
+        "supersededBy": null
+      },
+      {
+        "id": "mem-86cda9f3d497",
+        "content": "Intel revenue FY2024: $53.10B (us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax, 10-K filed 2026-01-23, period ending 2024-12-28)",
+        "score": 0.3069,
+        "confidence": 0.9,
+        "provenance": {
+          "origin": "harness_query",
+          "label": "F4 of 'Why did Intel's gross margin fall in 2024?'",
+          "refs": {
+            "query_id": "Q-2e267f926c",
+            "rows": [
+              22
+            ],
+            "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json",
+            "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_revenuefromcontractwithcustomerexcludingassessedtax WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+            "backend": "zetaris-jdbc"
+          },
+          "learnedAt": 1792746221154
+        },
+        "history": [
+          "create",
+          "read",
+          "read"
+        ],
+        "supersededBy": null
+      },
+      {
+        "id": "mem-7a7305d08fa0",
+        "content": "Intel depreciation FY2023: $7.85B (us-gaap:Depreciation, 10-K filed 2026-01-23, period ending 2023-12-30)",
+        "score": 0.3037,
+        "confidence": 0.9,
+        "provenance": {
+          "origin": "harness_query",
+          "label": "F9 of 'Why did Intel's gross margin fall in 2024?'",
+          "refs": {
+            "query_id": "Q-c5de0dee2a",
+            "rows": [
+              47
+            ],
+            "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/Depreciation.json",
+            "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_depreciation WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+            "backend": "zetaris-jdbc"
+          },
+          "learnedAt": 1792746221155
+        },
+        "history": [
+          "create",
+          "read"
+        ],
+        "supersededBy": null
+      },
+      {
+        "id": "mem-949a1ada8c57",
+        "content": "Intel gross profit FY2024: $17.34B (us-gaap:GrossProfit, 10-K filed 2026-01-23, period ending 2024-12-28)",
+        "score": 0.3027,
+        "confidence": 0.9,
+        "provenance": {
+          "origin": "harness_query",
+          "label": "F3 of 'Why did Intel's gross margin fall in 2024?'",
+          "refs": {
+            "query_id": "Q-4d0305f353",
+            "rows": [
+              49
+            ],
+            "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/GrossProfit.json",
+            "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_grossprofit WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+            "backend": "zetaris-jdbc"
+          },
+          "learnedAt": 1792746221154
+        },
+        "history": [
+          "create",
+          "read"
+        ],
+        "supersededBy": null
+      },
+      {
+        "id": "mem-c64a515b3945",
+        "content": "Intel capital expenditure FY2024: $23.94B (us-gaap:PaymentsToAcquirePropertyPlantAndEquipment, 10-K filed 2026-01-23, period ending 2024-12-28)",
+        "score": 0.2967,
+        "confidence": 0.9,
+        "provenance": {
+          "origin": "harness_query",
+          "label": "F12 of 'Why did Intel's gross margin fall in 2024?'",
+          "refs": {
+            "query_id": "Q-e83ae3bad1",
+            "rows": [
+              49
+            ],
+            "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/PaymentsToAcquirePropertyPlantAndEquipment.json",
+            "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_paymentstoacquirepropertyplantandequipment WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+            "backend": "zetaris-jdbc"
+          },
+          "learnedAt": 1792746221156
+        },
+        "history": [
+          "create",
+          "read"
+        ],
+        "supersededBy": null
+      },
+      {
+        "id": "mem-41a106386a29",
+        "content": "Intel depreciation FY2024: $9.95B (us-gaap:Depreciation, 10-K filed 2026-01-23, period ending 2024-12-28)",
+        "score": 0.294,
+        "confidence": 0.9,
+        "provenance": {
+          "origin": "harness_query",
+          "label": "F8 of 'Why did Intel's gross margin fall in 2024?'",
+          "refs": {
+            "query_id": "Q-c5de0dee2a",
+            "rows": [
+              49
+            ],
+            "source_url": "https://data.sec.gov/api/xbrl/companyconcept/CIK0000050863/us-gaap/Depreciation.json",
+            "sql": "SELECT period_start, period_end, value_usd, form_type, fiscal_period, filed_date, accession_number FROM because.edgar_concept_0000050863_depreciation WHERE form_type = '10-K' AND fiscal_period = 'FY' ORDER BY period_end, filed_date",
+            "backend": "zetaris-jdbc"
+          },
+          "learnedAt": 1792746221155
+        },
+        "history": [
+          "create",
+          "read"
+        ],
+        "supersededBy": null
+      },
+      {
+        "id": "mem-b845da40d902",
+        "content": "Intel gross margin FY2023 -> FY2024: 40.0% -> 32.7% (-7.4 pts)",
+        "score": 0.2862,
+        "confidence": 0.8,
+        "provenance": {
+          "origin": "harness_query",
+          "label": "F5 of 'Why did Intel's gross margin fall in 2024?'",
+          "refs": {
+            "query_id": null,
+            "rows": [],
+            "source_url": null,
+            "sql": null,
+            "backend": "zetaris-jdbc"
+          },
+          "learnedAt": 1792746221155
+        },
+        "history": [
+          "create",
+          "read"
+        ],
+        "supersededBy": null
+      }
+    ],
+    "confidence": {
+      "score": 0,
+      "label": "n/a",
+      "rationale": "Recall only; no new investigation."
+    }
+  },
+  "memory_written": [],
+  "conflicts": [],
+  "steps": [
+    {
+      "t": 1792746238.125,
+      "stage": "scout",
+      "message": "Intent memory.explain_belief (band high, risk low); signed contract 001A16800B0AD0000B1CCC5ED4E"
+    },
+    {
+      "t": 1792746238.129,
+      "stage": "recall",
+      "message": "Explained 8 stored beliefs with provenance"
+    },
+    {
+      "t": 1792746238.129,
+      "stage": "done",
+      "message": "Finished in 0.0s"
+    }
+  ],
+  "llm": {
+    "provider": "none",
+    "model": "deterministic"
+  }
+}

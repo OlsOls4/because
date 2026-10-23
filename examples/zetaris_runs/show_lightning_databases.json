@@ -1,0 +1,1 @@
+{"columns": ["name", "description", "id"], "rows": [["BECAUSE_FILES", "Because agent public files - FRED CSV", 1688], ["BECAUSE_REST", "Because agent public REST sources - SEC EDGAR, ONS, FRED", 806], ["NY_TAXI", "NY Taxi sample data", 6], ["TPCDS_DB", "TPC-DS benchmark sample data", 308]]}
