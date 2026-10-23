@@ -107,8 +107,13 @@ Sources are registered lazily too: asking about a new company creates its tables
 ## Status and known gaps
 
 * Written against the getting-started docs and scripts (`scripts/zetaris_sql.py` JDBC channel, REST cookbook,
-  EDGAR/PUDL/NOAA guide). It has **not yet been run against a live instance**: the build sandbox had no Docker.
-  Unit tests cover the registration flow and SQL shape with a fake JDBC channel.
+  EDGAR/PUDL/NOAA guide). **Verified on a live instance**: the `zetaris-e2e` workflow boots the Hobby bundle (Lightning
+  2.4.3.1) on a GitHub runner; run [39928173953](https://github.com/OlsOls4/because/actions/runs/39928173953) answered all
+  five example questions over JDBC with 0 query errors (`examples/zetaris_runs/`). Unit tests also cover the registration
+  flow and SQL shape with a fake JDBC channel.
+* Lessons from the live runs: SEC rejects `noreply` User-Agent addresses (HTTP 403 inside the Lightning REST fetch), and
+  instant (balance-sheet) XBRL concepts such as `InventoryNet` have no `start` field, so their SchemaStore view selects
+  `NULL AS period_start`.
 * If `because zetaris ping` cannot connect, check that the `driver` service publishes port 10000
   (`docker compose ps`), and that `ZETARIS_USERNAME`/`ZETARIS_PASSWORD` match the admin login.
 * Statement-level gotchas from the Zetaris SQL companion apply: one statement per call; `DESCRIBE BY` accepts only

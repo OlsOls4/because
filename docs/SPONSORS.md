@@ -91,5 +91,10 @@ allowed by the rules and is owned by the author.
 
 ## Status notes
 
-- `zetaris-e2e` needs `ZETARIS_BUNDLE_URL`, `ZETARIS_ACR_USER` and `ZETARIS_ACR_PASSWORD` as repository secrets. Until
-  they are set, runs stop at "Check required secrets", and `examples/zetaris_runs/` holds no recorded Lightning traces yet.
+- `zetaris-e2e` runs on a real Zetaris Lightning 2.4.3.1 instance (repository secrets `ZETARIS_BUNDLE_URL`, `ZETARIS_ACR_USER`,
+  `ZETARIS_ACR_PASSWORD`). Recorded run [39928173953](https://github.com/OlsOls4/because/actions/runs/39928173953) (23 Oct 2026):
+  all five example questions answered over JDBC on `zetaris-jdbc` with 0 query errors; traces in
+  [`examples/zetaris_runs/`](../examples/zetaris_runs/).
+- Commit history: v0.1 (commit `fa77036`, 22 Oct 10:51 UTC) was written from scratch inside the build window (22 Oct
+  00:00-10:51 UTC) and committed in one go; everything since is incremental commits. Only the components listed under
+  "Pre-existing components" predate the window.

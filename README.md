@@ -142,8 +142,9 @@ flowchart TB
   Scout's model profiles route to these with data-class clearance. With no key, Because runs fully deterministic.
 
 ### Cursor
-- Developed with **Cursor**: [`AGENTS.md`](AGENTS.md) plus project rules in [`.cursor/rules/`](.cursor/rules/) (evidence-first rules,
-  portable SQL, contract enforcement, Zetaris conventions) steer every Cursor agent run.
+- Set up as a **Cursor** project: [`AGENTS.md`](AGENTS.md) plus project rules in [`.cursor/rules/`](.cursor/rules/) (evidence-first rules,
+  portable SQL, contract enforcement, Zetaris conventions) steer every Cursor agent run. v0.1 was written with AI coding
+  agents inside the build window and committed in one go (22 Oct 10:51 UTC); later features were built in Cursor sessions, logged below.
 - The **Cursor Agent CLI** (`cursor-agent -p --force --output-format stream-json`, headless with a Cursor user API key) did real work on this repo.
   Each session's prompt, tool calls, final message and raw event stream are in [`docs/cursor-sessions/`](docs/cursor-sessions/):
   1. [Zetaris backend hardening](docs/cursor-sessions/01-zetaris-backend-hardening.md): UI-proxy channel, `auto` channel fallback, `CACHE TABLE`, EDGAR 404 as empty table, JDBC column-label normalisation, 12 new tests.

@@ -36,26 +36,26 @@ Keep code style, type hints and the module docstring updated (mention the ui cha
 
 ### Tool calls (in order)
 
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/AGENTS.md`
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/harness/zetaris_backend.py`
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/.cursor/rules/because.mdc`
-- `grep: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo`
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/tests/test_harness.py`
-- `grep: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/harness`
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/harness/base.py`
+- `read: <repo>/AGENTS.md`
+- `read: <repo>/because/harness/zetaris_backend.py`
+- `read: <repo>/.cursor/rules/because.mdc`
+- `grep: <repo>`
+- `read: <repo>/tests/test_harness.py`
+- `grep: <repo>/because/harness`
+- `read: <repo>/because/harness/base.py`
 - `glob: `
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/docs/cursor-sessions/01-zetaris-backend-hardening.md`
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/harness/sources.py`
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/harness/duckdb_backend.py`
-- `grep: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo`
+- `read: <repo>/docs/cursor-sessions/01-zetaris-backend-hardening.md`
+- `read: <repo>/because/harness/sources.py`
+- `read: <repo>/because/harness/duckdb_backend.py`
+- `grep: <repo>`
 - `getMcpTools: `
 - `updateTodos: `
-- `edit: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/harness/zetaris_backend.py`
-- `edit: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/tests/test_harness.py`
-- `edit: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/tests/test_harness.py`
+- `edit: <repo>/because/harness/zetaris_backend.py`
+- `edit: <repo>/tests/test_harness.py`
+- `edit: <repo>/tests/test_harness.py`
 - `updateTodos: `
 - `shell: .venv/bin/pytest -q 2>&1`
-- `edit: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/harness/zetaris_backend.py`
+- `edit: <repo>/because/harness/zetaris_backend.py`
 - `shell: .venv/bin/pytest -q 2>&1`
 - `updateTodos: `
 

@@ -32,13 +32,13 @@ Add tests/test_web.py using fastapi.testclient: GET / returns 200 and contains "
 
 ### Tool calls (in order)
 
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/AGENTS.md`
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/web/app.py`
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/web/static/index.html`
+- `read: <repo>/AGENTS.md`
+- `read: <repo>/because/web/app.py`
+- `read: <repo>/because/web/static/index.html`
 - `glob: `
 - `glob: `
 - `glob: `
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/.cursor/rules/zetaris.mdc`
+- `read: <repo>/.cursor/rules/zetaris.mdc`
 - `glob: `
 - `grep: EXAMPLES|slug|to_dict|fallback_reason|memory_written|conflicts`
 - `shell: ls -la examples/ 2>/dev/null; ls examples/outputs/ 2>/dev/null | head -20; ls examples/zetaris_runs/ 2>/dev/null | head -10; .venv/bin/pytho`
@@ -47,31 +47,31 @@ import json
 from pathlib import Path
 p = Path('examples/outputs/why-did-uk-inflation-spike-in-2022.json')
 t = json.loa`
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/agent/trace.py`
+- `read: <repo>/because/agent/trace.py`
 - `grep: signature|expiresAt|capabilities|contract`
 - `glob: `
 - `shell: .venv/bin/python -c "
 import json
 from pathlib import Path
 t = json.loads(Path('examples/outputs/why-did-uk-inflation-spike-in-2022.json').r`
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/tests/test_analyst_offline.py`
+- `read: <repo>/tests/test_analyst_offline.py`
 - `grep: zetaris_runs|SAMPLE_MODE|hybrid|pipeline`
 - `getMcpTools: `
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/docs/cursor-sessions/03-web-ui-polish.md`
+- `read: <repo>/docs/cursor-sessions/03-web-ui-polish.md`
 - `shell: .venv/bin/python -c "
 import json
 from pathlib import Path
 t = json.loads(Path('examples/outputs/why-did-intel-s-gross-margin-fall-in-2024.j`
 - `updateTodos: `
-- `edit: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/web/app.py`
-- `edit: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/web/app.py`
-- `edit: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/web/static/index.html`
-- `edit: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/tests/test_web.py`
+- `edit: <repo>/because/web/app.py`
+- `edit: <repo>/because/web/app.py`
+- `edit: <repo>/because/web/static/index.html`
+- `edit: <repo>/tests/test_web.py`
 - `shell: .venv/bin/pytest -q 2>&1`
 - `updateTodos: `
 - `shell: .venv/bin/pytest -q tests/test_web.py 2>&1; echo "---"; .venv/bin/pytest -q --ignore=tests/test_harness.py 2>&1; echo "---"; git status -sb;`
 - `updateTodos: `
-- `read: /workspace/projects/679596c9-0fee-4897-adba-5d7e5064ceeb/work/repo/because/web/app.py`
+- `read: <repo>/because/web/app.py`
 
 ## Agent's final message
 
