@@ -21,7 +21,7 @@ Built for the GenAI Works Open Agent Hackathon 2026, track **The Agent That Can 
 | **Slides** | [`docs/deck/Because-deck.pdf`](docs/deck/Because-deck.pdf) |
 | **Sponsor tech, pre-existing code** | [`docs/SPONSORS.md`](docs/SPONSORS.md) |
 
-![answer with citation popover](docs/img/answer-citation.png)
+![Because web UI: answer, confidence, evidence graph and the recorded Zetaris runs](docs/img/ui-desktop.png)
 
 ## Quickstart (one command, no keys)
 
