@@ -51,7 +51,7 @@ jobs:
       BECAUSE_ZETARIS_HYBRID: "1"
       BECAUSE_ZETARIS_FILE_DIR: /tmp/because-data
       BECAUSE_ZETARIS_FILE_URI: file:///home/zetaris/customer-data/shared/because
-      BECAUSE_USER_AGENT: ${{ secrets.BECAUSE_USER_AGENT || 'because-agent-ci OlsOls4@users.noreply.github.com' }}
+      BECAUSE_USER_AGENT: ${{ secrets.BECAUSE_USER_AGENT || 'Because Agent ollymcbride4@gmail.com' }}
       FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
       NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
       GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
